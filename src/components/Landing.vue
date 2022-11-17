@@ -38,20 +38,14 @@
 </template>
 
 <script>
-    import { XrplClient } from 'xrpl-client'
-    // import xapp from '../plugins/xapp.js'
-
     const xapp = new xAppSdk()
-
-    import {XummSdkJwt} from 'xumm-sdk'
-    const Sdk = new XummSdkJwt(import.meta.env.VITE_APP_NFT_KEY)
 
     export default {
         name: 'Landing',
+        props: ['client'],
         data() {
             return {
                 isLoading: true,
-                client: new XrplClient(['wss://hooks-testnet-v2.xrpl-labs.com']),
                 NFTokenOffers:[],
                 ascending: false
             }

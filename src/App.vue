@@ -1,6 +1,6 @@
 <template>
     <header class="container">
-        <Landing v-if="components.Landing" @action="buttonAction">{NFT Flush}</Landing>
+        <Landing v-if="components.Landing" @action="buttonAction" :client="client">{NFT Flush}</Landing>
     </header>
 
     <main class="container flex-shrink-0 mb-4">
@@ -19,7 +19,8 @@
     import Refs from './components/Refs.vue'
     import Landing from './components/Landing.vue'
     //import xapp from './plugins/xapp.js'
-    
+    import { XrplClient } from 'xrpl-client'
+
     const xapp = new xAppSdk()
 
     import {XummSdkJwt} from 'xumm-sdk'
@@ -41,7 +42,8 @@
                 ready: false,
                 components: {
                     Landing: false
-                }
+                },
+                client: null
             }
         },
         async mounted() {
@@ -56,6 +58,7 @@
                 console.log('account', tokenData.account)
                 this.$store.dispatch('setAccount', tokenData.account)
                 this.nodetype = tokenData.nodetype
+                client = new XrplClient([tokenData.nodewss])
 
                 await this.jwtSignIn()
             },
