@@ -58,7 +58,7 @@
                 console.log('account', tokenData.account)
                 this.$store.dispatch('setAccount', tokenData.account)
                 this.nodetype = tokenData.nodetype
-                client = new XrplClient([tokenData.nodewss])
+                this.client = new XrplClient([tokenData.nodewss])
 
                 await this.jwtSignIn()
             },
