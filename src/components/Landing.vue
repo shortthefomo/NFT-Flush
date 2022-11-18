@@ -88,7 +88,7 @@
         methods: {
             selectedRow(offer) {
                 console.log('offer', offer.OfferID)
-                if (this.selectedRows.includes(offer.OfferID)) {
+                if (!this.selectedRows.includes(offer.OfferID)) {
                     this.selectedRows.push(offer.OfferID)
                 }
                 else {
