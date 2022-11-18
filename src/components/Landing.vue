@@ -31,6 +31,38 @@
             </table>
         </div>
     </div>
+    <div> 
+        <v-table
+        class="table-hover"
+        :data="NFTokenOffers"
+        selectionMode="multiple"
+        selectedClass="table-info"
+        @selectionChanged="selectedRows = $event"
+      >
+        <thead slot="head">
+        <th>Amount</th>
+        <th>NFTokenID</th>
+        </thead>
+        <tbody slot="body" slot-scope="{displayData}">
+        <v-tr
+          v-for="row in displayData"
+          :key="row.guid"
+          :row="row"
+        >
+          <td>{{numeralFormat((row.Amount/1_000_000), '0,0[.]00000000') }}</td>
+          <td>{{ row.NFTokenID }}</td>
+        </v-tr>
+        </tbody>
+      </v-table>
+    
+      <strong>Selected:</strong>
+      <div v-if="selectedRows.length === 0" class="text-muted">No Rows Selected</div>
+      <ul>
+        <li v-for="selected in selectedRows">
+          {{ selected.name }}
+        </li>
+      </ul>
+    </div>
     <footer>
         <p>XRPL ledger: {{ledger}}</p>
         <p>account: {{account}}</p>
@@ -50,6 +82,7 @@
             return {
                 isLoading: true,
                 NFTokenOffers:[],
+                selectedRows: [],
                 ascending: false
             }
         },
