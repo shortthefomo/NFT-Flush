@@ -19,6 +19,9 @@ export const AppStore = {
         },
         setAccount({commit}, account) {
             commit('ACCOUNT', account)
+        },
+        setLedger({commit}, ledger) {
+            commit('ACCOUNT', ledger)
         }
     },
     mutations: {
@@ -31,6 +34,9 @@ export const AppStore = {
         USER_TOKEN(state, user_token) {
             state.user_token = user_token
         },
+        LEDGER(state, ledger) {
+            state.ledger = ledger
+        }
     },
     getters: {
         getVersion: state => {

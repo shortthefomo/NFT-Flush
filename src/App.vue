@@ -78,10 +78,10 @@
                     
                     if ('ledger' in ledger_result) {
                         console.log('ledger', ledger_result)
+                        this.$store.dispatch('setLedger', ledger_result.ledger.ledger_index)
                     }
                 }
                 this.client.on('ledger', callback)
-
                 await this.jwtSignIn()
             },
             async jwtSignIn() {
