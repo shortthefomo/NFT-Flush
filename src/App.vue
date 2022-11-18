@@ -77,6 +77,7 @@
                     .then(d => {
                         // d (returned value) can be Error or return data:
                         console.log('openSignRequest response:', d instanceof Error ? d.message : d)
+                        console.log('d', d)
                     })
                     .catch(e => console.log('Error:', e.message))
                 
