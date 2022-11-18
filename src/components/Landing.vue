@@ -42,7 +42,7 @@
     import {XummSdkJwt} from 'xumm-sdk'
 
     const Sdk = new XummSdkJwt(import.meta.env.VITE_APP_NFT_KEY)
-    
+
     export default {
         name: 'Landing',
         props: ['client'],
@@ -122,7 +122,7 @@
 
 
                 // const payload = await Sdk.payload.create(tx)
-                const signPayload = await xapp.openSignRequest({ txjson: payload})
+                const signPayload = await xapp.openSignRequest({ uuid: payload.uuid })
                 
                 
                 console.log('result', signPayload)
