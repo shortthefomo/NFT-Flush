@@ -95,7 +95,7 @@
                     'limit': 200
                 }
                 const res = await this.client.send(payload)
-                // console.log('res', res)
+                this.NFTokenOffers = []
                 for (let index = 0; index < res.account_objects.length; index++) {
                     const element = res.account_objects[index]
                     if (element?.LedgerEntryType === 'NFTokenOffer') {
@@ -126,6 +126,7 @@
                 
                 
                 console.log('result', signPayload)
+                this.fetchNFTs()
             },
             sortTable(col) {
                 if (this.sortColumn === col) {
