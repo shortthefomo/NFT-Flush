@@ -90,9 +90,9 @@
                         console.log('d', d)
 
                         xapp.on('payload', function (data) {
-                            console.log('Payload resolved 123 123', data)
+                            console.log('Payload resolved', data)
                             if (data.reason == 'SIGNED') {
-                                console.log('it was signeddd?')
+                                console.log('it was signeddd!!!')
                             }
                         })
                     })

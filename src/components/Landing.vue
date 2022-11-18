@@ -103,6 +103,8 @@
                         this.NFTokenOffers.push(element)
                     }
                 }
+
+                console.log('fetched NFTs', this.NFTokenOffers)
                 this.isLoading = false
             },
             async flushAll() {
