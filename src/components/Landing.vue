@@ -26,6 +26,7 @@
                     <tr v-for="row in NFTokenOffers" @click="selectedRow(row)">
                         <td scope="row">{{numeralFormat((row['Amount']/1_000_000), '0,0[.]00000000') }}</td>
                         <td scope="row">{{row['NFTokenID']}}</td>
+                        <td scope="row">{{row['OfferID']}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -72,7 +73,7 @@
                 if (this.NFTokenOffers.length == 0) {
                     return []
                 }
-                return ['Amount', 'NFTokenID']
+                return ['Amount', 'NFTokenID', 'OfferID']
                 //return Object.keys(this.NFTokenOffers[0]).filter( code => code !== 'ledger')
             }
         },
@@ -104,6 +105,7 @@
                     const element = res.account_objects[index]
                     if (element?.LedgerEntryType === 'NFTokenOffer') {
                         // console.log('NFTokenOffer', element)
+                        element.OfferID = element.index
                         this.NFTokenOffers.push(element)
                     }
                 }
