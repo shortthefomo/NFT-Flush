@@ -47,6 +47,7 @@
             }
         },
         async mounted() {
+            if (this.components.Landing) { return }
             await this.jwtFlow()
             this.components.Landing = true
         },
@@ -77,7 +78,7 @@
                     }
                     
                     if ('ledger' in ledger_result) {
-                        console.log('ledger', ledger_result)
+                        // console.log('ledger', ledger_result)
                         this.$store.dispatch('setLedger', ledger_result.ledger.ledger_index)
                     }
                 }
@@ -103,7 +104,6 @@
                 //     }
                 // })
                 console.log('subscription', subscription)
-                //this.$store.dispatch('setUserToken', subscription.uuid)
 
                 xapp.openSignRequest({ uuid: subscription.uuid })
                     .then(d => {
@@ -116,15 +116,18 @@
                             if (data.reason == 'SIGNED') {
                                 console.log('it was signeddd!!!')
                             }
+                            else {
+                                xapp.close({ refreshEvents: true })
+                                    .then(d => {
+                                        // d (returned value) can be Error or return data:
+                                        console.log('close response:', d instanceof Error ? d.message : d)
+                                    })
+                                    .catch(e => console.log('Error:', e.message))
+                            }
                         })
                     })
                     .catch(e => console.log('Error:', e.message))
-            
-                // const res = await xapp.openSignRequest({ uuid: subscription.uuid })
-                // console.log('res', res)
-                
             },
         }
     }
-    //could not contact Xumm App Host
 </script>
