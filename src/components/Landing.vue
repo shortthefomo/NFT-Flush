@@ -23,7 +23,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="row in NFTokenOffers" @click="selectedRow(row)">
+                    <tr v-for="row in NFTokenOffers" @click="selectedRow(row)" :class="highlights(row)">
                         <td scope="row">{{numeralFormat((row['Amount']/1_000_000), '0,0[.]00000000') }}</td>
                         <td scope="row">{{row['NFTokenID']}}</td>
                         <td scope="row">{{row['OfferID']}}</td>
@@ -86,6 +86,12 @@
             }
         },
         methods: {
+            highlights() {
+                if (!this.selectedRows.includes(offer.OfferID)) {
+                    return ''
+                }
+                return 'table-secondary'
+            },
             selectedRow(offer) {
                 console.log('offer', offer.OfferID)
                 if (!this.selectedRows.includes(offer.OfferID)) {
