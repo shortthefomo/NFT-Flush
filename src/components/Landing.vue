@@ -8,7 +8,7 @@
             <p class="col-md-12 fs-4">
                 <p class="text-center">
                     <a class="btn btn-purple me-2" @click="flushAll" role="button" id="flushAll" v-if="account != ''">flush all</a>
-                    <a class="btn btn-warn me-2" @click="flushSelected" role="button" id="flushSelected" v-if="account != ''">flush selected</a>
+                    <a class="btn btn-yellow me-2" @click="flushSelected" role="button" id="flushSelected" v-if="account != ''">flush selected</a>
                 </p>
             </p>
         </div>
@@ -226,6 +226,11 @@
     }
     .btn-purple {
         background-color: #753ee2;
+        color: #ffffff;
+    }
+
+    .btn-yellow {
+        background-color: #ffc107;
         color: #ffffff;
     }
     .btn-pink {
