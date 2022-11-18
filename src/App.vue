@@ -21,7 +21,7 @@
     //import xapp from './plugins/xapp.js'
     import { XrplClient } from 'xrpl-client'
 
-    const xapp = window.xAppSdk
+    const xapp = new xAppSdk()
 
     import {XummSdkJwt} from 'xumm-sdk'
 
