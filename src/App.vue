@@ -21,7 +21,7 @@
     //import xapp from './plugins/xapp.js'
     import { XrplClient } from 'xrpl-client'
 
-    const xapp = new xAppSdk()
+    const xapp = window.xAppSdk
 
     import {XummSdkJwt} from 'xumm-sdk'
 
@@ -96,4 +96,5 @@
             },
         }
     }
+    //could not contact Xumm App Host
 </script>
