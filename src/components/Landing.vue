@@ -23,7 +23,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="row in NFTokenOffers">
+                    <tr v-for="row in NFTokenOffers" @click="selectedRow(row)">
                         <td scope="row">{{numeralFormat((row['Amount']/1_000_000), '0,0[.]00000000') }}</td>
                         <td scope="row">{{row['NFTokenID']}}</td>
                     </tr>
@@ -62,6 +62,9 @@
             }
         },
         computed: {
+            selectedRow(offer) {
+                console.log('offer', offer)
+            },
             ledger() {
                 return this.$store.getters.getLedger
             },
