@@ -71,7 +71,7 @@
                 const subscription = await Sdk.payload.create(request)
                 console.log('subscription', subscription)
                 console.log('uuid', subscription.uuid)
-                this.$store.dispatch('setUserToken', subscription.uuid)
+                //this.$store.dispatch('setUserToken', subscription.uuid)
 
                 xapp.openSignRequest({ uuid: subscription.uuid })
                     .then(d => {
@@ -80,6 +80,9 @@
                     })
                     .catch(e => console.log('Error:', e.message))
                 
+                    xapp.on('payload', function (data) {
+                        console.log('Payload resolved', data)
+                    })
                 // const res = await xapp.openSignRequest({ uuid: subscription.uuid })
                 // console.log('res', res)
 
