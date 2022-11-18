@@ -38,7 +38,7 @@
 </template>
 
 <script>
-    const xapp = new xAppSdk()
+    const xapp = new window.xAppSdk()
 
     export default {
         name: 'Landing',
