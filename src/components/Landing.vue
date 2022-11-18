@@ -108,8 +108,8 @@
             async flushAll() {
                 if (this.$store.getters.getAccount == '') { return }
 
-                const openOffers = this.NFTokenOffers.reduce((a, b) => a.concat(b.NFTokenID), [])
-                // console.log('openOffers', openOffers)
+                const openOffers = this.NFTokenOffers.reduce((a, b) => a.concat(b.index), [])
+                console.log('openOffers', openOffers)
                 const tx = {
                     TransactionType: 'NFTokenCancelOffer',
                     Account: this.$store.getters.getAccount,
