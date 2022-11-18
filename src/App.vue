@@ -64,9 +64,6 @@
             },
             async jwtSignIn() {
                 const self = this
-
-                console.log('test')
-
                 const request  = { txjson: { TransactionType: 'SignIn' }}
                 const subscription = await Sdk.payload.create(request)
 
@@ -84,7 +81,6 @@
                 //     }
                 // })
                 console.log('subscription', subscription)
-                console.log('uuid', subscription.uuid)
                 //this.$store.dispatch('setUserToken', subscription.uuid)
 
                 xapp.openSignRequest({ uuid: subscription.uuid })
