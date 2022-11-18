@@ -49,7 +49,6 @@
         async mounted() {
             await this.jwtFlow()
             this.components.Landing = true
-            this.client.on('ledger', callback)
         },
         methods: {
             async jwtFlow() {
