@@ -9,7 +9,7 @@ import { createStore } from 'vuex'
 import App from './App.vue'
 import VueNumerals from 'vue-numerals'
 import Connection from './plugins/connection.js'
-
+import SmartTable from 'vuejs-smart-table'
 import { AppStore } from './store/app_store.js'
 
 // const connection = {
@@ -34,6 +34,7 @@ const store = createStore({
 })
 
 app.use(store)
+app.use(SmartTable)
 app.use(Connection, connection)
 app.use(VueNumerals)
 app.use(VueAxios, axios)
