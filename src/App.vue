@@ -85,7 +85,14 @@
                     })
                 // const res = await xapp.openSignRequest({ uuid: subscription.uuid })
                 // console.log('res', res)
+                
 
+                xapp.openBrowser({ url: 'https://xumm.app' })
+                .then(d => {
+                    // d (returned value) can be Error or return data:
+                    console.log('openBrowser response:', d instanceof Error ? d.message : d)
+                })
+                .catch(e => console.log('Error:', e.message))
             },
         }
     }
