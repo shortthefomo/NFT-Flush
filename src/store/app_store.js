@@ -21,7 +21,7 @@ export const AppStore = {
             commit('ACCOUNT', account)
         },
         setLedger({commit}, ledger) {
-            commit('ACCOUNT', ledger)
+            commit('LEDGER', ledger)
         }
     },
     mutations: {
