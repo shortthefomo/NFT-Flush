@@ -86,7 +86,7 @@
             }
         },
         methods: {
-            highlights() {
+            highlights(offer) {
                 if (!this.selectedRows.includes(offer.OfferID)) {
                     return ''
                 }
