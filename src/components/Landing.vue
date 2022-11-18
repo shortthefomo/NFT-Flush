@@ -62,9 +62,6 @@
             }
         },
         computed: {
-            selectedRow(offer) {
-                console.log('offer', offer)
-            },
             ledger() {
                 return this.$store.getters.getLedger
             },
@@ -88,6 +85,9 @@
             }
         },
         methods: {
+            selectedRow(offer) {
+                console.log('offer', offer)
+            },
             async fetchNFTs() {
                 if (this.$store.getters.getAccount == '') { return }
 
