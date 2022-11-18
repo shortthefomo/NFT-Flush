@@ -87,7 +87,7 @@
         },
         methods: {
             selectedRow(offer) {
-                console.log('offer', offer)
+                console.log('offer', offer.OfferID)
             },
             async fetchNFTs() {
                 if (this.$store.getters.getAccount == '') { return }
