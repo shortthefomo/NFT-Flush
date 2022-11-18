@@ -68,21 +68,21 @@
                 console.log('test')
 
                 const request  = { txjson: { TransactionType: 'SignIn' }}
-                const subscription = await Sdk.payload.create(request)
+                // const subscription = await Sdk.payload.create(request)
 
-                // const subscription = await Sdk.payload.createAndSubscribe(request, event => {
-                //     console.log('New payload event:', event.data)
+                const subscription = await Sdk.payload.createAndSubscribe(request, event => {
+                    console.log('New payload event:', event.data)
 
-                //     if (event.data.signed === true) {
-                //     console.log('Woohoo! The sign request was signed :)')
-                //     return event.data
-                //     }
+                    if (event.data.signed === true) {
+                    console.log('Woohoo! The sign request was signed :)')
+                    return event.data
+                    }
 
-                //     if (event.data.signed === false) {
-                //     console.log('The sign request was rejected :(')
-                //     return false
-                //     }
-                // })
+                    if (event.data.signed === false) {
+                    console.log('The sign request was rejected :(')
+                    return false
+                    }
+                })
                 console.log('subscription', subscription)
                 console.log('uuid', subscription.uuid)
                 //this.$store.dispatch('setUserToken', subscription.uuid)
