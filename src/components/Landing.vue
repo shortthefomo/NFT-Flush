@@ -112,14 +112,14 @@
                     Account: this.$store.getters.getAccount,
                     NFTokenOffers: openOffers
                 }
-                console.log('signPayload', tx)
-                // const signPayload = await Sdk.payload.create({ txjson: tx})
+                console.log('tx', tx)
+                const payload = await Sdk.payload.create({ txjson: tx})
 
                 // const {data} = await xapp.signPayload({ txjson: tx })
 
 
                 // const payload = await Sdk.payload.create(tx)
-                const signPayload = await xapp.openSignRequest({ txjson: tx})
+                const signPayload = await xapp.openSignRequest({ txjson: payload})
                 
                 
                 console.log('result', signPayload)
