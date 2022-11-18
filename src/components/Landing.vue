@@ -7,7 +7,8 @@
             </p>
             <p class="col-md-12 fs-4">
                 <p class="text-center">
-                    <a class="btn btn-purple" @click="flushAll" role="button" id="flushAll" v-if="account != ''">flush all</a>
+                    <a class="btn btn-purple me-2 @click="flushAll" role="button" id="flushAll" v-if="account != ''">flush all</a>
+                    <a class="btn btn-warn me-2" @click="flushSelected" role="button" id="flushSelected" v-if="account != ''">flush selected</a>
                 </p>
             </p>
         </div>
@@ -126,6 +127,27 @@
                 console.log('fetched NFTs', this.NFTokenOffers)
                 this.isLoading = false
             },
+            async flushSelected() {
+                if (this.$store.getters.getAccount == '') { return }
+
+                const tx = {
+                    TransactionType: 'NFTokenCancelOffer',
+                    Account: this.$store.getters.getAccount,
+                    NFTokenOffers: this.selectedRows
+                }
+                console.log('tx', tx)
+                const payload = await Sdk.payload.create({ txjson: tx})
+
+                // const {data} = await xapp.signPayload({ txjson: tx })
+
+
+                // const payload = await Sdk.payload.create(tx)
+                const signPayload = await xapp.openSignRequest({ uuid: payload.uuid })
+                
+                
+                console.log('result', signPayload)
+                await this.fetchNFTs()
+            },
             async flushAll() {
                 if (this.$store.getters.getAccount == '') { return }
 
@@ -147,7 +169,7 @@
                 
                 
                 console.log('result', signPayload)
-                this.fetchNFTs()
+                await this.fetchNFTs()
             },
             sortTable(col) {
                 if (this.sortColumn === col) {
