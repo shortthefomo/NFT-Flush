@@ -91,13 +91,13 @@
 
                         xapp.on('payload', function (data) {
                             console.log('Payload resolved 123 123', data)
+                            if (data.reason == 'SIGNED') {
+                                console.log('it was signeddd?')
+                            }
                         })
                     })
                     .catch(e => console.log('Error:', e.message))
-                
-                xapp.on('payload', function (data) {
-                    console.log('Payload resolved', data)
-                })
+            
                 // const res = await xapp.openSignRequest({ uuid: subscription.uuid })
                 // console.log('res', res)
                 
