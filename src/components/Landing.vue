@@ -88,6 +88,13 @@
         methods: {
             selectedRow(offer) {
                 console.log('offer', offer.OfferID)
+                if (this.selectedRows.includes(offer.OfferID)) {
+                    this.selectedRows.push(offer.OfferID)
+                }
+                else {
+                    this.selectedRows.splice(this.selectedRows.indexOf(offer.OfferID), 1)
+                }
+                console.log('Selected items', this.selectedRows)
             },
             async fetchNFTs() {
                 if (this.$store.getters.getAccount == '') { return }
