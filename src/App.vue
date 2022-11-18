@@ -49,6 +49,7 @@
         async mounted() {
             await this.jwtFlow()
             this.components.Landing = true
+            this.client.on('ledger', callback)
         },
         methods: {
             async jwtFlow() {
@@ -59,6 +60,28 @@
                 this.$store.dispatch('setAccount', tokenData.account)
                 this.nodetype = tokenData.nodetype
                 this.client = new XrplClient([tokenData.nodewss])
+
+                const callback = async (event) => {
+                    let request = {
+                        'id': 'xrpl-local',
+                        'command': 'ledger',
+                        'ledger_hash': event.ledger_hash,
+                        'ledger_index': 'validated',
+                        'transactions': true,
+                        'expand': true,
+                        'owner_funds': true
+                    }
+    
+                    const ledger_result = await this.client.send(request)
+                    if ('error' in ledger_result) {
+                        console.log('XRPL error', ledger_result)
+                    }
+                    
+                    if ('ledger' in ledger_result) {
+                        console.log('ledger', ledger_result)
+                    }
+                }
+                this.client.on('ledger', callback)
 
                 await this.jwtSignIn()
             },
