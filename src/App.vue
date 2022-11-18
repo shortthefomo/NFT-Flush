@@ -88,6 +88,10 @@
                         // d (returned value) can be Error or return data:
                         console.log('openSignRequest response:', d instanceof Error ? d.message : d)
                         console.log('d', d)
+
+                        xapp.on('payload', function (data) {
+                            console.log('Payload resolved 123 123', data)
+                        })
                     })
                     .catch(e => console.log('Error:', e.message))
                 
