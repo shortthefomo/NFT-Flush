@@ -159,6 +159,7 @@
                     console.log('searching for', element.NFTokenID)
                     if (this.findNFT(element.NFTokenID)) {
                         console.log('foundddd', element.URI)
+                        console.log('buffer', Buffer.from(element.URI, 'hex').toString('utf8'))
                     }
                 }
             },
