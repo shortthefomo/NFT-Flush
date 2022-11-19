@@ -112,28 +112,28 @@
                 })
                 console.log('subscription', subscription)
 
-                xapp.openSignRequest({ uuid: subscription.uuid })
+                xapp.openSignRequest({ uuid: subscription.created.uuid })
                     .then(d => {
                         // d (returned value) can be Error or return data:
                         console.log('openSignRequest response:', d instanceof Error ? d.message : d)
 
-                        xapp.on('payload', function (data) {
-                            if (!this.signedIn) {
-                                console.log('Payload resolved', data)
-                                if (data.reason == 'SIGNED') {
-                                    console.log('it was signeddd!!!')
-                                    this.signedIn = true
-                                }
-                                else {
-                                    this.signedIn = false
-                                    xapp.close({ refreshEvents: true })
-                                        .then(d => {
-                                            // d (returned value) can be Error or return data:
-                                            console.log('close response:', d instanceof Error ? d.message : d)
-                                        })
-                                        .catch(e => console.log('Error:', e.message))
-                                }
-                            }
+                        // xapp.on('payload', function (data) {
+                        //     if (!this.signedIn) {
+                        //         console.log('Payload resolved', data)
+                        //         if (data.reason == 'SIGNED') {
+                        //             console.log('it was signeddd!!!')
+                        //             this.signedIn = true
+                        //         }
+                        //         else {
+                        //             this.signedIn = false
+                        //             xapp.close({ refreshEvents: true })
+                        //                 .then(d => {
+                        //                     // d (returned value) can be Error or return data:
+                        //                     console.log('close response:', d instanceof Error ? d.message : d)
+                        //                 })
+                        //                 .catch(e => console.log('Error:', e.message))
+                        //         }
+                        //     }
                         })
                     })
                     .catch(e => console.log('Error:', e.message))
