@@ -27,7 +27,8 @@
                     <tr v-for="row in NFTokenOffers" @click="selectedRow(row)" :class="highlights(row)">
                         <td v-if="typeof row['Amount'] === 'object'" scope="row">{{numeralFormat((row['Amount'].value/1_000_000), '0,0[.]00000000') }} {{row['Amount'].currency}}</td>
                         <td v-else scope="row">{{numeralFormat((row['Amount']/1_000_000), '0,0[.]00000000')}} XRP</td>
-                        <td scope="row">{{row['NFT']}}</td>
+                        <td v-if="('Image' in row)" scope="row"><img class="img-fluid" :src="row['Image']" style="width:100%"/></td>
+                        <td v-else scope="row">{{row['NFT']}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -167,7 +168,7 @@
                             try {
                                 // const ipfsData = JSON.parse(data)
                                 console.log('image', res.data?.image)
-                                this.NFTokenOffers[item].NFT = `<img class="img-fluid" src="${res.data?.image.replace('ipfs://', 'https://ipfs.io/ipfs/')}"/>`
+                                this.NFTokenOffers[item].Image = res.data?.image.replace('ipfs://', 'https://ipfs.io/ipfs/')
                             } catch (e) {
                                 console.log('error', e)
                             }
