@@ -171,7 +171,7 @@
                         try {
                             // const ipfsData = JSON.parse(data)
                             console.log('image', data?.image)
-                            this.NFTokenOffers[item].Image = data?.image
+                            this.NFTokenOffers[item].Image = data?.image.replace('ipfs://', 'https://ipfs.io/ipfs/')
                         } catch (e) {
                             console.log('error', e)
                         }
