@@ -42,7 +42,7 @@
 <script>
     const xapp = window.xAppSdk
     import {XummSdkJwt} from 'xumm-sdk'
-
+    import { Buffer } from 'buffer'
     const Sdk = new XummSdkJwt(import.meta.env.VITE_APP_NFT_KEY)
 
     export default {
