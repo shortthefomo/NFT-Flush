@@ -129,7 +129,11 @@
                 }
 
                 this.isLoading = false
-                await this.fetchImages()
+                try {
+                    await this.fetchImages()
+                } catch (error) {
+                    console.log('fetchImages error', error)
+                }
             },
             async fetchImages() {
                 if (this.NFTokenOffers.length < 1) { return }
