@@ -163,10 +163,10 @@
                         const URI = Buffer.from(element.URI, 'hex').toString('utf8')
                         const convertedURI = URI.replace('ipfs://', 'https://ipfs.io/ipfs/')
                         console.log('convertedURI', convertedURI)
-                        const data = await this.axios.get(convertedURI)
+                        const {data} = await this.axios.get(convertedURI)
                         // console.log('data', data)
                         try {
-                            const ipfsData = JSON.parse(data.data)
+                            const ipfsData = JSON.parse(data)
                             console.log('image', ipfsData?.image)
                         } catch (e) {
                             console.log('error', e)
