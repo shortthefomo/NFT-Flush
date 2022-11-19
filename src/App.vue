@@ -67,7 +67,9 @@
                     servers.unshift('ws://panicbot.xyz:6005')
                 }
                 console.log('ws servers', servers)
+                
                 this.client = new XrplClient(servers)
+                console.log('client connection', await this.client.getState())
 
                 const callback = async (event) => {
                     let request = {
@@ -132,7 +134,7 @@
             connectWebsocket() {
                 const self = this
                 console.log('location', window.location.origin)
-                if ('https://192.168.0.19:3007' == window.location.origin) {
+                if ('https://192.168.0.20:3007' == window.location.origin) {
                     console.log('using local socket')
                     this.socket = new WebSocket(this.connection.socket_local)
                 }
