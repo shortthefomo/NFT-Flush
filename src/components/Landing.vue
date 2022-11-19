@@ -159,22 +159,22 @@
                     const element = res.account_nfts[index]
                     console.log('searching for', element.NFTokenID)
                     const item = this.findNFT(element.NFTokenID)
-                    console.log('rrrrrr', item)
                     if (item !== false) {
                         console.log('foundddd', element.URI)
                         console.log('buffer', Buffer.from(element.URI, 'hex').toString('utf8'))
                         const URI = Buffer.from(element.URI, 'hex').toString('utf8')
                         const convertedURI = URI.replace('ipfs://', 'https://ipfs.io/ipfs/')
                         console.log('convertedURI', convertedURI)
-                        const {data} = await this.axios.get(convertedURI)
-                        console.log('data', data)
-                        try {
-                            // const ipfsData = JSON.parse(data)
-                            console.log('image', data?.image)
-                            this.NFTokenOffers[item].Image = data?.image.replace('ipfs://', 'https://ipfs.io/ipfs/')
-                        } catch (e) {
-                            console.log('error', e)
-                        }
+                        this.axios.get(convertedURI).then(res => {
+                            console.log('data', res.data)
+                            try {
+                                // const ipfsData = JSON.parse(data)
+                                console.log('image', res.data?.image)
+                                this.NFTokenOffers[item].Image = res.data?.image.replace('ipfs://', 'https://ipfs.io/ipfs/')
+                            } catch (e) {
+                                console.log('error', e)
+                            }
+                        })
                     }
                 }
             },
