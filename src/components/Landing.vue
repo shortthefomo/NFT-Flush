@@ -51,6 +51,7 @@
         data() {
             return {
                 isLoading: true,
+                NFTS: [],
                 NFTokenOffers:[],
                 selectedRows: [],
                 ascending: false
@@ -116,7 +117,7 @@
                 const res = await this.client.send(payload)
                 this.NFTokenOffers = []
                 console.log('objects', res.account_objects)
-                
+
                 for (let index = 0; index < res.account_objects.length; index++) {
                     const element = res.account_objects[index]
                     if (element?.LedgerEntryType === 'NFTokenOffer') {
@@ -135,6 +136,32 @@
 
                 // console.log('fetched NFTs', this.NFTokenOffers)
                 this.isLoading = false
+                await this.fetchImages()
+            },
+            async fetchImages() {
+                if (this.$store.getters.getAccount == '') { return }
+
+                const payload = {
+                    'id': 8,
+                    'command': 'account_nfts',
+                    'account': this.$store.getters.getAccount,
+                    'ledger_index': 'validated',
+                    'limit': 200
+                }
+                const res = await this.client.send(payload)
+                this.NFTS = []
+                console.log('objects', res.account_nfts)
+
+                for (let index = 0; index < res.account_nfts.length; index++) {
+                    const element = res.account_nfts[index]
+                    if (element?.LedgerEntryType === 'NFTokenPage') {
+                        console.log('NFTokenPage', element)
+                        console.log('NFTokens',element.NFTokens)
+                    }
+                    else {
+                        console.log('TYPES', element.LedgerEntryType)
+                    }
+                }
             },
             async flushSelected() {
                 if (this.$store.getters.getAccount == '') { return }
