@@ -129,7 +129,7 @@
             },
             async flushSelected() {
                 if (this.$store.getters.getAccount == '') { return }
-
+                if (this.selectedRows.length < 1) { return }
                 const tx = {
                     TransactionType: 'NFTokenCancelOffer',
                     Account: this.$store.getters.getAccount,
@@ -150,9 +150,11 @@
             },
             async flushAll() {
                 if (this.$store.getters.getAccount == '') { return }
+                
 
                 const openOffers = this.NFTokenOffers.reduce((a, b) => a.concat(b.index), [])
                 console.log('openOffers', openOffers)
+                if (openOffers.length < 1) { return }
                 const tx = {
                     TransactionType: 'NFTokenCancelOffer',
                     Account: this.$store.getters.getAccount,
