@@ -28,7 +28,7 @@
                         <td v-if="typeof row['Amount'] === 'object'" scope="row">{{numeralFormat((row['Amount'].value/1_000_000), '0,0[.]00000000') }} {{row['Amount'].currency}}</td>
                         <td v-else scope="row">{{numeralFormat((row['Amount']/1_000_000), '0,0[.]00000000')}} XRP</td>
                         <td v-if="!('Image' in row)" scope="row">{{row['indexNFT']}}</td>
-                        <td v-else scope="row"><img class="img-fluid" :src="row['Image']" /></td>
+                        <td v-else scope="row"><img class="img-fluid" :src="row['Image']" style="width:100%"/></td>
                     </tr>
                 </tbody>
             </table>
@@ -140,7 +140,7 @@
 
                 for (let index = 0; index < this.NFTokenOffers.length; index++) {
                     const element = this.NFTokenOffers[index]
-                    await this.fetchOwnerNFTs(element.Owner)                    
+                    this.fetchOwnerNFTs(element.Owner)                    
                 }
             },
             async fetchOwnerNFTs(account) {
