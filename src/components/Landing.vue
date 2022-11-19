@@ -139,10 +139,10 @@
 
                 for (let index = 0; index < this.NFTokenOffers.length; index++) {
                     const element = this.NFTokenOffers[index]
-                    this.fetchOwnerNFTs(element.Owner, element.index)                    
+                    await this.fetchOwnerNFTs(element.Owner, element.index, index)                    
                 }
             },
-            async fetchOwnerNFTs(account, offerID) {
+            async fetchOwnerNFTs(account, offerID, item) {
                 const payload = {
                     'id': 8,
                     'command': 'account_nfts',
@@ -156,7 +156,6 @@
                 for (let index = 0; index < res.account_nfts.length; index++) {
                     const element = res.account_nfts[index]
                     console.log('searching for', element.NFTokenID)
-                    const item = this.findNFT(element.NFTokenID)
                     if (item !== false) {
                         const URI = Buffer.from(element.URI, 'hex').toString('utf8')
                         const convertedURI = URI.replace('ipfs://', 'https://ipfs.io/ipfs/')
