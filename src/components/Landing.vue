@@ -166,8 +166,8 @@
                         const {data} = await this.axios.get(convertedURI)
                         console.log('data', data)
                         try {
-                            const ipfsData = JSON.parse(data)
-                            console.log('image', ipfsData?.image)
+                            // const ipfsData = JSON.parse(data)
+                            console.log('image', data?.image)
                         } catch (e) {
                             console.log('error', e)
                         }
