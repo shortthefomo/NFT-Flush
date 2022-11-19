@@ -25,7 +25,7 @@
                 </thead>
                 <tbody>
                     <tr v-for="row in NFTokenOffers" @click="selectedRow(row)" :class="highlights(row)">
-                        <td scope="row">{{numeralFormat((row['Offer']/1_000_000), '0,0[.]00000000') }}</td>
+                        <td scope="row">{{numeralFormat((row['Amount']/1_000_000), '0,0[.]00000000') }}</td>
                         <td v-if="!('Image' in row)" scope="row">{{row['OfferID']}}</td>
                         <td v-if="('Image' in row)" scope="row"><img :src="row['Image']" /></td>
                     </tr>
