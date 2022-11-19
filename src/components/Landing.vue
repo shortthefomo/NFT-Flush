@@ -25,10 +25,10 @@
                 </thead>
                 <tbody>
                     <tr v-for="row in NFTokenOffers" @click="selectedRow(row)" :class="highlights(row)">
-                        <td v-if="typeof row['Amount'] === 'object'" scope="row">{{numeralFormat((row['Amount'].value/1_000_000), '0,0[.]00000000') }} {{row['Amount'].currency}}</td>
-                        <td v-else scope="row">{{numeralFormat((row['Amount']/1_000_000), '0,0[.]00000000')}} XRP</td>
-                        <td v-if="('Image' in row)" scope="row"><img class="img-fluid" :src="row['Image']" style="width:100%"/></td>
-                        <td v-else scope="row">{{row['NFT']}}</td>
+                        <td v-if="typeof row['Amount'] === 'object'">{{numeralFormat((row['Amount'].value/1_000_000), '0,0[.]00000000') }} {{row['Amount'].currency}}</td>
+                        <td v-else>{{numeralFormat((row['Amount']/1_000_000), '0,0[.]00000000')}} XRP</td>
+                        <td v-if="('Image' in row)"><img class="img-fluid" :src="row['Image']" style="width:100%"/></td>
+                        <td v-else>{{row['OfferID']}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -75,7 +75,7 @@
                 if (this.NFTokenOffers.length == 0) {
                     return []
                 }
-                return ['Offer', 'NFT']
+                return ['Offer', 'OfferID']
                 //return Object.keys(this.NFTokenOffers[0]).filter( code => code !== 'ledger')
             }
         },
@@ -122,7 +122,7 @@
                     const element = res.account_objects[index]
                     if (element?.LedgerEntryType === 'NFTokenOffer') {
                         console.log('NFTokenOffer', element)
-                        element.NFT = element.index
+                        element.OfferID = element.index
                         this.NFTokenOffers.push(element)
                     }
                     else {
