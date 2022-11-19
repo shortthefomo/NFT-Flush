@@ -54,7 +54,8 @@
                 isLoading: true,
                 NFTokenOffers:[],
                 selectedRows: [],
-                ascending: false
+                ascending: false,
+                awaitSign: false
             }
         },
         async mounted() {
@@ -125,12 +126,8 @@
                         element.OfferID = element.index
                         this.NFTokenOffers.push(element)
                     }
-                    else {
-                        // console.log('TYPES', element.LedgerEntryType)
-                    }
                 }
 
-                // console.log('fetched NFTs', this.NFTokenOffers)
                 this.isLoading = false
                 await this.fetchImages()
             },
@@ -156,21 +153,22 @@
                 for (let index = 0; index < res.account_nfts.length; index++) {
                     const element = res.account_nfts[index]
                     console.log('searching for', element.NFTokenID)
-                    if (item !== false) {
-                        const URI = Buffer.from(element.URI, 'hex').toString('utf8')
-                        const convertedURI = URI.replace('ipfs://', 'https://ipfs.io/ipfs/')
-                        console.log('convertedURI', convertedURI)
-                        this.axios.get(convertedURI).then(res => {
-                            // console.log('data', res.data)
-                            try {
-                                // const ipfsData = JSON.parse(data)
-                                console.log('image', res.data?.image)
-                                this.NFTokenOffers[item].Image = res.data?.image.replace('ipfs://', 'https://ipfs.io/ipfs/')
-                            } catch (e) {
-                                console.log('error', e)
-                            }
-                        })
-                    }
+                    
+                    const URI = Buffer.from(element.URI, 'hex').toString('utf8')
+                    const convertedURI = URI.replace('ipfs://', 'https://ipfs.io/ipfs/')
+                    console.log('convertedURI', convertedURI)
+                    this.axios.get(convertedURI).then(res => {
+                        // console.log('data', res.data)
+                        try {
+                            // const ipfsData = JSON.parse(data)
+                            console.log('image', res.data?.image)
+                            console.log('item', item)
+                            console.log('offf', this.NFTokenOffers[item])
+                            this.NFTokenOffers[item].Image = res.data?.image.replace('ipfs://', 'https://ipfs.io/ipfs/')
+                        } catch (e) {
+                            console.log('error', e)
+                        }
+                    })
                 }
             },
             findNFT(NFTokenID) {
