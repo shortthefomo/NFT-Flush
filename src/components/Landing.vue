@@ -137,7 +137,7 @@
                 }
                 console.log('tx', tx)
                 const count = this.selectedRows.length * process.env.VITE_APP_XAPP_RESERVE
-                const payload = await Sdk.payload.create({ custom_meta: { instruction: `Remove all offers and return ${count} XRP reserve.`}, txjson: tx})
+                const payload = await Sdk.payload.create({ custom_meta: { instruction: `Remove selected offers and return ${count} XRP reserve.`}, txjson: tx})
                 const signPayload = await xapp.openSignRequest({ uuid: payload.uuid })
                 
                 console.log('result', signPayload)
