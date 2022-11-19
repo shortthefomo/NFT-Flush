@@ -110,9 +110,9 @@
                     .then(d => {
                         // d (returned value) can be Error or return data:
                         console.log('openSignRequest response:', d instanceof Error ? d.message : d)
-                        console.log('d', d)
-                        if (!this.signedIn) {
-                            xapp.on('payload', function (data) {
+
+                        xapp.on('payload', function (data) {
+                            if (!this.signedIn) {
                                 console.log('Payload resolved', data)
                                 if (data.reason == 'SIGNED') {
                                     console.log('it was signeddd!!!')
@@ -127,8 +127,8 @@
                                         })
                                         .catch(e => console.log('Error:', e.message))
                                 }
-                            })
-                        }
+                            }
+                        })
                     })
                     .catch(e => console.log('Error:', e.message))
             },
