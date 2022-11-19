@@ -139,7 +139,7 @@
                     await this.fetchOwnerNFTs(element.Owner, element.index, index)                    
                 }
             },
-            async fetchOwnerNFTs(account, offerID, item) {
+            async fetchOwnerNFTs(account, NFTokenID, item) {
                 const payload = {
                     'id': 8,
                     'command': 'account_nfts',
@@ -153,22 +153,23 @@
                 for (let index = 0; index < res.account_nfts.length; index++) {
                     const element = res.account_nfts[index]
                     console.log('searching for', element.NFTokenID)
-                    
-                    const URI = Buffer.from(element.URI, 'hex').toString('utf8')
-                    const convertedURI = URI.replace('ipfs://', 'https://ipfs.io/ipfs/')
-                    console.log('convertedURI', convertedURI)
-                    this.axios.get(convertedURI).then(res => {
-                        // console.log('data', res.data)
-                        try {
-                            // const ipfsData = JSON.parse(data)
-                            console.log('image', res.data?.image)
-                            console.log('item', item)
-                            console.log('offf', this.NFTokenOffers[item])
-                            this.NFTokenOffers[item].Image = res.data?.image.replace('ipfs://', 'https://ipfs.io/ipfs/')
-                        } catch (e) {
-                            console.log('error', e)
-                        }
-                    })
+                    if (NFTokenID == element.NFTokenID) {
+                        const URI = Buffer.from(element.URI, 'hex').toString('utf8')
+                        const convertedURI = URI.replace('ipfs://', 'https://ipfs.io/ipfs/')
+                        console.log('convertedURI', convertedURI)
+                        this.axios.get(convertedURI).then(res => {
+                            // console.log('data', res.data)
+                            try {
+                                // const ipfsData = JSON.parse(data)
+                                console.log('image', res.data?.image)
+                                console.log('item', item)
+                                console.log('offf', this.NFTokenOffers[item])
+                                this.NFTokenOffers[item].Image = res.data?.image.replace('ipfs://', 'https://ipfs.io/ipfs/')
+                            } catch (e) {
+                                console.log('error', e)
+                            }
+                        })
+                    }
                 }
             },
             findNFT(NFTokenID) {
