@@ -160,7 +160,7 @@
                     console.log('searching for', element.NFTokenID)
                     const item = this.findNFT(element.NFTokenID)
                     console.log('rrrrrr', item)
-                    if (item != false) {
+                    if (item !== false) {
                         console.log('foundddd', element.URI)
                         console.log('buffer', Buffer.from(element.URI, 'hex').toString('utf8'))
                         const URI = Buffer.from(element.URI, 'hex').toString('utf8')
