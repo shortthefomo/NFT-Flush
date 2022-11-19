@@ -122,9 +122,12 @@
                         element.OfferID = element.index
                         this.NFTokenOffers.push(element)
                     }
-                    if (element?.LedgerEntryType === 'NFTokenPage') {
+                    else if (element?.LedgerEntryType === 'NFTokenPage') {
                         console.log('NFTokenPage', element)
                         console.log('NFTokens',element.NFTokens)
+                    }
+                    else {
+                        console.log('TYPES', element.LedgerEntryType)
                     }
                 }
 
