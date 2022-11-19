@@ -27,8 +27,7 @@
                     <tr v-for="row in NFTokenOffers" @click="selectedRow(row)" :class="highlights(row)">
                         <td v-if="typeof row['Amount'] === 'object'" scope="row">{{numeralFormat((row['Amount'].value/1_000_000), '0,0[.]00000000') }} {{row['Amount'].currency}}</td>
                         <td v-else scope="row">{{numeralFormat((row['Amount']/1_000_000), '0,0[.]00000000')}} XRP</td>
-                        <td v-if="!('Image' in row)" scope="row">{{row['indexNFT']}}</td>
-                        <td v-else scope="row"><img class="img-fluid" :src="row['Image']" style="width:100%"/></td>
+                        <td scope="row">{{row['NFT']}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -52,7 +51,6 @@
         data() {
             return {
                 isLoading: true,
-                NFTS: [],
                 NFTokenOffers:[],
                 selectedRows: [],
                 ascending: false
@@ -123,7 +121,7 @@
                     const element = res.account_objects[index]
                     if (element?.LedgerEntryType === 'NFTokenOffer') {
                         console.log('NFTokenOffer', element)
-                        element.indexNFT = element.index
+                        element.NFT = element.index
                         this.NFTokenOffers.push(element)
                     }
                     else {
@@ -140,10 +138,10 @@
 
                 for (let index = 0; index < this.NFTokenOffers.length; index++) {
                     const element = this.NFTokenOffers[index]
-                    this.fetchOwnerNFTs(element.Owner)                    
+                    this.fetchOwnerNFTs(element.Owner, element.index)                    
                 }
             },
-            async fetchOwnerNFTs(account) {
+            async fetchOwnerNFTs(account, offerID) {
                 const payload = {
                     'id': 8,
                     'command': 'account_nfts',
@@ -152,7 +150,6 @@
                     'limit': 200
                 }
                 const res = await this.client.send(payload)
-                this.NFTS = []
                 console.log('objects', res.account_nfts)
 
                 for (let index = 0; index < res.account_nfts.length; index++) {
@@ -170,7 +167,7 @@
                             try {
                                 // const ipfsData = JSON.parse(data)
                                 console.log('image', res.data?.image)
-                                this.NFTokenOffers[item].Image = res.data?.image.replace('ipfs://', 'https://ipfs.io/ipfs/')
+                                this.NFTokenOffers[item].NFT = `<img class="img-fluid" src="${res.data?.image.replace('ipfs://', 'https://ipfs.io/ipfs/')}"/>`
                             } catch (e) {
                                 console.log('error', e)
                             }
