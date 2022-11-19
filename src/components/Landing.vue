@@ -159,7 +159,7 @@
                     const element = res.account_nfts[index]
                     console.log('searching for', element.NFTokenID)
                     const item = this.findNFT(element.NFTokenID)
-                    if (item) {
+                    if (item != false) {
                         console.log('foundddd', element.URI)
                         console.log('buffer', Buffer.from(element.URI, 'hex').toString('utf8'))
                         const URI = Buffer.from(element.URI, 'hex').toString('utf8')
