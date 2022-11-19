@@ -136,7 +136,7 @@
                     NFTokenOffers: this.selectedRows
                 }
                 console.log('tx', tx)
-                const payload = await Sdk.payload.create({ txjson: tx})
+                const payload = await Sdk.payload.create({ custom_meta: { instruction: 'Remove selected offers and return XRP reserve.'}, txjson: tx})
                 const signPayload = await xapp.openSignRequest({ uuid: payload.uuid })
                 
                 console.log('result', signPayload)
@@ -155,7 +155,7 @@
                     NFTokenOffers: openOffers
                 }
                 console.log('tx', tx)
-                const payload = await Sdk.payload.create({ txjson: tx})
+                const payload = await Sdk.payload.create({ custom_meta: { instruction: 'Remove all offers and return XRP reserve.'}, txjson: tx})
                 const signPayload = await xapp.openSignRequest({ uuid: payload.uuid })
                 
                 console.log('result', signPayload)
