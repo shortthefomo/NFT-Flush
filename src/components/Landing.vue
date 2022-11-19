@@ -160,6 +160,14 @@
                     if (this.findNFT(element.NFTokenID)) {
                         console.log('foundddd', element.URI)
                         console.log('buffer', Buffer.from(element.URI, 'hex').toString('utf8'))
+                        const URI = Buffer.from(element.URI, 'hex').toString('utf8')
+                        const data = await this.axios.get(URI)
+                        try {
+                            const object = JSON.parse(data)
+                            console.log('image', object?.image)
+                        } catch (e) {
+                            console.log('error', e)
+                        }
                     }
                 }
             },
