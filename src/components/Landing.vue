@@ -191,11 +191,27 @@
                 }
                 console.log('tx', tx)
                 const count = this.selectedRows.length * process.env.VITE_APP_XAPP_RESERVE
-                const payload = await Sdk.payload.create({ custom_meta: { instruction: `Remove selected offers and return ${count} XRP reserve.`}, txjson: tx})
-                const signPayload = await xapp.openSignRequest({ uuid: payload.uuid })
                 
-                console.log('result', signPayload)
-                await this.fetchNFTs()
+                const request = { custom_meta: { instruction: `Remove selected offers and return ${count} XRP reserve.`}, txjson: tx}
+
+                const payload = await Sdk.payload.createAndSubscribe(request, async event => {
+                    console.log('New payload event:', event.data)
+
+                    if (event.data.signed === true) {
+                        console.log('Woohoo! The sign request was signed :)')
+                        await this.fetchNFTs()
+
+                        return event.data
+                    }
+
+                    if (event.data.signed === false) {
+                        console.log('The sign request was rejected :(')
+                        return false
+                    }
+                })
+                console.log('payload', payload)
+
+                xapp.openSignRequest({ uuid: payload.created.uuid })
             },
             async flushAll() {
                 if (this.$store.getters.getAccount == '') { return }
@@ -211,11 +227,27 @@
                 }
                 console.log('tx', tx)
                 const count = this.NFTokenOffers.length * process.env.VITE_APP_XAPP_RESERVE
-                const payload = await Sdk.payload.create({ custom_meta: { instruction: `Remove all offers and return ${count} XRP reserve.` }, txjson: tx})
+                const request = { custom_meta: { instruction: `Remove all offers and return ${count} XRP reserve.` }, txjson: tx}
                 const signPayload = await xapp.openSignRequest({ uuid: payload.uuid })
                 
-                console.log('result', signPayload)
-                await this.fetchNFTs()
+
+                const payload = await Sdk.payload.createAndSubscribe(request, async event => {
+                    console.log('New payload event:', event.data)
+
+                    if (event.data.signed === true) {
+                        console.log('Woohoo! The sign request was signed :)')
+                        await this.fetchNFTs()
+                        return event.data
+                    }
+
+                    if (event.data.signed === false) {
+                        console.log('The sign request was rejected :(')
+                        return false
+                    }
+                })
+                console.log('payload', payload)
+
+                xapp.openSignRequest({ uuid: payload.created.uuid })                
             },
             sortTable(col) {
                 if (this.sortColumn === col) {
