@@ -51,6 +51,7 @@
             if (this.components.Landing) { return }
             await this.jwtFlow()
             this.components.Landing = true
+            
         },
         methods: {
             async jwtFlow() {
@@ -125,6 +126,80 @@
                         console.log('openSignRequest response:', d instanceof Error ? d.message : d)
                     })
                     .catch(e => console.log('Error:', e.message))
+            },
+            connectWebsocket() {
+                const self = this
+                console.log('location', window.location.origin)
+                if ('https://192.168.0.19:3007' == window.location.origin) {
+                    console.log('using local socket')
+                    this.socket = new WebSocket(this.connection.socket_local)
+                }
+                else {
+                    console.log('using remote socket')
+                    this.socket = new WebSocket(this.connection.socket)    
+                }
+                
+                this.reconnect_socket++
+                this.socket.onopen = function (message) {
+
+                    const tokenData = self.$store.getters.getXummTokenData
+                    self.socket.send(JSON.stringify({
+                        request: 'SUBSCRIBE',
+                        message: {
+                            app: 'NFT-Flush',
+                            appkey: import.meta.env.VITE_APP_NFT_KEY,
+                            account: self.$store.getters.getAccount, 
+                            uuid: self.$store.getters.getUserToken, 
+                            version: tokenData?.version,
+                            locale: tokenData?.locale,
+                            currency: tokenData?.currency,
+                            nodetype: tokenData?.nodetype,
+                            nodewss: tokenData?.nodewss,
+                            user: tokenData?.user
+                        },
+                        channel: self.$store.getters.getAccount
+                    }))
+                    self.ping()
+
+                    console.log('NFT Flush sockets connected! :)')
+                }
+                this.socket.onmessage = async function (message) {
+                    if (self.timeout_socket != null) {
+                        clearTimeout(self.timeout_socket)
+                        self.timeout_socket = null
+                    }
+                    let data = JSON.parse(message.data)
+                    const account = self.$store.getters.getAccount
+                    if (account in data) {
+                        if ('PONG' in data[account]) {
+                            self.pong = true
+                        }
+                        if ('SUBSCRIBED' in data[account]) {
+                            console.log('SUBSCRIBED!')
+                        }
+                    }
+                }
+                setInterval(() => {
+                    self.pong = false
+                    self.ping()
+                }, 10_000)
+
+                this.socket.onerror = function (message) {
+                    console.log('There was an error connection to three NFT Flush socket! :(')
+                    console.log(message)
+                    self.socket.close()
+                }
+
+                this.socket.onclose = function (message) {
+                    console.log('three socket NFT Flush disconnected!', message)
+                    if (self.timeout_socket == null && message.code != 1005) {
+                        self.timeout_socket = setTimeout(() => {
+                            if (self.reconnect_socket < 30) {
+                                self.connectWebsocket() 
+                            }
+                        }, 3000)
+                    }
+                }
             },
         }
     }
