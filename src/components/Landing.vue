@@ -125,10 +125,6 @@
                         element.OfferID = element.index
                         this.NFTokenOffers.push(element)
                     }
-                    else if (element?.LedgerEntryType === 'NFTokenPage') {
-                        console.log('NFTokenPage', element)
-                        console.log('NFTokens',element.NFTokens)
-                    }
                     else {
                         console.log('TYPES', element.LedgerEntryType)
                     }
@@ -139,12 +135,18 @@
                 await this.fetchImages()
             },
             async fetchImages() {
-                if (this.$store.getters.getAccount == '') { return }
+                if (this.NFTokenOffers.length < 1) { return }
 
+                for (let index = 0; index < this.NFTokenOffers.length; index++) {
+                    const element = this.NFTokenOffers[index]
+                    await this.fetchOwnerNFTs(element.Owner)                    
+                }
+            },
+            async fetchOwnerNFTs(account) {
                 const payload = {
                     'id': 8,
                     'command': 'account_nfts',
-                    'account': this.$store.getters.getAccount,
+                    'account': account,
                     'ledger_index': 'validated',
                     'limit': 200
                 }
