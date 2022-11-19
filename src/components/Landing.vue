@@ -25,9 +25,9 @@
                 </thead>
                 <tbody>
                     <tr v-for="row in NFTokenOffers" @click="selectedRow(row)" :class="highlights(row)">
-                        <td scope="row">{{numeralFormat((row['Amount']/1_000_000), '0,0[.]00000000') }}</td>
-                        <td scope="row">{{row['NFTokenID']}}</td>
-                        <td scope="row">{{row['OfferID']}}</td>
+                        <td scope="row">{{numeralFormat((row['Offer']/1_000_000), '0,0[.]00000000') }}</td>
+                        <td v-if="!('Image' in row)" scope="row">{{row['OfferID']}}</td>
+                        <td v-if="('Image' in row)" scope="row"><img :src="row['Image']" /></td>
                     </tr>
                 </tbody>
             </table>
@@ -75,7 +75,7 @@
                 if (this.NFTokenOffers.length == 0) {
                     return []
                 }
-                return ['Amount', 'NFTokenID', 'OfferID']
+                return ['Offer', 'OfferID']
                 //return Object.keys(this.NFTokenOffers[0]).filter( code => code !== 'ledger')
             }
         },
@@ -157,7 +157,8 @@
                 for (let index = 0; index < res.account_nfts.length; index++) {
                     const element = res.account_nfts[index]
                     console.log('searching for', element.NFTokenID)
-                    if (this.findNFT(element.NFTokenID)) {
+                    const item = this.findNFT(element.NFTokenID)
+                    if (item) {
                         console.log('foundddd', element.URI)
                         console.log('buffer', Buffer.from(element.URI, 'hex').toString('utf8'))
                         const URI = Buffer.from(element.URI, 'hex').toString('utf8')
@@ -168,6 +169,7 @@
                         try {
                             // const ipfsData = JSON.parse(data)
                             console.log('image', data?.image)
+                            this.NFTokenOffers[item].Image = data?.image
                         } catch (e) {
                             console.log('error', e)
                         }
@@ -178,7 +180,7 @@
                 for (let index = 0; index < this.NFTokenOffers.length; index++) {
                     const element = this.NFTokenOffers[index]
                     if (NFTokenID == element.NFTokenID) {
-                        return true
+                        return index
                     }
                 }
                 return false
