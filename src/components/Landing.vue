@@ -158,13 +158,11 @@
                     console.log('searching for', element.NFTokenID)
                     const item = this.findNFT(element.NFTokenID)
                     if (item !== false) {
-                        console.log('foundddd', element.URI)
-                        console.log('buffer', Buffer.from(element.URI, 'hex').toString('utf8'))
                         const URI = Buffer.from(element.URI, 'hex').toString('utf8')
                         const convertedURI = URI.replace('ipfs://', 'https://ipfs.io/ipfs/')
                         console.log('convertedURI', convertedURI)
                         this.axios.get(convertedURI).then(res => {
-                            console.log('data', res.data)
+                            // console.log('data', res.data)
                             try {
                                 // const ipfsData = JSON.parse(data)
                                 console.log('image', res.data?.image)
