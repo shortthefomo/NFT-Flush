@@ -177,7 +177,7 @@
             findNFT(NFTokenID) {
                 for (let index = 0; index < this.NFTokenOffers.length; index++) {
                     const element = this.NFTokenOffers[index]
-                    if (element.NFTokenID == element.NFTokenID) {
+                    if (NFTokenID == element.NFTokenID) {
                         return true
                     }
                 }
