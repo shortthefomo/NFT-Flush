@@ -124,7 +124,7 @@
                     }
                 }
 
-                console.log('fetched NFTs', this.NFTokenOffers)
+                // console.log('fetched NFTs', this.NFTokenOffers)
                 this.isLoading = false
             },
             async flushSelected() {
@@ -137,13 +137,7 @@
                 }
                 console.log('tx', tx)
                 const payload = await Sdk.payload.create({ txjson: tx})
-
-                // const {data} = await xapp.signPayload({ txjson: tx })
-
-
-                // const payload = await Sdk.payload.create(tx)
                 const signPayload = await xapp.openSignRequest({ uuid: payload.uuid })
-                
                 
                 console.log('result', signPayload)
                 await this.fetchNFTs()
@@ -151,10 +145,10 @@
             async flushAll() {
                 if (this.$store.getters.getAccount == '') { return }
                 
-
                 const openOffers = this.NFTokenOffers.reduce((a, b) => a.concat(b.index), [])
-                console.log('openOffers', openOffers)
+                //console.log('openOffers', openOffers)
                 if (openOffers.length < 1) { return }
+
                 const tx = {
                     TransactionType: 'NFTokenCancelOffer',
                     Account: this.$store.getters.getAccount,
@@ -162,13 +156,7 @@
                 }
                 console.log('tx', tx)
                 const payload = await Sdk.payload.create({ txjson: tx})
-
-                // const {data} = await xapp.signPayload({ txjson: tx })
-
-
-                // const payload = await Sdk.payload.create(tx)
                 const signPayload = await xapp.openSignRequest({ uuid: payload.uuid })
-                
                 
                 console.log('result', signPayload)
                 await this.fetchNFTs()
