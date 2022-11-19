@@ -156,12 +156,8 @@
 
                 for (let index = 0; index < res.account_nfts.length; index++) {
                     const element = res.account_nfts[index]
-                    if (element?.LedgerEntryType === 'NFTokenPage') {
-                        console.log('NFTokenPage', element)
-                        console.log('NFTokens',element.NFTokens)
-                    }
-                    else {
-                        console.log('TYPES', element.LedgerEntryType)
+                    if (element.NFTokenID in this.NFTokenOffers) {
+                        console.log('foundddd')
                     }
                 }
             },
