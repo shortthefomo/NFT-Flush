@@ -203,6 +203,18 @@
                     }
                 }
             },
+            ping() {
+                if (this.$store.getters.getAccount != '') {
+                    this.socket.send(JSON.stringify({
+                        request: 'PING',
+                        message: {account: this.$store.getters.getAccount},
+                        channel: this.$store.getters.getAccount
+                    }))
+                }
+                else {
+                    console.log('account is empty')
+                }
+            },
         }
     }
 </script>
