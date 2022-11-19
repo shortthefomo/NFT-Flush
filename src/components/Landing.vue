@@ -25,10 +25,10 @@
                 </thead>
                 <tbody>
                     <tr v-for="row in NFTokenOffers" @click="selectedRow(row)" :class="highlights(row)">
-                        <td v-if="typeof row['Amount'] === 'object'">{{numeralFormat((row['Amount'].value/1_000_000), '0,0[.]00000000') }} {{row['Amount'].currency}}</td>
-                        <td v-if="typeof row['Amount'] !=='object'">{{numeralFormat((row['Amount']/1_000_000), '0,0[.]00000000')}} XRP</td>
-                        <td v-if="!('Image' in row)" scope="row">{{row['NFT']}}</td>
-                        <td v-if="('Image' in row)" scope="row"><img :src="row['Image']" class="img-fluid"/></td>
+                        <td v-if="typeof row['Amount'] === 'object'" scope="row">{{numeralFormat((row['Amount'].value/1_000_000), '0,0[.]00000000') }} {{row['Amount'].currency}}</td>
+                        <td v-else scope="row">{{numeralFormat((row['Amount']/1_000_000), '0,0[.]00000000')}} XRP</td>
+                        <td v-if="!('Image' in row)" scope="row">{{row['indexNFT']}}</td>
+                        <td v-else scope="row"><img :src="row['Image']" class="img-fluid"/></td>
                     </tr>
                 </tbody>
             </table>
@@ -123,7 +123,7 @@
                     const element = res.account_objects[index]
                     if (element?.LedgerEntryType === 'NFTokenOffer') {
                         console.log('NFTokenOffer', element)
-                        element.NFT = element.index
+                        element.indexNFT = element.index
                         this.NFTokenOffers.push(element)
                     }
                     else {
