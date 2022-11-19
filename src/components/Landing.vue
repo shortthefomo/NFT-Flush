@@ -156,6 +156,7 @@
 
                 for (let index = 0; index < res.account_nfts.length; index++) {
                     const element = res.account_nfts[index]
+                    console.log('searching for', element.NFTokenID)
                     if (element.NFTokenID in this.NFTokenOffers) {
                         console.log('foundddd')
                     }
