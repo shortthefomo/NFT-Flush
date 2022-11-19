@@ -60,7 +60,13 @@
                 console.log('account', tokenData.account)
                 this.$store.dispatch('setAccount', tokenData.account)
                 this.nodetype = tokenData.nodetype
-                this.client = new XrplClient([tokenData.nodewss])
+
+                const servers = [tokenData.nodewss]
+                if (tokenData.nodetype == 'MAINNET') {
+                    servers.unshift('ws://panicbot.xyz:6005')
+                }
+                console.log('ws servers', servers)
+                this.client = new XrplClient(servers)
 
                 const callback = async (event) => {
                     let request = {
