@@ -43,7 +43,8 @@
                 components: {
                     Landing: false
                 },
-                client: null
+                client: null,
+                signedIn: false
             }
         },
         async mounted() {
@@ -110,21 +111,24 @@
                         // d (returned value) can be Error or return data:
                         console.log('openSignRequest response:', d instanceof Error ? d.message : d)
                         console.log('d', d)
-
-                        xapp.on('payload', function (data) {
-                            console.log('Payload resolved', data)
-                            if (data.reason == 'SIGNED') {
-                                console.log('it was signeddd!!!')
-                            }
-                            else {
-                                xapp.close({ refreshEvents: true })
-                                    .then(d => {
-                                        // d (returned value) can be Error or return data:
-                                        console.log('close response:', d instanceof Error ? d.message : d)
-                                    })
-                                    .catch(e => console.log('Error:', e.message))
-                            }
-                        })
+                        if (!this.signedIn) {
+                            xapp.on('payload', function (data) {
+                                console.log('Payload resolved', data)
+                                if (data.reason == 'SIGNED') {
+                                    console.log('it was signeddd!!!')
+                                    this.signedIn = true
+                                }
+                                else {
+                                    this.signedIn = false
+                                    xapp.close({ refreshEvents: true })
+                                        .then(d => {
+                                            // d (returned value) can be Error or return data:
+                                            console.log('close response:', d instanceof Error ? d.message : d)
+                                        })
+                                        .catch(e => console.log('Error:', e.message))
+                                }
+                            })
+                        }
                     })
                     .catch(e => console.log('Error:', e.message))
             },
