@@ -161,7 +161,9 @@
                         console.log('foundddd', element.URI)
                         console.log('buffer', Buffer.from(element.URI, 'hex').toString('utf8'))
                         const URI = Buffer.from(element.URI, 'hex').toString('utf8')
-                        const data = await this.axios.get(URI)
+                        const convertedURI = URI.replace('ipfs://', 'https://ipfs.io/ipfs/')
+                        console.log('convertedURI', convertedURI)
+                        const data = await this.axios.get(convertedURI)
                         try {
                             const object = JSON.parse(data)
                             console.log('image', object?.image)
