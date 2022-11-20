@@ -170,12 +170,12 @@
 
                 for (let index = 0; index < res.account_nfts.length; index++) {
                     const element = res.account_nfts[index]
-                    console.log('searching for', element.NFTokenID)
+                    // console.log('searching for', element.NFTokenID)
                     try {
                         if (NFTokenID == element.NFTokenID) {
                             const URI = Buffer.from(element.URI, 'hex').toString('utf8')
                             const convertedURI = URI.replace('ipfs://', 'https://ipfs.io/ipfs/')
-                            console.log('convertedURI', convertedURI)
+                            // console.log('convertedURI', convertedURI)
                             this.axios.get(convertedURI).then(res => {
                                 // console.log('data', res.data)
                                 try {
