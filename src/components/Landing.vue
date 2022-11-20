@@ -7,8 +7,8 @@
             </p>
             <p class="col-md-12 fs-4">
                 <p class="text-center">
-                    <a class="btn btn-purple me-2" @click="flushAll" role="button" id="flushAll" v-if="account != ''">flush all</a>
-                    <a class="btn btn-pink me-2" @click="flushSelected" role="button" id="flushSelected" v-if="account != ''">flush selected</a>
+                    <a class="btn btn-purple me-2" @click="flushAll" role="button" id="flushAll" v-if="account != ''" :disabled="hasOffers">flush all</a>
+                    <a class="btn btn-pink me-2" @click="flushSelected" role="button" id="flushSelected" v-if="account != ''" :disabled="hasSelected">flush selected</a>
                 </p>
             </p>
         </div>
@@ -32,6 +32,12 @@
                     </tr>
                 </tbody>
             </table>
+        </div>
+    </div>
+    <div v-else>
+        <div class="container-fluid pb-5">
+            <h1 class="display-5 fw-bold">{OPEN NFT Offers}</h1>
+            <p>There are no open offers</p>
         </div>
     </div>
     <footer>
@@ -89,6 +95,12 @@
             }
         },
         methods: {
+            hasOffers() {
+                return this.NFTokenOffers.length > 0
+            },
+            hasSelected() {
+                return this.selectedRows.length > 0
+            },
             highlights(offer) {
                 if (!this.selectedRows.includes(offer.OfferID)) {
                     return ''
