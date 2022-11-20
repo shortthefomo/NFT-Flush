@@ -212,7 +212,7 @@
                     NFTokenOffers: this.selectedRows
                 }
                 console.log('tx', tx)
-                const count = this.selectedRows.length * process.env.VITE_APP_XAPP_RESERVE
+                const count = this.selectedRows.length * import.meta.env.VITE_APP_XAPP_RESERVE
                 
                 const request = { custom_meta: { instruction: `Remove selected offers and return ${count} XRP reserve.`}, txjson: tx}
 
@@ -248,8 +248,8 @@
                     NFTokenOffers: openOffers
                 }
                 console.log('tx', tx)
-                console.log('VITE_APP_XAPP_RESERVE', process.env.VITE_APP_XAPP_RESERVE)
-                const count = openOffers.length * process.env.VITE_APP_XAPP_RESERVE
+                console.log('VITE_APP_XAPP_RESERVE', import.meta.env.VITE_APP_XAPP_RESERVE)
+                const count = openOffers.length * import.meta.env.VITE_APP_XAPP_RESERVE
                 console.log('count', count)
                 const request = { custom_meta: { instruction: `Remove all offers and return ${count} XRP reserve.` }, txjson: tx}
                 //const signPayload = await xapp.openSignRequest({ uuid: payload.uuid })
