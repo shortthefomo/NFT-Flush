@@ -72,6 +72,12 @@
             }
         },
         computed: {
+            hasOffers() {
+                return this.NFTokenOffers.length > 0 ? true:false
+            },
+            hasSelected() {
+                return this.selectedRows.length > 0 ? false:true
+            },
             ledger() {
                 return this.$store.getters.getLedger
             },
@@ -95,12 +101,6 @@
             }
         },
         methods: {
-            hasOffers() {
-                return this.NFTokenOffers.length > 0 ? true:false
-            },
-            hasSelected() {
-                return this.selectedRows.length > 0 ? false:true
-            },
             highlights(offer) {
                 if (!this.selectedRows.includes(offer.OfferID)) {
                     return ''
