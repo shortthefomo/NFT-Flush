@@ -248,7 +248,7 @@
                     NFTokenOffers: openOffers
                 }
                 console.log('tx', tx)
-                const count = this.NFTokenOffers.length * process.env.VITE_APP_XAPP_RESERVE
+                const count = openOffers.length * process.env.VITE_APP_XAPP_RESERVE
                 const request = { custom_meta: { instruction: `Remove all offers and return ${count} XRP reserve.` }, txjson: tx}
                 //const signPayload = await xapp.openSignRequest({ uuid: payload.uuid })
                 
