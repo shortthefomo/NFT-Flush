@@ -7,8 +7,8 @@
             </p>
             <p class="col-md-12 fs-4">
                 <p class="text-center">
-                    <a v-if="account != ''" class="btn btn-purple me-2" @click="flushAll" role="button" id="flushAll" v-bind:disabled="NFTokenOffers.length == 0">flush all</a>
-                    <a v-if="account != ''" class="btn btn-pink me-2" @click="flushSelected" role="button" id="flushSelected" disabled>flush selected</a>
+                    <a v-if="account != ''" type="button" class="btn btn-purple me-2" @click="flushAll" role="button" id="flushAll">flush all</a>
+                    <a v-if="account != ''" type="button" class="btn btn-pink me-2" @click="flushSelected" role="button" id="flushSelected" disabled>flush selected</a>
                 </p>
             </p>
         </div>
