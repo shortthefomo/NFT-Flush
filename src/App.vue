@@ -69,7 +69,6 @@
                 console.log('ws servers', servers)
                 
                 this.client = new XrplClient(servers)
-                console.log('client connection', await this.client.getState())
 
                 const callback = async (event) => {
                     let request = {
@@ -142,10 +141,11 @@
                     console.log('using remote socket')
                     this.socket = new WebSocket(this.connection.socket)    
                 }
-                
+                const server_info = await this.client.getState()
+                console.log('client connection', server_info)
+
                 this.reconnect_socket++
                 this.socket.onopen = function (message) {
-
                     const tokenData = self.$store.getters.getXummTokenData
                     self.socket.send(JSON.stringify({
                         request: 'SUBSCRIBE',
@@ -158,7 +158,7 @@
                             locale: tokenData?.locale,
                             currency: tokenData?.currency,
                             nodetype: tokenData?.nodetype,
-                            nodewss: tokenData?.nodewss,
+                            nodewss: server_info?.server?.uri,
                             user: tokenData?.user
                         },
                         channel: self.$store.getters.getAccount
