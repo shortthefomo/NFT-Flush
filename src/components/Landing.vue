@@ -7,8 +7,8 @@
             </p>
             <p class="col-md-12 fs-4">
                 <p class="text-center">
-                    <a v-if="account != ''" type="button" class="btn btn-purple me-2" @click="flushAll" role="button" id="flushAll">flush all</a>
-                    <a v-if="account != ''" type="button" class="btn btn-pink me-2" @click="flushSelected" role="button" id="flushSelected" disabled>flush selected</a>
+                    <a v-if="account != '' && hasOffers" type="button" class="btn btn-purple me-2" @click="flushAll" role="button" id="flushAll">flush all</a>
+                    <a v-if="account != '' && hasSelected" type="button" class="btn btn-pink me-2" @click="flushSelected" role="button" id="flushSelected">flush selected</a>
                 </p>
             </p>
         </div>
@@ -73,11 +73,11 @@
         },
         computed: {
             hasOffers() {
-                const offers = (this.NFTokenOffers.length > 0) ? false:true
+                const offers = (this.NFTokenOffers.length > 0) ? true:false
                 return offers
             },
             hasSelected() {
-                const selected = (this.selectedRows.length > 0) ? false:true
+                const selected = (this.selectedRows.length > 0) ? true:false
                 return selected
             },
             ledger() {
