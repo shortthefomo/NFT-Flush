@@ -73,10 +73,10 @@
         },
         computed: {
             hasOffers() {
-                return this.NFTokenOffers.length > 0 ? true:false
+                return (this.NFTokenOffers.length) > 0 ? false:true
             },
             hasSelected() {
-                return this.selectedRows.length > 0 ? false:true
+                return (this.selectedRows.length > 0) ? false:true
             },
             ledger() {
                 return this.$store.getters.getLedger
