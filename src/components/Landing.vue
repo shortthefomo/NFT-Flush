@@ -96,10 +96,10 @@
         },
         methods: {
             hasOffers() {
-                return this.NFTokenOffers.length > 0
+                return this.NFTokenOffers.length > 0 ? true:false
             },
             hasSelected() {
-                return this.selectedRows.length > 0
+                return this.selectedRows.length > 0 ? true:false
             },
             highlights(offer) {
                 if (!this.selectedRows.includes(offer.OfferID)) {
