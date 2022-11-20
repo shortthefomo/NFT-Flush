@@ -99,14 +99,14 @@
                 const request  = { txjson: { TransactionType: 'SignIn' }}
                 // const subscription = await Sdk.payload.create(request)
 
-                const subscription = await Sdk.payload.createAndSubscribe(request, event => {
+                const subscription = await Sdk.payload.createAndSubscribe(request, async event => {
                     console.log('New payload event:', event.data)
 
                     if (event.data.signed === true) {
                         console.log('Woohoo! The sign request was signed :)')
                         self.signedIn = true
                         self.$store.dispatch('setUserToken', event.data.payload_uuidv4)
-                        self.connectWebsocket()
+                        await self.connectWebsocket()
                         return event.data
                     }
 
@@ -130,7 +130,7 @@
                     })
                     .catch(e => console.log('Error:', e.message))
             },
-            connectWebsocket() {
+            async connectWebsocket() {
                 const self = this
                 console.log('location', window.location.origin)
                 if ('https://192.168.0.20:3007' == window.location.origin) {
@@ -197,9 +197,9 @@
                 this.socket.onclose = function (message) {
                     console.log('three socket NFT Flush disconnected!', message)
                     if (self.timeout_socket == null && message.code != 1005) {
-                        self.timeout_socket = setTimeout(() => {
+                        self.timeout_socket = setTimeout(async () => {
                             if (self.reconnect_socket < 30) {
-                                self.connectWebsocket() 
+                                await self.connectWebsocket() 
                             }
                         }, 3000)
                     }
