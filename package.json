@@ -1,7 +1,7 @@
 {
-    "name": "three-loans",
-    "version": "0.9.5",
-    "description": "xApp for escrows and loans",
+    "name": "NFT Flush",
+    "version": "1.0.1",
+    "description": "xApp for clearing lost open NFT offers and reclaiming your reserve",
     "license": "MIT",
     "private": true,
     "scripts": {
