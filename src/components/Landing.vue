@@ -166,7 +166,7 @@
                     'limit': 200
                 }
                 const res = await this.client.send(payload)
-                console.log('objects', res.account_nfts)
+                // console.log('objects', res.account_nfts)
 
                 for (let index = 0; index < res.account_nfts.length; index++) {
                     const element = res.account_nfts[index]
@@ -180,9 +180,9 @@
                                 // console.log('data', res.data)
                                 try {
                                     // const ipfsData = JSON.parse(data)
-                                    console.log('image', res.data?.image)
-                                    console.log('item', item)
-                                    console.log('offf', this.NFTokenOffers[item])
+                                    // console.log('image', res.data?.image)
+                                    // console.log('item', item)
+                                    // console.log('offf', this.NFTokenOffers[item])
                                     this.NFTokenOffers[item].Image = res.data?.image.replace('ipfs://', 'https://ipfs.io/ipfs/')
                                 } catch (e) {
                                     console.log('error', e)
