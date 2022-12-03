@@ -1,13 +1,13 @@
 {
-    "name": "NFT Flush",
+    "name": "NFT_Flush",
     "version": "1.0.1",
     "description": "xApp for clearing lost open NFT offers and reclaiming your reserve",
     "license": "MIT",
     "private": true,
     "scripts": {
-        "dev": "vite --port 3009",
-        "build": "vite build",
-        "serve": "vite preview --port 3009"
+        "dev": "vue-cli-service serve --port 3009",
+        "build": "vue-cli-service build",
+        "lint": "vue-cli-service lint"
     },
     "dependencies": {
         "@popperjs/core": "^2.9.2",
@@ -16,6 +16,7 @@
         "bootstrap-icons": "^1.5.0",
         "buffer": "^6.0.3",
         "events": "^3.3.0",
+        "sass-loader": "^13.2.0",
         "vue": "^3.1.2",
         "vue-axios": "^3.4.1",
         "vue-numerals": "^4.0.6",
@@ -25,10 +26,9 @@
         "xumm-sdk": "^1.5.0"
     },
     "devDependencies": {
-        "@vitejs/plugin-vue": "^1.2.4",
+        "@vue/cli-service": "^5.0.8",
         "@vue/compiler-sfc": "^3.1.2",
-        "sass": "^1.35.1",
-        "vite": "^2.3.8"
+        "sass": "^1.35.1"
     },
     "engines": {
         "node": ">= 14.17.0",
