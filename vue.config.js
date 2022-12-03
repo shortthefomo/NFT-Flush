@@ -5,8 +5,8 @@ module.exports = {
     devServer: {
         allowedHosts: 'all',
         https: {
-            key: fs.readFileSync('../../ssl/panicbot.xyz.key'),
-            cert: fs.readFileSync('../../ssl/panicbot_xyz.crt'),
+            key: fs.readFileSync('/home/lathan/ssl/panicbot.xyz.key'),
+            cert: fs.readFileSync('/home/lathan/ssl/panicbot_xyz.crt'),
         },
     }
 }
