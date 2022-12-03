@@ -106,7 +106,7 @@
                         console.log('Woohoo! The sign request was signed :)')
                         self.signedIn = true
                         self.$store.dispatch('setUserToken', event.data.payload_uuidv4)
-                        await self.connectWebsocket()
+                        // await self.connectWebsocket()
                         return event.data
                     }
 
@@ -199,7 +199,7 @@
                     if (self.timeout_socket == null && message.code != 1005) {
                         self.timeout_socket = setTimeout(async () => {
                             if (self.reconnect_socket < 30) {
-                                await self.connectWebsocket() 
+                                // await self.connectWebsocket() 
                             }
                         }, 3000)
                     }
