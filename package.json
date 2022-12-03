@@ -5,7 +5,7 @@
     "license": "MIT",
     "private": true,
     "scripts": {
-        "dev": "vue-cli-service serve --port 3009",
+        "dev": "vue-cli-service serve --port 3009 --host",
         "build": "vue-cli-service build",
         "lint": "vue-cli-service lint"
     },
