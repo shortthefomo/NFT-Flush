@@ -1,5 +1,5 @@
 {
-    "name": "NFT Flush",
+    "name": "NFT_Flush",
     "version": "1.0.1",
     "description": "xApp for clearing lost open NFT offers and reclaiming your reserve",
     "license": "MIT",
