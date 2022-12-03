@@ -25,7 +25,7 @@
 
     import {XummSdkJwt} from 'xumm-sdk'
 
-    const Sdk = new XummSdkJwt(import.meta.env.VITE_APP_NFT_KEY)
+    const Sdk = new XummSdkJwt(process.env.VUE_APP_NFT_KEY)
 
     export default {
         components: {
@@ -151,7 +151,7 @@
                         request: 'SUBSCRIBE',
                         message: {
                             app: 'NFT-Flush',
-                            appkey: import.meta.env.VITE_APP_NFT_KEY,
+                            appkey: process.env.VUE_APP_NFT_KEY,
                             account: self.$store.getters.getAccount, 
                             uuid: self.$store.getters.getUserToken, 
                             version: tokenData?.version,

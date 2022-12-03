@@ -50,7 +50,7 @@
     const xapp = window.xAppSdk
     import {XummSdkJwt} from 'xumm-sdk'
     import { Buffer } from 'buffer'
-    const Sdk = new XummSdkJwt(import.meta.env.VITE_APP_NFT_KEY)
+    const Sdk = new XummSdkJwt(process.env.VUE_APP_NFT_KEY)
 
     export default {
         name: 'Landing',
@@ -212,7 +212,7 @@
                     NFTokenOffers: this.selectedRows
                 }
                 console.log('tx', tx)
-                const count = this.selectedRows.length * import.meta.env.VITE_APP_XAPP_RESERVE
+                const count = this.selectedRows.length * process.env.VUE_APP_XAPP_RESERVE
                 
                 const request = { custom_meta: { instruction: `Remove selected offers and return ${count} XRP reserve.`}, txjson: tx}
 
