@@ -10,6 +10,7 @@ export default defineConfig({
       key: fs.readFileSync('../../ssl/panicbot.xyz.key'),
       cert: fs.readFileSync('../../ssl/panicbot_xyz.crt'),
     },
+    strictPort: true,
     hmr: {
       protocol: 'wss',
     },
