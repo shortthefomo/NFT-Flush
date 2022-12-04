@@ -10,6 +10,12 @@ export default defineConfig({
       key: fs.readFileSync('../../ssl/panicbot.xyz.key'),
       cert: fs.readFileSync('../../ssl/panicbot_xyz.crt'),
     },
+    strictPort: true,
+    port: 3009,
+    hmr: {
+      protocol: 'wss',
+      clientPort: 443
+    },
   },
   define: {
     'process.env': {}
