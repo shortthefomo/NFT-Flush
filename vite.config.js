@@ -11,7 +11,6 @@ export default defineConfig({
       cert: fs.readFileSync('../../ssl/panicbot_xyz.crt'),
     },
     hmr: {
-      host: 'nft-flush.panicbot.xyz',
       port: 443,
       protocol: 'wss',
     },
