@@ -11,6 +11,7 @@ export default defineConfig({
       cert: fs.readFileSync('../../ssl/panicbot_xyz.crt'),
     },
     hmr: {
+      host: '192.168.0.20',
       port: 443,
       protocol: 'wss',
     },
