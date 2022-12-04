@@ -131,8 +131,10 @@
                 }
                 const res = await this.client.send(payload)
                 this.NFTokenOffers = []
-                console.log('res', res)
-                console.log('objects', res.account_objects)
+
+                if ('error' in res) {
+                    console.log('account_objects error', res.error)
+                }
 
                 for (let index = 0; index < res.account_objects.length; index++) {
                     const element = res.account_objects[index]
