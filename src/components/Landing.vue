@@ -134,6 +134,7 @@
 
                 if ('error' in res) {
                     console.log('account_objects error', res.error)
+                    return
                 }
 
                 for (let index = 0; index < res.account_objects.length; index++) {
