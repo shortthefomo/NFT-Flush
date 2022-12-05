@@ -139,7 +139,7 @@
 
                 for (let index = 0; index < res.account_objects.length; index++) {
                     const element = res.account_objects[index]
-                    if (element?.LedgerEntryType === 'NFTokenOffer') {
+                    if (element.LedgerEntryType === 'NFTokenOffer') {
                         // console.log('NFTokenOffer', element)
                         element.OfferID = element.index
                         this.NFTokenOffers.push(element)
@@ -187,7 +187,7 @@
                                     // console.log('image', res.data?.image)
                                     // console.log('item', item)
                                     // console.log('offf', this.NFTokenOffers[item])
-                                    this.NFTokenOffers[item].Image = res.data?.image.replace('ipfs://', 'https://ipfs.io/ipfs/')
+                                    this.NFTokenOffers[item].Image = res.data.image.replace('ipfs://', 'https://ipfs.io/ipfs/')
                                 } catch (e) {
                                     console.log('error', e)
                                 }

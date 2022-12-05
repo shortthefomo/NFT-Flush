@@ -154,12 +154,12 @@
                             appkey: import.meta.env.VITE_APP_NFT_KEY,
                             account: self.$store.getters.getAccount, 
                             uuid: self.$store.getters.getUserToken, 
-                            version: tokenData?.version,
-                            locale: tokenData?.locale,
-                            currency: tokenData?.currency,
-                            nodetype: tokenData?.nodetype,
-                            nodewss: server_info?.server?.uri,
-                            user: tokenData?.user
+                            version: tokenData.version,
+                            locale: tokenData.locale,
+                            currency: tokenData.currency,
+                            nodetype: tokenData.nodetype,
+                            nodewss: server_info.server.uri,
+                            user: tokenData.user
                         },
                         channel: self.$store.getters.getAccount
                     }))
