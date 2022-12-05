@@ -19,10 +19,10 @@ import { AppStore } from './store/app_store.js'
 // }
 
 const connection = {
-	site: 'https://panicbot.xyz',
-	socket: 'wss://panicbot.xyz:3006',
+	site: 'https://nft-flush.panicbot.xyz',
+	socket: 'wss://three-apps.panicbot.xyz',
 	socket_local: 'wss://192.168.0.19:3006',
-	url: 'https://panicbot.xyz:3006'
+	url: 'https://three-apps.panicbot.xyz'
 }
 
 const app = createApp(App)
