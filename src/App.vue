@@ -1,6 +1,6 @@
 <template>
     <header class="container">
-        <Landing v-if="components.Landing" @action="buttonAction" :client="client">{NFT Flush}</Landing>
+        <Landing v-if="components.Landing" @action="buttonAction" :client="client" :Sdk="Sdk">{NFT Flush}</Landing>
     </header>
 
     <main class="container flex-shrink-0 mb-4">
@@ -25,8 +25,6 @@
 
     import {XummSdkJwt} from 'xumm-sdk'
 
-    const Sdk = new XummSdkJwt(import.meta.env.VITE_APP_NFT_KEY)
-
     export default {
         components: {
             Landing,
@@ -34,6 +32,7 @@
         },
         data() {
             return {
+                Sdk: new XummSdkJwt(import.meta.env.VITE_APP_NFT_KEY),
                 nodetype: 'TESTNET',
                 socket: null,
                 timeout_socket: null,
@@ -55,7 +54,7 @@
         },
         methods: {
             async jwtFlow() {
-                const tokenData = await Sdk.getOttData()
+                const tokenData = await this.Sdk.getOttData()
                 console.log('tokenData', tokenData)
                 this.$store.dispatch('xummTokenData', tokenData)
                 console.log('account', tokenData.account)
@@ -97,9 +96,9 @@
             async jwtSignIn() {
                 const self = this
                 const request  = { txjson: { TransactionType: 'SignIn' }}
-                // const subscription = await Sdk.payload.create(request)
+                // const subscription = await this.Sdk.payload.create(request)
 
-                const subscription = await Sdk.payload.createAndSubscribe(request, async event => {
+                const subscription = await this.Sdk.payload.createAndSubscribe(request, async event => {
                     console.log('New payload event:', event.data)
 
                     if (event.data.signed === true) {

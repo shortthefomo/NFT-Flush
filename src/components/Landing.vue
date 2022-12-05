@@ -48,13 +48,11 @@
 
 <script>
     const xapp = window.xAppSdk
-    import {XummSdkJwt} from 'xumm-sdk'
     import { Buffer } from 'buffer'
-    const Sdk = new XummSdkJwt(import.meta.env.VITE_APP_NFT_KEY)
 
     export default {
         name: 'Landing',
-        props: ['client'],
+        props: ['client', 'Sdk'],
         data() {
             return {
                 isLoading: true,
@@ -220,7 +218,7 @@
                 
                 const request = { custom_meta: { instruction: `Remove selected offers and return ${count} XRP reserve.`}, txjson: tx}
 
-                const payload = await Sdk.payload.createAndSubscribe(request, async event => {
+                const payload = await this.Sdk.payload.createAndSubscribe(request, async event => {
                     console.log('New payload event:', event.data)
 
                     if (event.data.signed === true) {
@@ -255,7 +253,7 @@
                 const count = openOffers.length * import.meta.env.VITE_APP_XAPP_RESERVE
                 const request = { custom_meta: { instruction: `Remove all offers and return ${count} XRP reserve.` }, txjson: tx}               
 
-                const payload = await Sdk.payload.createAndSubscribe(request, async event => {
+                const payload = await this.Sdk.payload.createAndSubscribe(request, async event => {
                     console.log('New payload event:', event.data)
 
                     if (event.data.signed === true) {
