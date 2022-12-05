@@ -48,9 +48,9 @@
             }
         },
         async mounted() {
-            // if (this.components.Landing) { return }
-            // await this.jwtFlow()
-            // this.components.Landing = true
+            if (this.components.Landing) { return }
+            await this.jwtFlow()
+            this.components.Landing = true
             
         },
         methods: {
