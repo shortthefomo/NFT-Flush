@@ -173,7 +173,7 @@
 
                 for (let index = 0; index < res.account_nfts.length; index++) {
                     const element = res.account_nfts[index]
-                    console.log('searching for', element.NFTokenID)
+                    // console.log('searching for', element.NFTokenID)
                     try {
                         if (NFTokenID == element.NFTokenID) {
                             console.log('found', element)
