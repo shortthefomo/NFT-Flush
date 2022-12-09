@@ -159,19 +159,28 @@
                     console.log('xx', element)
                     //PreviousTxnID
 
-                    const payload = {
+                    await this.fetchOwnerNFTs(element.NFTokenID, index)              
+                }
+            },
+            async fetchOwnerNFTs(NFTokenID, item) {
+                let account = null
+                console.log('fetchOwnerNFTs', NFTokenID, item)
+                
+                const res = await this.client.send(payload)
+                
+                const payload_sell_offers = {
                         'id': 1,
                         'command': 'nft_sell_offers',
                         'nft_id': element.NFTokenID,
                         'ledger_index': 'validated'
                     }
-                    const nft_sell_offers = await this.client.send(payload)
-                    console.log('nft_sell_offers', nft_sell_offers)
-                    await this.fetchOwnerNFTs(element.Owner, element.NFTokenID, index)              
+                const nft_sell_offers = await this.client.send(payload_sell_offers)
+                console.log('nft_sell_offers', nft_sell_offers)
+                if ('offers' in nft_sell_offers && nft_sell_offers.length > 0) {
+                    account = nft_sell_offers.offers[0].owner
                 }
-            },
-            async fetchOwnerNFTs(account, NFTokenID, item) {
-                console.log('fetchOwnerNFTs', account, NFTokenID, item)
+
+                console.log('owner not FOUND!')
                 const payload = {
                     'id': 8,
                     'command': 'account_nfts',
@@ -179,8 +188,6 @@
                     'ledger_index': 'validated',
                     'limit': 200
                 }
-                const res = await this.client.send(payload)
-                // console.log('objects', res.account_nfts)
 
                 for (let index = 0; index < res.account_nfts.length; index++) {
                     const element = res.account_nfts[index]
