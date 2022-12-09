@@ -166,7 +166,7 @@
                 let account = null
                 console.log('fetchOwnerNFTs', NFTokenID, item)
                 
-                const res = await this.client.send(payload)
+                
                 
                 const payload_sell_offers = {
                         'id': 1,
@@ -188,7 +188,8 @@
                     'ledger_index': 'validated',
                     'limit': 200
                 }
-
+                const res = await this.client.send(payload)
+                
                 for (let index = 0; index < res.account_nfts.length; index++) {
                     const element = res.account_nfts[index]
                     // console.log('searching for', element.NFTokenID)
