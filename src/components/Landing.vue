@@ -161,6 +161,7 @@
                 }
             },
             async fetchOwnerNFTs(account, NFTokenID, item) {
+                console.log('fetchOwnerNFTs', account, NFTokenID, item)
                 const payload = {
                     'id': 8,
                     'command': 'account_nfts',
