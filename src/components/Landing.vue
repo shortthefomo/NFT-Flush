@@ -156,6 +156,7 @@
 
                 for (let index = 0; index < this.NFTokenOffers.length; index++) {
                     const element = this.NFTokenOffers[index]
+                    console.log('xx', element)
                     await this.fetchOwnerNFTs(element.Owner, element.NFTokenID, index)                    
                 }
             },
