@@ -162,7 +162,7 @@
                     const payload = {
                         'id': 1,
                         'command': 'nft_sell_offers',
-                        'transaction': element.NFTokenID,
+                        'nft_id': element.NFTokenID,
                         'ledger_index': 'validated'
                     }
                     const nft_sell_offers = await this.client.send(payload)
