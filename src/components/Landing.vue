@@ -174,7 +174,7 @@
                     }
                 const nft_sell_offers = await this.client.send(payload_sell_offers)
                 console.log('nft_sell_offers', nft_sell_offers)
-                if ('offers' in nft_sell_offers && nft_sell_offers.length > 0) {
+                if ('offers' in nft_sell_offers && nft_sell_offers.offers.length > 0) {
                     account = nft_sell_offers.offers[0].owner
                     console.log('owner FOUND', account)
                 }
