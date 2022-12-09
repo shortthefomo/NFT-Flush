@@ -157,7 +157,17 @@
                 for (let index = 0; index < this.NFTokenOffers.length; index++) {
                     const element = this.NFTokenOffers[index]
                     console.log('xx', element)
-                    await this.fetchOwnerNFTs(element.Owner, element.NFTokenID, index)                    
+                    //PreviousTxnID
+
+                    const payload = {
+                        'id': 1,
+                        'command': 'tx',
+                        'transaction': element.PreviousTxnID,
+                        'binary': false
+                    }
+                    const prevTX = await this.client.send(payload)
+                    console.log('prevTX', prevTX)
+                    await this.fetchOwnerNFTs(element.Owner, element.NFTokenID, index)              
                 }
             },
             async fetchOwnerNFTs(account, NFTokenID, item) {
