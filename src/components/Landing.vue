@@ -161,11 +161,12 @@
 
                     const payload = {
                         'id': 1,
-                        'command': 'tx',
-                        'transaction': element.PreviousTxnID,
-                        'binary': false
+                        'command': 'nft_sell_offers',
+                        'transaction': element.NFTokenID,
+                        'ledger_index': 'validated'
                     }
-                    const prevTX = await this.client.send(payload)
+                    const nft_sell_offers = await this.client.send(payload)
+                    console.log('nft_sell_offers', nft_sell_offers)
                     await this.fetchOwnerNFTs(element.Owner, element.NFTokenID, index)              
                 }
             },
