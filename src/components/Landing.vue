@@ -167,6 +167,7 @@
                     }
                     const prevTX = await this.client.send(payload)
                     console.log('prevTX', prevTX.Owner)
+                    console.log('prevTX 2', prevTX)
                     await this.fetchOwnerNFTs(prevTX.Owner, element.NFTokenID, index)              
                 }
             },
