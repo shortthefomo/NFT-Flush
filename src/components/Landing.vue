@@ -181,7 +181,7 @@
                             const convertedURI = URI.replace('ipfs://', 'https://ipfs.io/ipfs/')
                             console.log('convertedURI', convertedURI)
                             this.axios.get(convertedURI).then(res => {
-                                // console.log('data', res.data)
+                                console.log('dataaaaa', res.data)
                                 try {
                                     // const ipfsData = JSON.parse(data)
                                     // console.log('image', res.data?.image)
