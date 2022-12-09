@@ -166,8 +166,6 @@
                 let account = null
                 console.log('fetchOwnerNFTs', NFTokenID, item)
                 
-                
-                
                 const payload_sell_offers = {
                         'id': 1,
                         'command': 'nft_sell_offers',
@@ -178,9 +176,13 @@
                 console.log('nft_sell_offers', nft_sell_offers)
                 if ('offers' in nft_sell_offers && nft_sell_offers.length > 0) {
                     account = nft_sell_offers.offers[0].owner
+                    console.log('owner FOUND', account)
+                }
+                else {
+                    console.log('owner not FOUND!')
                 }
 
-                console.log('owner not FOUND!')
+                
                 const payload = {
                     'id': 8,
                     'command': 'account_nfts',
@@ -189,7 +191,7 @@
                     'limit': 200
                 }
                 const res = await this.client.send(payload)
-                
+
                 for (let index = 0; index < res.account_nfts.length; index++) {
                     const element = res.account_nfts[index]
                     // console.log('searching for', element.NFTokenID)
