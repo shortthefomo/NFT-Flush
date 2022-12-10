@@ -27,8 +27,8 @@
                     <tr v-for="row in NFTokenOffers" @click="selectedRow(row)" :class="highlights(row)">
                         <td v-if="typeof row['Amount'] === 'object'">{{numeralFormat((row['Amount'].value/1_000_000), '0,0[.]00000000') }} {{currencyHexToUTF8(row['Amount'].currency)}}</td>
                         <td v-else>{{numeralFormat((row['Amount']/1_000_000), '0,0[.]00000000')}} XRP</td>
-                        <td style="width:60px !important; overflow: hidden;" v-if="('Image' in row)"><img class="img-fluid" :src="row['Image']" :alt="row['OfferID']" :title="row['OfferID']"></td>
-                        <td v-else>{{row['OfferID']}}</td>
+                        <td style="max-width:60px;" v-if="('Image' in row)"><img class="img-fluid" :src="row['Image']" :alt="row['OfferID']" :title="row['OfferID']"></td>
+                        <td v-else style="width:60px !important; overflow: hidden;">{{row['OfferID']}}</td>
                     </tr>
                 </tbody>
             </table>
