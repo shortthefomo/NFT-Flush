@@ -198,12 +198,20 @@
                     'ledger_index': 'validated',
                     'limit': 200
                 }
-                const res = await this.client.send(payload)
+                let res = await this.client.send(payload)
 
-                for (let index = 0; index < res.account_nfts.length; index++) {
-                    const element = res.account_nfts[index]
-                    // console.log('searching for', element.NFTokenID)
-                    try {
+                if (this.getImageURL(res, item)) { return }
+                while (res['marker'] !== undefined) {
+                    payload.marker = res['marker']
+                    res = await this.client.send(payload)
+                    if (this.getImageURL(res, item)) { return }
+                }
+            },
+            getImageURL(res, item) {
+                try {
+                    for (let index = 0; index < res.account_nfts.length; index++) {
+                        const element = res.account_nfts[index]
+                        // console.log('searching for', element.NFTokenID)
                         if (NFTokenID == element.NFTokenID) {
                             console.log('found', element)
                             const URI = Buffer.from(element.URI, 'hex').toString('utf8')
@@ -211,19 +219,19 @@
                             // console.log('convertedURI', convertedURI)
                             this.axios.get(convertedURI).then(res => {
                                 // console.log('dataaaaa', res.data)
-                                try {
-                                    // const ipfsData = JSON.parse(data)
-                                    console.log('image', res.data.image.replace('ipfs://', 'https://ipfs.io/ipfs/'))
-                                    this.NFTokenOffers[item].Image = res.data.image.replace('ipfs://', 'https://ipfs.io/ipfs/')
-                                } catch (e) {
-                                    console.log('error', e)
-                                }
+                                
+                                // const ipfsData = JSON.parse(data)
+                                console.log('image', res.data.image.replace('ipfs://', 'https://ipfs.io/ipfs/'))
+                                this.NFTokenOffers[item].Image = res.data.image.replace('ipfs://', 'https://ipfs.io/ipfs/')
+                                return true
                             })
                         }
-                    } catch (e) {
-                        // console.log('error', e)
+                    
                     }
+                } catch (e) {
+                    // console.log('error', e)
                 }
+                return false
             },
             findNFT(NFTokenID) {
                 for (let index = 0; index < this.NFTokenOffers.length; index++) {
