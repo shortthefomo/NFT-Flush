@@ -188,7 +188,7 @@
                     'command': 'account_nfts',
                     'account': account,
                     'ledger_index': 'validated',
-                    'limit': 200
+                    'limit': 400
                 }
                 const res = await this.client.send(payload)
 
