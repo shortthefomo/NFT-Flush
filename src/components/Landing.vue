@@ -247,7 +247,7 @@
                 console.log('NOT FOUND!!!')
                 return false
             },
-            async convertURI(URI) {
+            async convertURI(URI, item) {
                 const convertedURI = URI.replace('ipfs://', 'https://ipfs.io/ipfs/')
                 const {data} = await this.axios.get(convertedURI)
                 console.log('image', data.image.replace('ipfs://', 'https://ipfs.io/ipfs/'))
