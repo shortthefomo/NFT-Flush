@@ -138,7 +138,7 @@
                 for (let index = 0; index < res.account_objects.length; index++) {
                     const element = res.account_objects[index]
                     if (element.LedgerEntryType === 'NFTokenOffer') {
-                        // console.log('NFTokenOffer', element)
+                        console.log('NFTokenOffer', element)
                         element.OfferID = element.index
                         this.NFTokenOffers.push(element)
                     }
@@ -167,11 +167,11 @@
                 // console.log('fetchOwnerNFTs', NFTokenID, item)
                 
                 const payload_sell_offers = {
-                        'id': 1,
-                        'command': 'nft_sell_offers',
-                        'nft_id': NFTokenID,
-                        'ledger_index': 'validated'
-                    }
+                    'id': 1,
+                    'command': 'nft_sell_offers',
+                    'nft_id': NFTokenID,
+                    'ledger_index': 'validated'
+                }
                 const nft_sell_offers = await this.client.send(payload_sell_offers)
                 // console.log('nft_sell_offers', nft_sell_offers)
                 if ('offers' in nft_sell_offers && nft_sell_offers.offers.length > 0) {
@@ -180,6 +180,7 @@
                 }
                 else {
                     console.log('owner not FOUND!')
+                    return
                 }
 
                 
