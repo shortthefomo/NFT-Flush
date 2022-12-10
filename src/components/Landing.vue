@@ -179,18 +179,28 @@
                     'nft_id': NFTokenID,
                     'ledger_index': 'validated'
                 }
-                const nft_sell_offers = await this.client.send(payload_sell_offers)
-                // console.log('nft_sell_offers', nft_sell_offers)
-                if (!('offers' in nft_sell_offers)) { 
+                let nft_offers = await this.client.send(payload_sell_offers)
+                
+                if ('error' in nft_offers && nft_offers.error == 'objectNotFound') {
+                    const payload_buy_offers = {
+                        'id': 1,
+                        'command': 'nft_buy_offers',
+                        'nft_id': NFTokenID,
+                        'ledger_index': 'validated'
+                    }
+                    nft_offers = await this.client.send(payload_buy_offers)
+                }
+
+                if (!('offers' in nft_offers)) { 
                     console.log('owner NOT FOUND no offers 1', NFTokenID)
-                    console.log('nft_sell_offers', nft_sell_offers)
+                    console.log('nft_offers', nft_offers)
 
                     return }
-                if (nft_sell_offers.offers.length == 0) { 
+                if (nft_offers.offers.length == 0) { 
                     console.log('owner NOT FOUND no offers 2', NFTokenID)
                     return }
 
-                account = nft_sell_offers.offers[0].owner
+                account = nft_offers.offers[0].owner
                 console.log('owner FOUND', account)
 
                 const payload = {
