@@ -228,6 +228,7 @@
                 } catch (e) {
                     console.log('error', e)
                 }
+                console.log('NOT FOUND!!!')
                 return false
             },
             findNFT(NFTokenID) {
