@@ -196,15 +196,15 @@
                 }
                 let res = await this.client.send(payload)
 
-                if (this.getImageURL(res, item)) { return }
+                if (this.getImageURL(res, item, NFTokenID)) { return }
                 while (res['marker'] !== undefined) {
                     console.log('marker', res['marker'])
                     payload.marker = res['marker']
                     res = await this.client.send(payload)
-                    if (this.getImageURL(res, item)) { return }
+                    if (this.getImageURL(res, item, NFTokenID)) { return }
                 }
             },
-            getImageURL(res, item) {
+            getImageURL(res, item,NFTokenID) {
                 try {
                     for (let index = 0; index < res.account_nfts.length; index++) {
                         const element = res.account_nfts[index]
