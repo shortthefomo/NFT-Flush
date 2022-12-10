@@ -104,9 +104,9 @@
         methods: {
             styleLabel(value) {
                 if (value == 1) {
-                    return '<span class="bg-info btn-pink px-2 py-1">sell</span>'
+                    return "<span class='bg-info btn-pink px-2 py-1'>sell</span>"
                 }
-                return '<span class="bg-info btn-green px-2 py-1">buy</span>'
+                return "<span class='bg-info btn-green px-2 py-1'>buy</span>"
             },
             highlights(offer) {
                 if (!this.selectedRows.includes(offer.OfferID)) {
