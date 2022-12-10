@@ -25,8 +25,8 @@
                 </thead>
                 <tbody>
                     <tr v-for="row in NFTokenOffers" @click="selectedRow(row)" :class="highlights(row)">
-                        <td v-if="typeof row['Amount'] === 'object'">{{row['Flags'] == 1 ? '<span class="bg-info btn-pink px-2 py-1">sell</span>':'<span class="bg-info btn-green px-2 py-1">sell</span>'}} {{numeralFormat((row['Amount'].value), '0,0') }} {{currencyHexToUTF8(row['Amount'].currency)}}</td>
-                        <td v-else>{{row['Flags'] == 1 ? '<span class="bg-info btn-pink px-2 py-1">sell</span>':'<span class="bg-info btn-green px-2 py-1">sell</span>'}} {{numeralFormat((row['Amount']/1_000_000), '0,0[.]00000000')}} XRP</td>
+                        <td v-if="typeof row['Amount'] === 'object'">{{styleLabel(row['Flags'])}} {{numeralFormat((row['Amount'].value), '0,0') }} {{currencyHexToUTF8(row['Amount'].currency)}}</td>
+                        <td v-else>{{styleLabel(row['Flags'])}} {{numeralFormat((row['Amount']/1_000_000), '0,0[.]00000000')}} XRP</td>
 
                         <td style="max-width:60px;" v-if="('Image' in row)"><img class="img-fluid" :src="row['Image']" :alt="row['OfferID']" :title="row['OfferID']"></td>
                         <td v-else style="width:60px !important; overflow: hidden;">...{{row['OfferID'].substring(row['OfferID'].length-5, row['OfferID'].length)}}</td>
@@ -71,6 +71,12 @@
             }
         },
         computed: {
+            styleLabel(value) {
+                if (value == 1) {
+                    return '<span class="bg-info btn-pink px-2 py-1">sell</span>'
+                }
+                return '<span class="bg-info btn-green px-2 py-1">buy</span>'
+            },
             hasOffers() {
                 const offers = (this.NFTokenOffers.length > 0) ? true:false
                 return offers
