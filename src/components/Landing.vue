@@ -192,7 +192,7 @@
                 if (!('offers' in nft_offers)) { 
                     console.log('owner NOT FOUND no offers 1', NFTokenID)
                     console.log('nft_offers', nft_offers)
-
+                    await this.fallbackXRPLServices(NFTokenID, item)
                     return }
                 if (nft_offers.offers.length == 0) { 
                     console.log('owner NOT FOUND no offers 2', NFTokenID)
@@ -229,7 +229,7 @@
                 console.log('fallback', `https://api.xrpldata.com/api/v1/xls20-nfts/nft/${NFTokenID}`)
                 const {data} = await this.axios.get(`https://api.xrpldata.com/api/v1/xls20-nfts/nft/${NFTokenID}`)
                 const URI = Buffer.from(data.data.nft.URI, 'hex').toString('utf8')
-                console.log('URRRIII', URI)
+                // console.log('URRRIII', URI)
                 await this.convertURI(URI, item)
             },
             async getImageURL(res, item, NFTokenID) {
