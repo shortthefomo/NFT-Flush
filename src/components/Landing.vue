@@ -202,10 +202,10 @@
                             const convertedURI = URI.replace('ipfs://', 'https://ipfs.io/ipfs/')
                             console.log('convertedURI', convertedURI)
                             this.axios.get(convertedURI).then(res => {
-                                console.log('dataaaaa', res.data)
+                                // console.log('dataaaaa', res.data)
                                 try {
                                     // const ipfsData = JSON.parse(data)
-                                    // console.log('image', res.data?.image)
+                                    console.log('image', res.data.image.replace('ipfs://', 'https://ipfs.io/ipfs/'))
                                     // console.log('item', item)
                                     // console.log('offf', this.NFTokenOffers[item])
                                     this.NFTokenOffers[item].Image = res.data.image.replace('ipfs://', 'https://ipfs.io/ipfs/')
