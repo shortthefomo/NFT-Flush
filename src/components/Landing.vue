@@ -214,6 +214,8 @@
                             const URI = Buffer.from(element.URI, 'hex').toString('utf8')
                             const convertedURI = URI.replace('ipfs://', 'https://ipfs.io/ipfs/')
                             // console.log('convertedURI', convertedURI)
+                            const {data} = this.axios.get(convertedURI)
+                            console.log('data', data)
                             this.axios.get(convertedURI).then(res => {
                                 // console.log('dataaaaa', res.data)
                                 
@@ -223,7 +225,6 @@
                                 return true
                             })
                         }
-                    
                     }
                 } catch (e) {
                     console.log('error', e)
