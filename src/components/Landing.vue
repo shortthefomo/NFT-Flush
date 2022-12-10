@@ -181,27 +181,24 @@
                 }
                 const nft_sell_offers = await this.client.send(payload_sell_offers)
                 // console.log('nft_sell_offers', nft_sell_offers)
-                if ('offers' in nft_sell_offers && nft_sell_offers.offers.length > 0) {
-                    account = nft_sell_offers.offers[0].owner
-                    console.log('owner FOUND', account)
-                }
-                else {
-                    console.log('owner not FOUND!')
-                    return
-                }
+                if (!('offers' in nft_sell_offers)) { return }
+                if (nft_sell_offers.offers.length == 0) { return }
 
-                
+                account = nft_sell_offers.offers[0].owner
+                console.log('owner FOUND', account)
+
                 const payload = {
                     'id': 8,
                     'command': 'account_nfts',
                     'account': account,
                     'ledger_index': 'validated',
-                    'limit': 200
+                    'limit': 400
                 }
                 let res = await this.client.send(payload)
 
                 if (this.getImageURL(res, item)) { return }
                 while (res['marker'] !== undefined) {
+                    console.log('marker', res['marker'])
                     payload.marker = res['marker']
                     res = await this.client.send(payload)
                     if (this.getImageURL(res, item)) { return }
