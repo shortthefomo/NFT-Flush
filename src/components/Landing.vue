@@ -212,7 +212,9 @@
                 }
                 let res = await this.client.send(payload)
 
-                if (await this.getImageURL(res, item, NFTokenID)) { return }
+                const x = await this.getImageURL(res, item, NFTokenID)
+                console.log('x', x)
+                if (x) { return }
                 while (res['marker'] !== undefined) {
                     console.log('marker', res['marker'])
                     payload.marker = res['marker']
