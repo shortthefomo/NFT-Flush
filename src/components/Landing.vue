@@ -216,14 +216,9 @@
                             // console.log('convertedURI', convertedURI)
                             const {data} = await this.axios.get(convertedURI)
                             console.log('data', data)
-                            this.axios.get(convertedURI).then(res => {
-                                // console.log('dataaaaa', res.data)
-                                
-                                // const ipfsData = JSON.parse(data)
-                                console.log('image', res.data.image.replace('ipfs://', 'https://ipfs.io/ipfs/'))
-                                this.NFTokenOffers[item].Image = res.data.image.replace('ipfs://', 'https://ipfs.io/ipfs/')
-                                return true
-                            })
+                            console.log('image', data.image.replace('ipfs://', 'https://ipfs.io/ipfs/'))
+                            this.NFTokenOffers[item].Image = data.image.replace('ipfs://', 'https://ipfs.io/ipfs/')
+                            return true
                         }
                     }
                 } catch (e) {
