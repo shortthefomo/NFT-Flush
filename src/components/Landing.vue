@@ -220,7 +220,7 @@
                     payload.marker = res['marker']
                     res = await this.client.send(payload)
                     if (! await this.getImageURL(res, item, NFTokenID)) { 
-                        //await this.fallbackXRPLServices(NFTokenID)
+                        await this.fallbackXRPLServices(NFTokenID)
                         return
                     }
                 }
@@ -240,7 +240,6 @@
                 try {
                     for (let index = 0; index < res.account_nfts.length; index++) {
                         const element = res.account_nfts[index]
-                        // console.log('searching for', element.NFTokenID)
                         if (NFTokenID == element.NFTokenID) {
                             console.log('found', element)
                             const URI = Buffer.from(element.URI, 'hex').toString('utf8')
