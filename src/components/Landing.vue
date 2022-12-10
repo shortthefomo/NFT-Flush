@@ -188,17 +188,6 @@
                     'ledger_index': 'validated'
                 }
                 let nft_offers = await this.client.send(payload_sell_offers)
-                
-                // buy offer will not be from account owning the NFT
-                // if ('error' in nft_offers && nft_offers.error == 'objectNotFound') {
-                //     const payload_buy_offers = {
-                //         'id': 1,
-                //         'command': 'nft_buy_offers',
-                //         'nft_id': NFTokenID,
-                //         'ledger_index': 'validated'
-                //     }
-                //     nft_offers = await this.client.send(payload_buy_offers)
-                // }
 
                 if (!('offers' in nft_offers)) { 
                     console.log('owner NOT FOUND no offers 1', NFTokenID)
@@ -221,20 +210,27 @@
                 }
                 let res = await this.client.send(payload)
 
-                const x = await this.getImageURL(res, item, NFTokenID)
-                console.log('x', x, NFTokenID)
-                if (x) { 
-                    console.log('exxiting', NFTokenID)
-                    return }
+                
+                if (await this.getImageURL(res, item, NFTokenID)) { 
+                    this.fallbackXRPLServices(NFTokenID)
+                    return 
+                }
                 console.log('start while', res)
                 while (res['marker'] !== undefined) {
                     console.log('marker', res['marker'])
                     payload.marker = res['marker']
                     res = await this.client.send(payload)
-                    if (await this.getImageURL(res, item, NFTokenID)) { return }
+                    if (await this.getImageURL(res, item, NFTokenID)) { 
+                        this.fallbackXRPLServices(NFTokenID)
+                        return 
+                    }
                 }
             },
-            async getImageURL(res, item,NFTokenID) {
+            async fallbackXRPLServices(NFTokenID) {
+                const {data} = await this.axios.get(`https://api.xrpldata.com/api/v1/xls20-nfts/nft/${NFTokenID}`)
+                this.convertURI(data.data.nft.URI)
+            },
+            async getImageURL(res, item, NFTokenID) {
                 try {
                     for (let index = 0; index < res.account_nfts.length; index++) {
                         const element = res.account_nfts[index]
@@ -242,11 +238,7 @@
                         if (NFTokenID == element.NFTokenID) {
                             console.log('found', element)
                             const URI = Buffer.from(element.URI, 'hex').toString('utf8')
-                            const convertedURI = URI.replace('ipfs://', 'https://ipfs.io/ipfs/')
-                            // console.log('convertedURI', convertedURI)
-                            const {data} = await this.axios.get(convertedURI)
-                            console.log('image', data.image.replace('ipfs://', 'https://ipfs.io/ipfs/'))
-                            this.NFTokenOffers[item].Image = data.image.replace('ipfs://', 'https://ipfs.io/ipfs/')
+                            this.convertURI(URI)
                             return true
                         }
                     }
@@ -255,6 +247,13 @@
                 }
                 console.log('NOT FOUND!!!')
                 return false
+            },
+            convertURI(URI) {
+                const convertedURI = URI.replace('ipfs://', 'https://ipfs.io/ipfs/')
+                // console.log('convertedURI', convertedURI)
+                const {data} = await this.axios.get(convertedURI)
+                console.log('image', data.image.replace('ipfs://', 'https://ipfs.io/ipfs/'))
+                this.NFTokenOffers[item].Image = data.image.replace('ipfs://', 'https://ipfs.io/ipfs/')
             },
             findNFT(NFTokenID) {
                 for (let index = 0; index < this.NFTokenOffers.length; index++) {
