@@ -212,7 +212,7 @@
 
                 
                 if (! await this.getImageURL(res, item, NFTokenID)) { 
-                    await this.fallbackXRPLServices(NFTokenID, item)
+                    //await this.fallbackXRPLServices(NFTokenID, item)
                     return
                 }
                 while (res['marker'] !== undefined) {
