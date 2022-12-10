@@ -196,15 +196,15 @@
                 }
                 let res = await this.client.send(payload)
 
-                if (this.getImageURL(res, item, NFTokenID)) { return }
+                if (await this.getImageURL(res, item, NFTokenID)) { return }
                 while (res['marker'] !== undefined) {
                     console.log('marker', res['marker'])
                     payload.marker = res['marker']
                     res = await this.client.send(payload)
-                    if (this.getImageURL(res, item, NFTokenID)) { return }
+                    if (await this.getImageURL(res, item, NFTokenID)) { return }
                 }
             },
-            getImageURL(res, item,NFTokenID) {
+            async getImageURL(res, item,NFTokenID) {
                 try {
                     for (let index = 0; index < res.account_nfts.length; index++) {
                         const element = res.account_nfts[index]
@@ -214,7 +214,7 @@
                             const URI = Buffer.from(element.URI, 'hex').toString('utf8')
                             const convertedURI = URI.replace('ipfs://', 'https://ipfs.io/ipfs/')
                             // console.log('convertedURI', convertedURI)
-                            const {data} = this.axios.get(convertedURI)
+                            const {data} = await this.axios.get(convertedURI)
                             console.log('data', data)
                             this.axios.get(convertedURI).then(res => {
                                 // console.log('dataaaaa', res.data)
