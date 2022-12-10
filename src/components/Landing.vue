@@ -212,7 +212,7 @@
 
                 
                 if (await this.getImageURL(res, item, NFTokenID)) { 
-                    this.fallbackXRPLServices(NFTokenID)
+                    await this.fallbackXRPLServices(NFTokenID)
                     return 
                 }
                 console.log('start while', res)
@@ -221,7 +221,7 @@
                     payload.marker = res['marker']
                     res = await this.client.send(payload)
                     if (await this.getImageURL(res, item, NFTokenID)) { 
-                        this.fallbackXRPLServices(NFTokenID)
+                        await this.fallbackXRPLServices(NFTokenID)
                         return 
                     }
                 }
