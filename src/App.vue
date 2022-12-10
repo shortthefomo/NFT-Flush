@@ -91,8 +91,7 @@
                     }
                 }
                 this.client.on('ledger', callback)
-                await self.connectWebsocket()
-
+                await this.connectWebsocket()
                 // await this.jwtSignIn()
             },
             async jwtSignIn() {
