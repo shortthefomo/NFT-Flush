@@ -125,7 +125,7 @@
                     'command': 'account_objects',
                     'account': this.$store.getters.getAccount,
                     'ledger_index': 'validated',
-                    'limit': 400
+                    'limit': 1000
                 }
                 const res = await this.client.send(payload)
                 this.NFTokenOffers = []
