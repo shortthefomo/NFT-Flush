@@ -226,6 +226,7 @@
                 }
             },
             async fallbackXRPLServices(NFTokenID, item) {
+                console.log(`https://api.xrpldata.com/api/v1/xls20-nfts/nft/${NFTokenID}`)
                 const {data} = await this.axios.get(`https://api.xrpldata.com/api/v1/xls20-nfts/nft/${NFTokenID}`)
                 console.log('fallbackXRPLServices', data)
                 await this.convertURI(data.data.nft.URI, item)
