@@ -183,6 +183,7 @@
                 // console.log('nft_sell_offers', nft_sell_offers)
                 if (!('offers' in nft_sell_offers)) { 
                     console.log('owner NOT FOUND no offers 1')
+                    console.log('nft_sell_offers', nft_sell_offers)
                     return }
                 if (nft_sell_offers.offers.length == 0) { 
                     console.log('owner NOT FOUND no offers 2')
