@@ -28,7 +28,7 @@
                         <td v-if="typeof row['Amount'] === 'object'">{{numeralFormat((row['Amount'].value/1_000_000), '0,0[.]00000000') }} {{currencyHexToUTF8(row['Amount'].currency)}}</td>
                         <td v-else>{{numeralFormat((row['Amount']/1_000_000), '0,0[.]00000000')}} XRP</td>
                         <td style="max-width:60px;" v-if="('Image' in row)"><img class="img-fluid" :src="row['Image']" :alt="row['OfferID']" :title="row['OfferID']"></td>
-                        <td v-else style="width:60px !important; overflow: hidden;">{{row['OfferID']}}</td>
+                        <td v-else style="width:60px !important; overflow: hidden;">{{row['OfferID'].substring(0, 5)}}...</td>
                     </tr>
                 </tbody>
             </table>
