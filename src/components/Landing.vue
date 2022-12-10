@@ -228,7 +228,7 @@
             },
             async fallbackXRPLServices(NFTokenID) {
                 const {data} = await this.axios.get(`https://api.xrpldata.com/api/v1/xls20-nfts/nft/${NFTokenID}`)
-                this.convertURI(data.data.nft.URI)
+                await this.convertURI(data.data.nft.URI)
             },
             async getImageURL(res, item, NFTokenID) {
                 try {
@@ -238,7 +238,7 @@
                         if (NFTokenID == element.NFTokenID) {
                             console.log('found', element)
                             const URI = Buffer.from(element.URI, 'hex').toString('utf8')
-                            this.convertURI(URI)
+                            await this.convertURI(URI)
                             return true
                         }
                     }
@@ -248,9 +248,8 @@
                 console.log('NOT FOUND!!!')
                 return false
             },
-            convertURI(URI) {
+            async convertURI(URI) {
                 const convertedURI = URI.replace('ipfs://', 'https://ipfs.io/ipfs/')
-                // console.log('convertedURI', convertedURI)
                 const {data} = await this.axios.get(convertedURI)
                 console.log('image', data.image.replace('ipfs://', 'https://ipfs.io/ipfs/'))
                 this.NFTokenOffers[item].Image = data.image.replace('ipfs://', 'https://ipfs.io/ipfs/')
