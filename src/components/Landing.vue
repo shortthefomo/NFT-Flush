@@ -108,7 +108,7 @@
                 return 'table-secondary'
             },
             selectedRow(offer) {
-                console.log('offer', offer.OfferID)
+                // console.log('offer', offer.OfferID)
                 if (!this.selectedRows.includes(offer.OfferID)) {
                     this.selectedRows.push(offer.OfferID)
                 }
@@ -156,7 +156,7 @@
 
                 for (let index = 0; index < this.NFTokenOffers.length; index++) {
                     const element = this.NFTokenOffers[index]
-                    console.log('xx', element)
+                    // console.log('xx', element)
                     //PreviousTxnID
 
                     await this.fetchOwnerNFTs(element.NFTokenID, index)              
@@ -164,7 +164,7 @@
             },
             async fetchOwnerNFTs(NFTokenID, item) {
                 let account = null
-                console.log('fetchOwnerNFTs', NFTokenID, item)
+                // console.log('fetchOwnerNFTs', NFTokenID, item)
                 
                 const payload_sell_offers = {
                         'id': 1,
@@ -173,7 +173,7 @@
                         'ledger_index': 'validated'
                     }
                 const nft_sell_offers = await this.client.send(payload_sell_offers)
-                console.log('nft_sell_offers', nft_sell_offers)
+                // console.log('nft_sell_offers', nft_sell_offers)
                 if ('offers' in nft_sell_offers && nft_sell_offers.offers.length > 0) {
                     account = nft_sell_offers.offers[0].owner
                     console.log('owner FOUND', account)
@@ -200,14 +200,12 @@
                             console.log('found', element)
                             const URI = Buffer.from(element.URI, 'hex').toString('utf8')
                             const convertedURI = URI.replace('ipfs://', 'https://ipfs.io/ipfs/')
-                            console.log('convertedURI', convertedURI)
+                            // console.log('convertedURI', convertedURI)
                             this.axios.get(convertedURI).then(res => {
                                 // console.log('dataaaaa', res.data)
                                 try {
                                     // const ipfsData = JSON.parse(data)
                                     console.log('image', res.data.image.replace('ipfs://', 'https://ipfs.io/ipfs/'))
-                                    // console.log('item', item)
-                                    // console.log('offf', this.NFTokenOffers[item])
                                     this.NFTokenOffers[item].Image = res.data.image.replace('ipfs://', 'https://ipfs.io/ipfs/')
                                 } catch (e) {
                                     console.log('error', e)
