@@ -211,18 +211,15 @@
                 let res = await this.client.send(payload)
 
                 
-                if (await this.getImageURL(res, item, NFTokenID)) { 
+                if (! await this.getImageURL(res, item, NFTokenID)) { 
                     await this.fallbackXRPLServices(NFTokenID)
-                    return 
                 }
-                console.log('start while', res)
                 while (res['marker'] !== undefined) {
                     console.log('marker', res['marker'])
                     payload.marker = res['marker']
                     res = await this.client.send(payload)
-                    if (await this.getImageURL(res, item, NFTokenID)) { 
+                    if (! await this.getImageURL(res, item, NFTokenID)) { 
                         await this.fallbackXRPLServices(NFTokenID)
-                        return 
                     }
                 }
             },
