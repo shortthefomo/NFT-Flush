@@ -213,9 +213,9 @@
                 let res = await this.client.send(payload)
 
                 const x = await this.getImageURL(res, item, NFTokenID)
-                console.log('x', x)
+                console.log('x', x, NFTokenID)
                 if (x) { 
-                    console.log('exxiting')
+                    console.log('exxiting', NFTokenID)
                     return }
                 console.log('start while', res)
                 while (res['marker'] !== undefined) {
