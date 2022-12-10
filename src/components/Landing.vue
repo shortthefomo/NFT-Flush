@@ -212,20 +212,22 @@
 
                 
                 if (! await this.getImageURL(res, item, NFTokenID)) { 
-                    await this.fallbackXRPLServices(NFTokenID)
+                    await this.fallbackXRPLServices(NFTokenID, item)
+                    return
                 }
                 while (res['marker'] !== undefined) {
                     console.log('marker', res['marker'])
                     payload.marker = res['marker']
                     res = await this.client.send(payload)
                     if (! await this.getImageURL(res, item, NFTokenID)) { 
-                        await this.fallbackXRPLServices(NFTokenID)
+                        //await this.fallbackXRPLServices(NFTokenID)
+                        return
                     }
                 }
             },
-            async fallbackXRPLServices(NFTokenID) {
+            async fallbackXRPLServices(NFTokenID, item) {
                 const {data} = await this.axios.get(`https://api.xrpldata.com/api/v1/xls20-nfts/nft/${NFTokenID}`)
-                await this.convertURI(data.data.nft.URI)
+                await this.convertURI(data.data.nft.URI, item)
             },
             async getImageURL(res, item, NFTokenID) {
                 try {
@@ -235,7 +237,7 @@
                         if (NFTokenID == element.NFTokenID) {
                             console.log('found', element)
                             const URI = Buffer.from(element.URI, 'hex').toString('utf8')
-                            await this.convertURI(URI)
+                            await this.convertURI(URI, item)
                             return true
                         }
                     }
