@@ -229,6 +229,7 @@
                 console.log('fallback', `https://api.xrpldata.com/api/v1/xls20-nfts/nft/${NFTokenID}`)
                 const {data} = await this.axios.get(`https://api.xrpldata.com/api/v1/xls20-nfts/nft/${NFTokenID}`)
                 const URI = Buffer.from(data.data.nft.URI, 'hex').toString('utf8')
+                console.log('URRRIII', URI)
                 await this.convertURI(URI, item)
             },
             async getImageURL(res, item, NFTokenID) {
