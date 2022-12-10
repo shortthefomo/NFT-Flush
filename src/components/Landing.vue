@@ -181,8 +181,12 @@
                 }
                 const nft_sell_offers = await this.client.send(payload_sell_offers)
                 // console.log('nft_sell_offers', nft_sell_offers)
-                if (!('offers' in nft_sell_offers)) { return }
-                if (nft_sell_offers.offers.length == 0) { return }
+                if (!('offers' in nft_sell_offers)) { 
+                    console.log('owner NOT FOUND no offers 1')
+                    return }
+                if (nft_sell_offers.offers.length == 0) { 
+                    console.log('owner NOT FOUND no offers 2')
+                    return }
 
                 account = nft_sell_offers.offers[0].owner
                 console.log('owner FOUND', account)
@@ -215,7 +219,6 @@
                             const convertedURI = URI.replace('ipfs://', 'https://ipfs.io/ipfs/')
                             // console.log('convertedURI', convertedURI)
                             const {data} = await this.axios.get(convertedURI)
-                            console.log('data', data)
                             console.log('image', data.image.replace('ipfs://', 'https://ipfs.io/ipfs/'))
                             this.NFTokenOffers[item].Image = data.image.replace('ipfs://', 'https://ipfs.io/ipfs/')
                             return true
