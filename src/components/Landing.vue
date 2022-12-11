@@ -205,30 +205,33 @@
                 let res = await this.client.send(payload)
 
                 
-                if (! await this.getImageURL(res, item, NFTokenID)) { 
-                    await this.fallbackXRPLServices(NFTokenID, item)
-                    return
-                }
+                await this.getImageURL(res, item, NFTokenID)
+                if (this.hasImage(item)) { return }
                 while (res['marker'] !== undefined) {
                     console.log('marker', res['marker'])
                     payload.marker = res['marker']
                     res = await this.client.send(payload)
-                    if (! await this.getImageURL(res, item, NFTokenID)) { 
-                        await this.fallbackXRPLServices(NFTokenID)
-                        return
-                    }
+                    await this.getImageURL(res, item, NFTokenID)
+                    if (this.hasImage(item)) { return }
                 }
+                await this.fallbackXRPLServices(NFTokenID)
             },
             async fallbackXRPLServices(NFTokenID, item) {
                 if (this.nodetype != 'MAINNET') { return }
                 try {
                     const {data} = await this.axios.get(`https://api.xrpldata.com/api/v1/xls20-nfts/nft/${NFTokenID}`)
                     const URI = Buffer.from(data.data.nft.URI, 'hex').toString('utf8')
-                    console.log('URRRIII', URI)
+                    // console.log('URRRIII', URI)
                     await this.convertURI(URI, item)
                 } catch (e) {
                     // do nothing
                 }
+            },
+            hasImage(item) {
+                if (this.NFTokenOffers[item] != null && this.NFTokenOffers[item].Item != undefined) {
+                    return true
+                }
+                return false
             },
             async getImageURL(res, item, NFTokenID) {
                 try {
