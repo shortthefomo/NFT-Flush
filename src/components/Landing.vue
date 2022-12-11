@@ -53,7 +53,7 @@
 
     export default {
         name: 'Landing',
-        props: ['client', 'Sdk'],
+        props: ['client', 'Sdk', 'nodetype'],
         data() {
             return {
                 isLoading: true,
@@ -226,6 +226,7 @@
                 }
             },
             async fallbackXRPLServices(NFTokenID, item) {
+                if (this.nodetype != 'MAINNET') { return }
                 console.log('fallback', `https://api.xrpldata.com/api/v1/xls20-nfts/nft/${NFTokenID}`)
                 const {data} = await this.axios.get(`https://api.xrpldata.com/api/v1/xls20-nfts/nft/${NFTokenID}`)
                 try {
