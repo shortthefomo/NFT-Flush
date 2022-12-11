@@ -160,20 +160,14 @@
                 }
 
                 this.isLoading = false
-                try {
-                    await this.fetchImages()
-                } catch (error) {
-                    console.log('fetchImages error', error)
-                }
+                await this.fetchImages()
+                
             },
             async fetchImages() {
                 if (this.NFTokenOffers.length < 1) { return }
 
                 for (let index = 0; index < this.NFTokenOffers.length; index++) {
                     const element = this.NFTokenOffers[index]
-                    // console.log('xx', element)
-                    //PreviousTxnID
-
                     await this.fetchOwnerNFTs(element.NFTokenID, index)              
                 }
             },
@@ -313,7 +307,7 @@
                     Account: this.$store.getters.getAccount,
                     NFTokenOffers: openOffers
                 }
-                console.log('tx', tx)
+                // console.log('tx', tx)
                 const count = openOffers.length * import.meta.env.VITE_APP_XAPP_RESERVE
                 const request = { custom_meta: { instruction: `Remove all offers and return ${count} XRP reserve.` }, txjson: tx}               
 
