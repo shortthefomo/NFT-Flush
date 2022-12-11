@@ -238,7 +238,7 @@
                     for (let index = 0; index < res.account_nfts.length; index++) {
                         const element = res.account_nfts[index]
                         if (NFTokenID == element.NFTokenID) {
-                            console.log('found', element)
+                            // console.log('found', element)
                             const URI = Buffer.from(element.URI, 'hex').toString('utf8')
                             await this.convertURI(URI, item)
                             return true
@@ -253,8 +253,14 @@
             async convertURI(URI, item) {
                 const convertedURI = URI.replace('ipfs://', 'https://ipfs.io/ipfs/')
                 const {data} = await this.axios.get(convertedURI)
-                console.log('image', data.image.replace('ipfs://', 'https://ipfs.io/ipfs/'))
-                this.NFTokenOffers[item].Image = data.image.replace('ipfs://', 'https://ipfs.io/ipfs/')
+                if ('image' in data) {
+                    console.log('image', data.image.replace('ipfs://', 'https://ipfs.io/ipfs/'))
+                    this.NFTokenOffers[item].Image = data.image.replace('ipfs://', 'https://ipfs.io/ipfs/')
+                }
+                if ('Image' in data) {
+                    console.log('image', data.Image.replace('ipfs://', 'https://ipfs.io/ipfs/'))
+                    this.NFTokenOffers[item].Image = data.Image.replace('ipfs://', 'https://ipfs.io/ipfs/')
+                }
             },
             findNFT(NFTokenID) {
                 for (let index = 0; index < this.NFTokenOffers.length; index++) {
