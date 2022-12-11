@@ -168,7 +168,7 @@
 
                 for (let index = 0; index < this.NFTokenOffers.length; index++) {
                     const element = this.NFTokenOffers[index]
-                    await this.fetchOwnerNFTs(element.NFTokenID, index)              
+                    this.fetchOwnerNFTs(element.NFTokenID, index)              
                 }
             },
             async fetchOwnerNFTs(NFTokenID, item) {
