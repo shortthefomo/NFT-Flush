@@ -134,7 +134,7 @@
                     'ledger_index': 'validated',
                     'limit': 1000
                 }
-                const res = await this.client.send(payload)
+                let res = await this.client.send(payload)
                 this.NFTokenOffers = []
                 
                 if ('error' in res) { return }
