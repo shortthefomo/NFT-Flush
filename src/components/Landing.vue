@@ -219,7 +219,7 @@
             async fallbackXRPLServices(NFTokenID, item) {
                 if (this.nodetype != 'MAINNET') { return }
                 try {
-                    const {data} = await this.axios.get(`https://api.xrpldata.com/api/v1/xls20-nfts/nft/${NFTokenID}`)
+                    const {data} = await this.axios.get(`https://api.xrpldata.com/api/v1/xls20-nfts/nft/${NFTokenID}`, { timeout: 1000 })
                     const URI = Buffer.from(data.data.nft.URI, 'hex').toString('utf8')
                     // console.log('URRRIII', URI)
                     await this.convertURI(URI, item)
@@ -252,7 +252,7 @@
             },
             async convertURI(URI, item) {
                 const convertedURI = URI.replace('ipfs://', 'https://ipfs.io/ipfs/')
-                const {data} = await this.axios.get(convertedURI)
+                const {data} = await this.axios.get(convertedURI, { timeout: 1000 })
                 if ('image' in data) {
                     console.log('image', data.image.replace('ipfs://', 'https://ipfs.io/ipfs/'))
                     this.NFTokenOffers[item].Image = data.image.replace('ipfs://', 'https://ipfs.io/ipfs/')
