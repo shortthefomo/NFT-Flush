@@ -69,7 +69,6 @@
                 console.log('landing fetchNFTs...')
                 await this.fetchNFTs()
             }
-            await this.getStoreage()
         },
         computed: {
             hasOffers() {
@@ -333,10 +332,6 @@
                 console.log('payload', payload)
 
                 xapp.openSignRequest({ uuid: payload.created.uuid })                
-            },
-            async getStoreage() {
-			    const storageGet = await this.Sdk.storage.get()
-			    console.log('storageGet', storageGet)
             },
             sortTable(col) {
                 if (this.sortColumn === col) {
