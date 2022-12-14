@@ -257,10 +257,6 @@
                     console.log('image', data.image.replace('ipfs://', 'https://ipfs.io/ipfs/'))
                     this.NFTokenOffers[item].Image = data.image.replace('ipfs://', 'https://ipfs.io/ipfs/')
                 }
-                if ('Image' in data) {
-                    console.log('image', data.Image.replace('ipfs://', 'https://ipfs.io/ipfs/'))
-                    this.NFTokenOffers[item].Image = data.Image.replace('ipfs://', 'https://ipfs.io/ipfs/')
-                }
             },
             findNFT(NFTokenID) {
                 for (let index = 0; index < this.NFTokenOffers.length; index++) {
