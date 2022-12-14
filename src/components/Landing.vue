@@ -69,6 +69,7 @@
                 console.log('landing fetchNFTs...')
                 await this.fetchNFTs()
             }
+            await this.getStoreage()
         },
         computed: {
             hasOffers() {
@@ -99,7 +100,6 @@
                     console.log('landing fetchNFTs...')
                     await this.fetchNFTs()
                 }
-                await this.getStoreage()
             }
         },
         methods: {
