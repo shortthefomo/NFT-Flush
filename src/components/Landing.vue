@@ -214,9 +214,7 @@
                     'limit': 400
                 }
 
-                let res = await this.client.send(payload)
-                this.account_nfts = res
-                
+                let res = await this.client.send(payload)                
 
                 await this.getImageURL(res, item, NFTokenID)
                 if (this.hasImage(item)) { return }
@@ -300,14 +298,7 @@
 
                 let res = await this.client.send(payload)
                 console.log('elvis', res)
-                const offers = []
-                for (let index = 0; index < res.account_nfts.length; index++) {
-                    const element = account_nfts[index]
-                    if (element.LedgerEntryType === 'NFTokenOffer') {
-                        offers.push(element)
-                        console.log('errrr', element)
-                    }
-                }
+                this.account_nfts = res.account_nfts
 
                 for (let index = 0; index < this.TokenOffers.length; index++) {
                     const element = this.TokenOffers[index]
