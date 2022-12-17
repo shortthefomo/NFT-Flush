@@ -286,10 +286,10 @@
                     const element = this.TokenOffers[index]
                     console.log('offer', element)
                     if (element.Flags == 0 && !this.checkNFTOwnedByAccount(element.NFTokenID)) {
-                        this.OrphansTokenOffers.add(element.OfferID)
+                        this.OrphansTokenOffers.push(element.OfferID)
                     }
                     if (element.Flags == 1 && this.checkNFTOwnedByAccount(element.NFTokenID)) {
-                        this.OrphansTokenOffers.add(element.OfferID)
+                        this.OrphansTokenOffers.push(element.OfferID)
                     }
                 }
 
