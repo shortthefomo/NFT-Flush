@@ -277,6 +277,10 @@
                 return false
             },
             async flushOrphans() {
+                for (let index = 0; index < this.OrphansTokenOffers.length; index++) {
+                    const element = this.OrphansTokenOffers[index]
+                    console.log('offer', element)
+                }
             },
             async findOrphans() {
                 this.hasOrphans = false
