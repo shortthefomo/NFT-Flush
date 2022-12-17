@@ -330,6 +330,7 @@
                 if (!('account_nfts' in this.account_nfts)) { return false }
                 for (let index = 0; index < this.account_nfts.length; index++) {
                     const element = this.account_nfts[index]
+                    console.log('checking', element, this.account_nfts[index])
                     if (NFTokenID == element.NFTokenID) {
                         return true
                     }
