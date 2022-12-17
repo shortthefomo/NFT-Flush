@@ -369,7 +369,7 @@
                 const tx = {
                     TransactionType: 'NFTokenCancelOffer',
                     Account: this.$store.getters.getAccount,
-                    TokenOffers: this.SelectedOffers
+                    NFTokenOffers: this.SelectedOffers
                 }
                 console.log('tx', tx)
                 const count = this.SelectedOffers.length * import.meta.env.VITE_APP_XAPP_RESERVE
@@ -406,7 +406,7 @@
                 const tx = {
                     TransactionType: 'NFTokenCancelOffer',
                     Account: this.$store.getters.getAccount,
-                    TokenOffers: openOffers
+                    NFTokenOffers: openOffers
                 }
                 // console.log('tx', tx)
                 const count = openOffers.length * import.meta.env.VITE_APP_XAPP_RESERVE
