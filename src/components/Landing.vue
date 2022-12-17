@@ -97,6 +97,15 @@
                 }
                 return ['Side', 'NFT']
                 //return Object.keys(this.TokenOffers[0]).filter( code => code !== 'ledger')
+            },
+            highlights(offer) {
+                if (!this.SelectedOffers.includes(offer.OfferID)) {
+                    return ''
+                }
+                if (!this.OrphansTokenOffers.includes(offer.OfferID)) {
+                    return 'table-warning'
+                }
+                return 'table-secondary'
             }
         },
         watch: {
@@ -114,15 +123,7 @@
                 }
                 return 'bg-info px-2 py-1'
             },
-            highlights(offer) {
-                if (!this.SelectedOffers.includes(offer.OfferID)) {
-                    return ''
-                }
-                if (!this.OrphansTokenOffers.includes(offer.OfferID)) {
-                    return 'table-warning'
-                }
-                return 'table-secondary'
-            },
+            
             selectedRow(offer) {
                 // console.log('offer', offer.OfferID)
                 if (!this.SelectedOffers.includes(offer.OfferID)) {
