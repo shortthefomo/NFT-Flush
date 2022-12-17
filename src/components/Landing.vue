@@ -9,9 +9,9 @@
                 </p>
                 <p v-if="isLoading == false" class="text-center">
                     <a v-if="account == 'rThREeXrp54XTQueDowPV1RxmkEAGUmg8' && hasOrphans" class="btn btn-yellow me-2" @click="flushOrphans" role="button" id="flushSelected">flush orphans ({{OrphansTokenOffers.length}})</a>
-                    <!-- <a v-if="account != '' && hasOrphans" class="btn btn-green me-2" @click="flushOrphans" role="button" id="flushSelected">flush orphans</a> -->
+                    <!-- <a v-if="account != '' && hasOrphans" class="btn btn-green me-2" @click="flushOrphans" role="button" id="flushSelected">flush orphans ({{OrphansTokenOffers.length}})</a> -->
                     <a v-if="account != '' && hasOffers" class="btn btn-purple me-2" @click="flushAll" role="button" id="flushAll">flush all</a>
-                    <a v-if="account != '' && hasSelected" class="btn btn-pink me-2" @click="flushSelected" role="button" id="flushSelected">flush selected</a>
+                    <a v-if="account != '' && hasSelected" class="btn btn-pink me-2" @click="flushSelected" role="button" id="flushSelected">flush selected ({{SelectedOffers.length}})</a>
                 </p>
             </div>
         </div>
@@ -196,16 +196,16 @@
                 let nft_offers = await this.client.send(payload_sell_offers)
 
                 if (!('offers' in nft_offers)) { 
-                    console.log('owner NOT FOUND no offers 1', NFTokenID)
-                    console.log('nft_offers', nft_offers)
+                    // console.log('owner NOT FOUND no offers 1', NFTokenID)
+                    // console.log('nft_offers', nft_offers)
                     await this.fallbackXRPLServices(NFTokenID, item)
                     return }
                 if (nft_offers.offers.length == 0) { 
-                    console.log('owner NOT FOUND no offers 2', NFTokenID)
+                    // console.log('owner NOT FOUND no offers 2', NFTokenID)
                     return }
 
                 account = nft_offers.offers[0].owner
-                console.log('owner FOUND', account)
+                // console.log('owner FOUND', account)
 
                 const payload = {
                     'id': 8,
