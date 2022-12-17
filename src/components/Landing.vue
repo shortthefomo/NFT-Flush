@@ -273,7 +273,10 @@
                 return false
             },
             async flushOrphans() {
-
+                for (let index = 0; index < this.TokenOffers.length; index++) {
+                    const element = this.TokenOffers[index]
+                    console.log('offer', element)
+                }
             },
             async flushSelected() {
                 if (this.$store.getters.getAccount == '') { return }
