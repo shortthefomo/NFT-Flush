@@ -9,7 +9,7 @@
                 </p>
                 <p v-if="isLoading == false" class="text-center">
                     <a v-if="account == 'rThREeXrp54XTQueDowPV1RxmkEAGUmg8' && hasOrphans" class="btn btn-yellow me-2" @click="flushOrphans" role="button" id="flushSelected">flush orphans ({{OrphansTokenOffers.length}})</a>
-                    <!-- <a v-if="account != '' && hasOrphans" class="btn btn-green me-2" @click="flushOrphans" role="button" id="flushSelected">flush orphans ({{OrphansTokenOffers.length}})</a> -->
+                    <!-- <a v-if="account != '' && hasOrphans" class="btn btn-yellow me-2" @click="flushOrphans" role="button" id="flushSelected">flush orphans ({{OrphansTokenOffers.length}})</a> -->
                     <a v-if="account != '' && hasOffers" class="btn btn-purple me-2" @click="flushAll" role="button" id="flushAll">flush all</a>
                     <a v-if="account != '' && hasSelected" class="btn btn-pink me-2" @click="flushSelected" role="button" id="flushSelected">flush selected ({{SelectedOffers.length}})</a>
                 </p>
@@ -280,12 +280,6 @@
                 }
                 return false
             },
-            async flushOrphans() {
-                for (let index = 0; index < this.OrphansTokenOffers.length; index++) {
-                    const element = this.OrphansTokenOffers[index]
-                    console.log('offer', element)
-                }
-            },
             async findOrphans() {
                 this.hasOrphans = false
 
@@ -337,6 +331,38 @@
                     }
                 }
                 return false
+            },
+            async flushOrphans() {
+                if (this.$store.getters.getAccount == '') { return }
+                if (this.OrphansTokenOffers.length < 1) { return }
+                const tx = {
+                    TransactionType: 'NFTokenCancelOffer',
+                    Account: this.$store.getters.getAccount,
+                    TokenOffers: this.OrphansTokenOffers
+                }
+                console.log('tx', tx)
+                const count = this.OrphansTokenOffers.length * import.meta.env.VITE_APP_XAPP_RESERVE
+                
+                const request = { custom_meta: { instruction: `Remove selected offers and return ${count} XRP reserve.`}, txjson: tx}
+
+                const payload = await this.Sdk.payload.createAndSubscribe(request, async event => {
+                    console.log('New payload event:', event.data)
+
+                    if (event.data.signed === true) {
+                        console.log('Woohoo! The sign request was signed :)')
+                        await this.fetchNFTs()
+
+                        return event.data
+                    }
+
+                    if (event.data.signed === false) {
+                        console.log('The sign request was rejected :(')
+                        return false
+                    }
+                })
+                console.log('payload', payload)
+
+                xapp.openSignRequest({ uuid: payload.created.uuid })
             },
             async flushSelected() {
                 if (this.$store.getters.getAccount == '') { return }
