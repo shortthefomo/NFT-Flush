@@ -297,8 +297,9 @@
                 }
 
                 let res = await this.client.send(payload)
-                console.log('elvis', res)
+                
                 this.account_nfts = res.account_nfts
+                console.log('elvis', this.account_nfts)
 
                 for (let index = 0; index < this.TokenOffers.length; index++) {
                     const element = this.TokenOffers[index]
