@@ -293,14 +293,16 @@
                     const element = this.TokenOffers[index]
                     const ownedByAccount = this.checkNFTOwnedByAccount(element.NFTokenID)
                     // Flags 1 == buy
-                    if (element.Flags == 1 && ownedByAccount == false) {
+                    // buy order you already own
+                    if (element.Flags == 1 && ownedByAccount == true) {
                         this.OrphansTokenOffers.push(element.OfferID)
-                        console.log('OrphansTokes', 0, element)
+                        console.log('buy order you already own', element)
                     }
                     // Flags 0 == sell
-                    if (element.Flags == 0 && ownedByAccount == true) {
+                    // sell order you dont own
+                    if (element.Flags == 0 && ownedByAccount == false) {
                         this.OrphansTokenOffers.push(element.OfferID)
-                        console.log('OrphansTokes', 1, element)
+                        console.log('sell order you dont own', element)
                     }
                 }
 
