@@ -53,6 +53,11 @@
             
         },
         methods: {
+
+            async getStoreage() {
+			    const storageGet = await this.Sdk.storage.get()
+			    console.log('storageGet', storageGet)
+            },
             async jwtFlow() {
                 const tokenData = await this.Sdk.getOttData()
                 console.log('tokenData', tokenData)
@@ -107,6 +112,7 @@
                         self.signedIn = true
                         self.$store.dispatch('setUserToken', event.data.payload_uuidv4)
                         await self.connectWebsocket()
+                        await self.getStoreage()
                         return event.data
                     }
 
