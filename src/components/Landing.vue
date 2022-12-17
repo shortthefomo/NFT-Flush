@@ -41,7 +41,8 @@
     <div v-else>
         <div class="container-fluid pb-5">
             <h1 class="display-5 fw-bold">{OPEN NFT Offers}</h1>
-            <p>There are no open offers on your account</p>
+            <p v-if="loading">Loading offers..</p>
+            <p v-else>There are no open offers on your account</p>
         </div>
     </div>
     <footer>
