@@ -2,19 +2,21 @@
     <div class="p-5 mb-4 bg-light rounded-3">
         <div class="container-fluid py-5">
             <img class="bog-roll" src="/e.png">
-            <p class="col-md-8 fs-4">
-                <p class="text-muted text-end fs-6">by three</p>
-            </p>
-            <p class="col-md-12 fs-4">
+            <p class="col-md-8 fs-4"><span class="text-muted text-end fs-6">by three</span></p>
+            <div class="col-md-12 fs-4">
+                <p v-if="hasOrphans" class="text">
+                    your default action should be to flush orphan offers, <em>*offers to NFT that have moved and are invalid.</em>
+                </p>
                 <p class="text-center">
+                    <a v-if="account != '' && hasOrphans" class="btn btn-green me-2" @click="flushOrphans" role="button" id="flushSelected">flush orphans</a>
                     <a v-if="account != '' && hasOffers" class="btn btn-purple me-2" @click="flushAll" role="button" id="flushAll">flush all</a>
                     <a v-if="account != '' && hasSelected" class="btn btn-pink me-2" @click="flushSelected" role="button" id="flushSelected">flush selected</a>
                 </p>
-            </p>
+            </div>
         </div>
     </div>
 
-    <div v-if="NFTokenOffers.length > 0" class="py-5 mb-4">
+    <div v-if="TokenOffers.length > 0" class="py-5 mb-4">
         <div class="container-fluid pb-5">
             <h1 class="display-5 fw-bold">{OPEN NFT Offers}</h1>
             <table class="table">
@@ -24,7 +26,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="row in NFTokenOffers" @click="selectedRow(row)" :class="highlights(row)">
+                    <tr v-for="row in TokenOffers" @click="selectedRow(row)" :class="highlights(row)">
                         <td v-if="typeof row['Amount'] === 'object'"><span :class="styleLabel(row['Flags'])">{{row['Flags'] == 1 ? 'Sell': 'Buy'}}</span> {{numeralFormat((row['Amount'].value), '0,0') }} {{currencyHexToUTF8(row['Amount'].currency)}}</td>
                         <td v-else> <span :class="styleLabel(row['Flags'])">{{row['Flags'] == 1 ? 'Sell': 'Buy'}}</span> {{numeralFormat((row['Amount']/1_000_000), '0,0[.]00000000')}} XRP</td>
 
@@ -57,8 +59,10 @@
         data() {
             return {
                 isLoading: true,
-                NFTokenOffers:[],
-                selectedRows: [],
+                hasOrphans: false,
+                TokenOffers:[],
+                OrphansTokenOffers:[],
+                SelectedOffers: [],
                 ascending: false,
                 awaitSign: false
             }
@@ -72,11 +76,11 @@
         },
         computed: {
             hasOffers() {
-                const offers = (this.NFTokenOffers.length > 0) ? true:false
+                const offers = (this.TokenOffers.length > 0) ? true:false
                 return offers
             },
             hasSelected() {
-                const selected = (this.selectedRows.length > 0) ? true:false
+                const selected = (this.SelectedOffers.length > 0) ? true:false
                 return selected
             },
             ledger() {
@@ -86,11 +90,11 @@
                 return this.$store.getters.getAccount
             },
             columns() {
-                if (this.NFTokenOffers.length == 0) {
+                if (this.TokenOffers.length == 0) {
                     return []
                 }
                 return ['Side', 'NFT']
-                //return Object.keys(this.NFTokenOffers[0]).filter( code => code !== 'ledger')
+                //return Object.keys(this.TokenOffers[0]).filter( code => code !== 'ledger')
             }
         },
         watch: {
@@ -109,20 +113,20 @@
                 return 'bg-info px-2 py-1'
             },
             highlights(offer) {
-                if (!this.selectedRows.includes(offer.OfferID)) {
+                if (!this.SelectedOffers.includes(offer.OfferID)) {
                     return ''
                 }
                 return 'table-secondary'
             },
             selectedRow(offer) {
                 // console.log('offer', offer.OfferID)
-                if (!this.selectedRows.includes(offer.OfferID)) {
-                    this.selectedRows.push(offer.OfferID)
+                if (!this.SelectedOffers.includes(offer.OfferID)) {
+                    this.SelectedOffers.push(offer.OfferID)
                 }
                 else {
-                    this.selectedRows.splice(this.selectedRows.indexOf(offer.OfferID), 1)
+                    this.SelectedOffers.splice(this.SelectedOffers.indexOf(offer.OfferID), 1)
                 }
-                console.log('Selected items', this.selectedRows)
+                console.log('Selected items', this.SelectedOffers)
             },
             async fetchNFTs() {
                 if (this.$store.getters.getAccount == '') { return }
@@ -135,7 +139,7 @@
                     'limit': 1000
                 }
                 let res = await this.client.send(payload)
-                this.NFTokenOffers = []
+                this.TokenOffers = []
                 
                 if ('error' in res) { return }
                 if (!('account_objects' in res)) { return }
@@ -155,7 +159,7 @@
                     if (element.LedgerEntryType === 'NFTokenOffer') {
                         console.log('NFTokenOffer', element)
                         element.OfferID = element.index
-                        this.NFTokenOffers.push(element)
+                        this.TokenOffers.push(element)
                     }
                 }
 
@@ -164,10 +168,10 @@
                 
             },
             async fetchImages() {
-                if (this.NFTokenOffers.length < 1) { return }
+                if (this.TokenOffers.length < 1) { return }
 
-                for (let index = 0; index < this.NFTokenOffers.length; index++) {
-                    const element = this.NFTokenOffers[index]
+                for (let index = 0; index < this.TokenOffers.length; index++) {
+                    const element = this.TokenOffers[index]
                     this.fetchOwnerNFTs(element.NFTokenID, index)              
                 }
             },
@@ -228,7 +232,7 @@
                 }
             },
             hasImage(item) {
-                if (this.NFTokenOffers[item] != null && this.NFTokenOffers[item].Item != undefined) {
+                if (this.TokenOffers[item] != null && this.TokenOffers[item].Item != undefined) {
                     return true
                 }
                 return false
@@ -255,28 +259,31 @@
                 const {data} = await this.axios.get(convertedURI, { timeout: 1000 })
                 if ('image' in data) {
                     console.log('image', data.image.replace('ipfs://', 'https://ipfs.io/ipfs/'))
-                    this.NFTokenOffers[item].Image = data.image.replace('ipfs://', 'https://ipfs.io/ipfs/')
+                    this.TokenOffers[item].Image = data.image.replace('ipfs://', 'https://ipfs.io/ipfs/')
                 }
             },
             findNFT(NFTokenID) {
-                for (let index = 0; index < this.NFTokenOffers.length; index++) {
-                    const element = this.NFTokenOffers[index]
+                for (let index = 0; index < this.TokenOffers.length; index++) {
+                    const element = this.TokenOffers[index]
                     if (NFTokenID == element.NFTokenID) {
                         return index
                     }
                 }
                 return false
             },
+            async flushOrphans() {
+
+            },
             async flushSelected() {
                 if (this.$store.getters.getAccount == '') { return }
-                if (this.selectedRows.length < 1) { return }
+                if (this.SelectedOffers.length < 1) { return }
                 const tx = {
                     TransactionType: 'NFTokenCancelOffer',
                     Account: this.$store.getters.getAccount,
-                    NFTokenOffers: this.selectedRows
+                    TokenOffers: this.SelectedOffers
                 }
                 console.log('tx', tx)
-                const count = this.selectedRows.length * import.meta.env.VITE_APP_XAPP_RESERVE
+                const count = this.SelectedOffers.length * import.meta.env.VITE_APP_XAPP_RESERVE
                 
                 const request = { custom_meta: { instruction: `Remove selected offers and return ${count} XRP reserve.`}, txjson: tx}
 
@@ -302,14 +309,14 @@
             async flushAll() {
                 if (this.$store.getters.getAccount == '') { return }
                 
-                const openOffers = this.NFTokenOffers.reduce((a, b) => a.concat(b.index), [])
+                const openOffers = this.TokenOffers.reduce((a, b) => a.concat(b.index), [])
                 //console.log('openOffers', openOffers)
                 if (openOffers.length < 1) { return }
 
                 const tx = {
                     TransactionType: 'NFTokenCancelOffer',
                     Account: this.$store.getters.getAccount,
-                    NFTokenOffers: openOffers
+                    TokenOffers: openOffers
                 }
                 // console.log('tx', tx)
                 const count = openOffers.length * import.meta.env.VITE_APP_XAPP_RESERVE
@@ -343,7 +350,7 @@
 
                 let ascending = this.ascending
 
-                this.NFTokenOffers.sort(function(a, b) {
+                this.TokenOffers.sort(function(a, b) {
                     if (a[col] > b[col]) {
                     return ascending ? 1 : -1
                     } else if (a[col] < b[col]) {
