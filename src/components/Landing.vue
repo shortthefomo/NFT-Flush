@@ -115,13 +115,13 @@
                 return 'bg-info px-2 py-1'
             },
             highlights(offer) {
-                if (!this.SelectedOffers.includes(offer.OfferID)) {
-                    return ''
+                if (this.SelectedOffers.includes(offer.OfferID)) {
+                    return 'table-secondary'
                 }
-                if (!this.OrphansTokenOffers.includes(offer.OfferID)) {
+                if (this.OrphansTokenOffers.includes(offer.OfferID)) {
                     return 'table-warning'
                 }
-                return 'table-secondary'
+                return ''
             },
             selectedRow(offer) {
                 // console.log('offer', offer.OfferID)
