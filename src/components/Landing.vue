@@ -287,11 +287,12 @@
                 for (let index = 0; index < this.TokenOffers.length; index++) {
                     const element = this.TokenOffers[index]
                     const ownedByAccount = this.checkNFTOwnedByAccount(element.NFTokenID)
-                    if (element.Flags == 0 && ownedByAccount == false) {
+                    // Flags 0 == sell, Flags 1 == buy
+                    if (element.Flags == 1 && ownedByAccount == true) {
                         this.OrphansTokenOffers.push(element.OfferID)
                         console.log('OrphansTokes', 0)
                     }
-                    if (element.Flags == 1 && ownedByAccount == true) {
+                    if (element.Flags == 0 && ownedByAccount == false) {
                         this.OrphansTokenOffers.push(element.OfferID)
                         console.log('OrphansTokes', 1)
                     }
