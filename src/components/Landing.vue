@@ -327,8 +327,8 @@
             checkNFTOwnedByAccount(NFTokenID) {
                 if (this.account_nfts == null) { return false }
                 if (!('account_nfts' in this.account_nfts)) { return false }
-                for (let index = 0; index < this.account_nfts.account_nfts.length; index++) {
-                    const element = this.account_nfts.account_nfts[index]
+                for (let index = 0; index < this.account_nfts.length; index++) {
+                    const element = this.account_nfts[index]
                     if (NFTokenID == element.NFTokenID) {
                         return true
                     }
