@@ -169,9 +169,10 @@
                     }
                 }
 
+                this.findOrphans()
                 this.isLoading = false
                 await this.fetchImages()
-                this.findOrphans()                
+                
             },
             async fetchImages() {
                 if (this.TokenOffers.length < 1) { return }
@@ -288,6 +289,25 @@
             },
             async findOrphans() {
                 this.hasOrphans = false
+
+                const payload = {
+                    'id': 8,
+                    'command': 'account_nfts',
+                    'account': account,
+                    'ledger_index': 'validated',
+                    'limit': 400
+                }
+
+                let res = await this.client.send(payload)
+                const offers = []
+                for (let index = 0; index < res.account_objects.length; index++) {
+                    const element = account_objects[index]
+                    if (element.LedgerEntryType === 'NFTokenOffer') {
+                        offers.push(element)
+                        console.log('errrr', element)
+                    }
+                }
+
                 for (let index = 0; index < this.TokenOffers.length; index++) {
                     const element = this.TokenOffers[index]
                     const ownedByAccount = this.checkNFTOwnedByAccount(element.NFTokenID)
@@ -295,22 +315,22 @@
                     // buy order you already own
                     if (element.Flags == 1 && ownedByAccount == true) {
                         this.OrphansTokenOffers.push(element.OfferID)
-                        console.log('buy order you already own', element)
+                        // console.log('buy order you already own', element)
                     }
                     // Flags 0 == sell
                     // sell order you dont own
                     if (element.Flags == 0 && ownedByAccount == false) {
                         this.OrphansTokenOffers.push(element.OfferID)
-                        console.log('sell order you dont own', element)
+                        // console.log('sell order you dont own', element)
                     }
                 }
 
                 if (this.OrphansTokenOffers.length > 0) {
                     this.hasOrphans = true
                 }
-                console.log('orphans checked')
-                console.log('hasOrphans', this.hasOrphans)
-                console.log('OrphansTokenOffers', this.OrphansTokenOffers)
+                // console.log('orphans checked')
+                // console.log('hasOrphans', this.hasOrphans)
+                // console.log('OrphansTokenOffers', this.OrphansTokenOffers)
             },
             checkNFTOwnedByAccount(NFTokenID) {
                 if (this.account_nfts == null) { return false }
