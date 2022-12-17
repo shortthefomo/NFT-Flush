@@ -8,7 +8,7 @@
                     Your default action should be to flush orphan offers, <em>*offers to NFTs that have moved and are invalid.</em>
                 </p>
                 <p v-if="isLoading == false" class="text-center">
-                    <a v-if="account == 'rThREeXrp54XTQueDowPV1RxmkEAGUmg8' && hasOrphans" class="btn btn-green me-2" @click="flushOrphans" role="button" id="flushSelected">flush orphans ({{OrphansTokenOffers.length}})</a>
+                    <a v-if="account == 'rThREeXrp54XTQueDowPV1RxmkEAGUmg8' && hasOrphans" class="btn btn-yellow me-2" @click="flushOrphans" role="button" id="flushSelected">flush orphans ({{OrphansTokenOffers.length}})</a>
                     <!-- <a v-if="account != '' && hasOrphans" class="btn btn-green me-2" @click="flushOrphans" role="button" id="flushSelected">flush orphans</a> -->
                     <a v-if="account != '' && hasOffers" class="btn btn-purple me-2" @click="flushAll" role="button" id="flushAll">flush all</a>
                     <a v-if="account != '' && hasSelected" class="btn btn-pink me-2" @click="flushSelected" role="button" id="flushSelected">flush selected</a>
@@ -108,8 +108,8 @@
             }
         },
         methods: {
-            styleLabel(value) {
-                if (value == 1) {
+            styleLabel(Flags) {
+                if (Flags == 1) {
                     return 'btn-pink px-2 py-1'
                 }
                 return 'bg-info px-2 py-1'
@@ -117,6 +117,9 @@
             highlights(offer) {
                 if (!this.SelectedOffers.includes(offer.OfferID)) {
                     return ''
+                }
+                if (this.OrphansTokenOffers.includes(offer.OfferID)) {
+                    return 'table-warning'
                 }
                 return 'table-secondary'
             },
@@ -455,5 +458,11 @@
     .btn-green {
         background-color: #00e56a;
         color: #ffffff;
+    }
+
+    .table-warning {
+        --bs-table-bg: #ffc107;
+        color: #000;
+        border-color: #e6dbb9;
     }
 </style>
