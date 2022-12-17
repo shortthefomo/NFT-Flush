@@ -326,10 +326,9 @@
                 // console.log('OrphansTokenOffers', this.OrphansTokenOffers)
             },
             checkNFTOwnedByAccount(NFTokenID) {
-                console.log('checkNFTOwnedByAccount', NFTokenID, this.account_nfts)
+                // console.log('checkNFTOwnedByAccount', NFTokenID, this.account_nfts)
                 if (this.account_nfts == null) { return false }
-                if (!('account_nfts' in this.account_nfts)) { return false }
-                console.log('looking for elvis', NFTokenID, this.account_nfts)
+                // console.log('looking for elvis', NFTokenID, this.account_nfts)
                 for (let index = 0; index < this.account_nfts.length; index++) {
                     const element = this.account_nfts[index]
                     if (NFTokenID == element.NFTokenID) {
@@ -477,7 +476,7 @@
     }
 
     .table-warning {
-        --bs-table-bg: #fbd664;
+        --bs-table-bg: #f6da86;
         color: #000;
         border-color: #e6dbb9;
     }
