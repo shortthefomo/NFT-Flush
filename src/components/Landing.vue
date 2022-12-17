@@ -290,11 +290,11 @@
                     // Flags 0 == sell, Flags 1 == buy
                     if (element.Flags == 1 && ownedByAccount == false) {
                         this.OrphansTokenOffers.push(element.OfferID)
-                        console.log('OrphansTokes', 0)
+                        console.log('OrphansTokes', 0, element)
                     }
                     if (element.Flags == 0 && ownedByAccount == true) {
                         this.OrphansTokenOffers.push(element.OfferID)
-                        console.log('OrphansTokes', 1)
+                        console.log('OrphansTokes', 1, element)
                     }
                 }
 
