@@ -293,7 +293,7 @@
                 const payload = {
                     'id': 8,
                     'command': 'account_nfts',
-                    'account': account,
+                    'account': this.$store.getters.getAccount,
                     'ledger_index': 'validated',
                     'limit': 400
                 }
