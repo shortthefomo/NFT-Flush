@@ -306,13 +306,13 @@
                     const ownedByAccount = this.checkNFTOwnedByAccount(element.NFTokenID)
                     // Flags 1 == buy
                     // buy order you already own
-                    if (element.Flags == 1 && ownedByAccount == true) {
+                    if (element.Flags == 1 && ownedByAccount == false) {
                         this.OrphansTokenOffers.push(element.OfferID)
                         // console.log('buy order you already own', element)
                     }
                     // Flags 0 == sell
                     // sell order you dont own
-                    if (element.Flags == 0 && ownedByAccount == false) {
+                    if (element.Flags == 0 && ownedByAccount == true) {
                         this.OrphansTokenOffers.push(element.OfferID)
                         // console.log('sell order you dont own', element)
                     }
