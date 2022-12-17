@@ -280,15 +280,14 @@
             },
             async findOrphans() {
                 this.hasOrphans = false
-                console.log('hi hi hi hi')
                 console.log(this.account_nfts)
                 for (let index = 0; index < this.TokenOffers.length; index++) {
                     const element = this.TokenOffers[index]
                     console.log('offer', element)
-                    if (element.Flags == 0 && !this.checkNFTOwnedByAccount(element.NFTokenID)) {
+                    if (element.Flags == 0 && this.checkNFTOwnedByAccount(element.NFTokenID)) {
                         this.OrphansTokenOffers.push(element.OfferID)
                     }
-                    if (element.Flags == 1 && this.checkNFTOwnedByAccount(element.NFTokenID)) {
+                    if (element.Flags == 1 && !this.checkNFTOwnedByAccount(element.NFTokenID)) {
                         this.OrphansTokenOffers.push(element.OfferID)
                     }
                 }
