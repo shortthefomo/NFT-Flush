@@ -301,8 +301,8 @@
                 let res = await this.client.send(payload)
                 console.log('elvis', res)
                 const offers = []
-                for (let index = 0; index < res.account_objects.length; index++) {
-                    const element = account_objects[index]
+                for (let index = 0; index < res.account_nfts.length; index++) {
+                    const element = account_nfts[index]
                     if (element.LedgerEntryType === 'NFTokenOffer') {
                         offers.push(element)
                         console.log('errrr', element)
