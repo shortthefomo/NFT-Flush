@@ -211,7 +211,8 @@
 
                 let res = await this.client.send(payload)
                 this.account_nfts = res
-                
+                this.findOrphans()
+
                 await this.getImageURL(res, item, NFTokenID)
                 if (this.hasImage(item)) { return }
                 while (res['marker'] !== undefined) {
@@ -276,16 +277,39 @@
                 return false
             },
             async flushOrphans() {
-                const userOwned = []
+            },
+            async findOrphans() {
+                this.hasOrphans = false
                 console.log('hi hi hi hi')
                 console.log(this.account_nfts)
                 for (let index = 0; index < this.TokenOffers.length; index++) {
                     const element = this.TokenOffers[index]
                     console.log('offer', element)
-                    if (element.Flags == 0) {
-                        userOwned.add(element)
+                    if (element.Flags == 0 && !checkNFTOwnedByAccount(element.NFTokenID)) {
+                        this.OrphansTokenOffers.add(element.OfferID)
+                    }
+                    if (element.Flags == 1 && checkNFTOwnedByAccount(element.NFTokenID)) {
+                        this.OrphansTokenOffers.add(element.OfferID)
                     }
                 }
+
+                if (this.OrphansTokenOffers.length > 0) {
+                    this.hasOrphans = true
+                }
+                console.log('orphans checked')
+                console.log('hasOrphans', this.hasOrphans)
+                console.log('OrphansTokenOffers', this.OrphansTokenOffers)
+            },
+            checkNFTOwnedByAccount(NFTokenID) {
+                if (this.account_nfts == null) { return false }
+                if (!('account_nfts' in this.account_nfts)) { return false }
+                for (let index = 0; index < this.account_nfts.account_nfts.length; index++) {
+                    const element = this.account_nfts.account_nfts[index]
+                    if (NFTokenID == element.NFTokenID) {
+                        return true
+                    }
+                }
+                return false
             },
             async flushSelected() {
                 if (this.$store.getters.getAccount == '') { return }
