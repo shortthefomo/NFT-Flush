@@ -65,7 +65,8 @@
                 OrphansTokenOffers:[],
                 SelectedOffers: [],
                 ascending: false,
-                awaitSign: false
+                awaitSign: false,
+                account_nfts: []
             }
         },
         async mounted() {
@@ -207,8 +208,9 @@
                     'ledger_index': 'validated',
                     'limit': 400
                 }
-                let res = await this.client.send(payload)
 
+                let res = await this.client.send(payload)
+                this.account_nfts = res
                 
                 await this.getImageURL(res, item, NFTokenID)
                 if (this.hasImage(item)) { return }
@@ -216,6 +218,7 @@
                     console.log('marker', res['marker'])
                     payload.marker = res['marker']
                     res = await this.client.send(payload)
+                    this.account_nfts.concat(res)
                     await this.getImageURL(res, item, NFTokenID)
                     if (this.hasImage(item)) { return }
                 }
@@ -273,9 +276,15 @@
                 return false
             },
             async flushOrphans() {
+                const userOwned = []
+                console.log('hi hi hi hi')
+                console.log(this.account_nfts)
                 for (let index = 0; index < this.TokenOffers.length; index++) {
                     const element = this.TokenOffers[index]
                     console.log('offer', element)
+                    if (element.Flags == 0) {
+                        userOwned.add(element)
+                    }
                 }
             },
             async flushSelected() {
