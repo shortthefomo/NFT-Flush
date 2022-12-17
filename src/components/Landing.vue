@@ -9,7 +9,7 @@
                 </p>
                 <p v-if="isLoading == false" class="text-center">
                     <a v-if="account == 'rThREeXrp54XTQueDowPV1RxmkEAGUmg8'" class="btn btn-green me-2" @click="flushOrphans" role="button" id="flushSelected">flush orphans test</a>
-                    <a v-if="account != '' && hasOrphans" class="btn btn-green me-2" @click="flushOrphans" role="button" id="flushSelected">flush orphans</a>
+                    <!-- <a v-if="account != '' && hasOrphans" class="btn btn-green me-2" @click="flushOrphans" role="button" id="flushSelected">flush orphans</a> -->
                     <a v-if="account != '' && hasOffers" class="btn btn-purple me-2" @click="flushAll" role="button" id="flushAll">flush all</a>
                     <a v-if="account != '' && hasSelected" class="btn btn-pink me-2" @click="flushSelected" role="button" id="flushSelected">flush selected</a>
                 </p>
