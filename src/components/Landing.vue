@@ -169,10 +169,9 @@
                     }
                 }
 
-                this.findOrphans()
                 this.isLoading = false
                 await this.fetchImages()
-                
+                this.findOrphans()                
             },
             async fetchImages() {
                 if (this.TokenOffers.length < 1) { return }
