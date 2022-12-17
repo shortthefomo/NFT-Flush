@@ -373,10 +373,8 @@
                 }
                 console.log('tx', tx)
                 const count = this.SelectedOffers.length * import.meta.env.VITE_APP_XAPP_RESERVE
-                //const request = { custom_meta: { instruction: `Remove selected offers and return ${count} XRP reserve.`}, txjson: tx}
-
-                const request = { txjson: tx}
-
+                const request = { custom_meta: { instruction: `Remove selected offers and return ${count} XRP reserve.`}, txjson: tx}
+                
                 console.log('request', request)
 
                 const payload = await this.Sdk.payload.createAndSubscribe(request, async event => {
