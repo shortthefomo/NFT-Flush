@@ -285,10 +285,10 @@
                 for (let index = 0; index < this.TokenOffers.length; index++) {
                     const element = this.TokenOffers[index]
                     console.log('offer', element)
-                    if (element.Flags == 0 && !checkNFTOwnedByAccount(element.NFTokenID)) {
+                    if (element.Flags == 0 && !this.checkNFTOwnedByAccount(element.NFTokenID)) {
                         this.OrphansTokenOffers.add(element.OfferID)
                     }
-                    if (element.Flags == 1 && checkNFTOwnedByAccount(element.NFTokenID)) {
+                    if (element.Flags == 1 && this.checkNFTOwnedByAccount(element.NFTokenID)) {
                         this.OrphansTokenOffers.add(element.OfferID)
                     }
                 }
