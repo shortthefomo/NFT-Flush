@@ -8,9 +8,9 @@
                     Your default action should be to flush orphan offers, <em>*offers to NFTs that have moved and are invalid.</em>
                 </p>
                 <p v-if="isLoading == false" class="text-center">
-                    <a v-if="account != '' && hasOrphans" class="btn btn-yellow me-2" @click="flushOrphans" role="button" id="flushSelected">flush orphans ({{OrphansTokenOffers.length}})</a>
-                    <a v-if="account != '' && hasOffers" class="btn btn-purple me-2" @click="flushAll" role="button" id="flushAll">flush all</a>
-                    <a v-if="account != '' && hasSelected" class="btn btn-pink me-2" @click="flushSelected" role="button" id="flushSelected">flush selected ({{SelectedOffers.length}})</a>
+                    <a v-if="account != '' && hasOrphans" class="btn btn-yellow m-3" @click="flushOrphans" role="button" id="flushSelected">flush orphans ({{OrphansTokenOffers.length}})</a>
+                    <a v-if="account != '' && hasOffers" class="btn btn-purple m-3" @click="flushAll" role="button" id="flushAll">flush all</a>
+                    <a v-if="account != '' && hasSelected" class="btn btn-pink m-3" @click="flushSelected" role="button" id="flushSelected">flush selected ({{SelectedOffers.length}})</a>
                 </p>
             </div>
         </div>
@@ -342,7 +342,7 @@
                 console.log('tx', tx)
                 const count = this.OrphansTokenOffers.length * import.meta.env.VITE_APP_XAPP_RESERVE
                 
-                const request = { custom_meta: { instruction: `Remove selected offers and return ${count} XRP reserve.`}, txjson: tx}
+                const request = { custom_meta: { instruction: `Remove orphaned offers and return ${count} XRP reserve.`}, txjson: tx}
 
                 const payload = await this.Sdk.payload.createAndSubscribe(request, async event => {
                     console.log('New payload event:', event.data)
