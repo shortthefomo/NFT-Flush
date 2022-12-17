@@ -165,6 +165,7 @@
                     }
                 }
 
+                this.findOrphans()
                 this.isLoading = false
                 await this.fetchImages()
                 
@@ -211,7 +212,7 @@
 
                 let res = await this.client.send(payload)
                 this.account_nfts = res
-                this.findOrphans()
+                
 
                 await this.getImageURL(res, item, NFTokenID)
                 if (this.hasImage(item)) { return }
