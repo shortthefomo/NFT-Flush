@@ -289,9 +289,11 @@
                     const ownedByAccount = this.checkNFTOwnedByAccount(element.NFTokenID)
                     if (element.Flags == 0 && ownedByAccount == false) {
                         this.OrphansTokenOffers.push(element.OfferID)
+                        console.log('OrphansTokes', 0)
                     }
                     if (element.Flags == 1 && ownedByAccount == true) {
                         this.OrphansTokenOffers.push(element.OfferID)
+                        console.log('OrphansTokes', 1)
                     }
                 }
 
