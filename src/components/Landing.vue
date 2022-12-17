@@ -282,7 +282,6 @@
                 this.hasOrphans = false
                 for (let index = 0; index < this.TokenOffers.length; index++) {
                     const element = this.TokenOffers[index]
-                    console.log('offer', element)
                     const ownedByAccount = this.checkNFTOwnedByAccount(element.NFTokenID)
                     if (element.Flags == 0 && ownedByAccount == false) {
                         this.OrphansTokenOffers.push(element.OfferID)
