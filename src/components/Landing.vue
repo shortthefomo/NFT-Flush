@@ -461,7 +461,7 @@
     }
 
     .table-warning {
-        --bs-table-bg: #ffc107;
+        --bs-table-bg: #fbd664;
         color: #000;
         border-color: #e6dbb9;
     }
