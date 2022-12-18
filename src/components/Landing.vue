@@ -45,8 +45,8 @@
         </div>
     </div>
     <footer>
-        <p>XRPL ledger: {{ledger}}</p>
-        <p>account: {{account}}</p>
+        <p class="h1 text-center">{{ledger}}</p>
+        <p class="p-3 mb-2 bg-dark text-white">{{account}}</p>
     </footer>
 </template>
 
