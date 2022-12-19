@@ -478,6 +478,10 @@
     }
 </script>
 <style scoped>
+    .fancy-font {
+        font-family: 'Permanent Marker', serif;
+    }
+
     .bog-roll {
         width: 100%;
     }
