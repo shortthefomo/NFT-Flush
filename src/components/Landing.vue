@@ -2,7 +2,9 @@
     <div class="p-5 mb-4 bg-light rounded-3">
         <div class="container-fluid py-5">
             <img class="bog-roll" src="/e.png">
-            <p class="col-md-8 fs-4"><span class="text-muted text-end fs-6">by three</span></p>
+            <div class="col-md-8 fs-4">                
+                <p class="text-muted text-end fs-6"><span class="fancy-font">NFT Flush</span>  by three</p>
+            </div>
             <div class="col-md-12 fs-6">
                 <p v-if="hasOrphans" class="text">
                     Your default action should be to flush orphan offers, <em>*offers to NFTs that have moved and are invalid.</em>
