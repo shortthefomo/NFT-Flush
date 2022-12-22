@@ -378,14 +378,14 @@
                 const request = { custom_meta: { instruction: `Remove selected offers and return ${count} XRP reserve.`}, txjson: tx}
                 
                 console.log('request', request)
-
+                const self = this
                 const payload = await this.Sdk.payload.createAndSubscribe(request, async event => {
                     console.log('New payload event:', event.data)
 
                     if (event.data.signed === true) {
                         console.log('Woohoo! The sign request was signed :)')
                         await this.fetchNFTs()
-
+                        self.SelectedOffers = []
                         return event.data
                     }
 
