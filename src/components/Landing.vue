@@ -369,7 +369,7 @@
                 if (this.$store.getters.getAccount == '') { return }
                 if (this.SelectedOffers.length < 1) { return }
 
-                const offersTrimmed = this.SelectedOffers.slice(0, 50)
+                const offersTrimmed = (this.SelectedOffers.length > 50) ? this.SelectedOffers.slice(0, 50) : this.SelectedOffers
                 const tx = {
                     TransactionType: 'NFTokenCancelOffer',
                     Account: this.$store.getters.getAccount,
@@ -406,7 +406,7 @@
                 const openOffers = this.TokenOffers.reduce((a, b) => a.concat(b.index), [])
                 //console.log('openOffers', openOffers)
                 if (openOffers.length < 1) { return }
-                const offersTrimmed = openOffers.slice(0, 50)
+                const offersTrimmed = (openOffers.length > 50) ? openOffers.slice(0, 50) : openOffers
 
                 const tx = {
                     TransactionType: 'NFTokenCancelOffer',
