@@ -368,10 +368,12 @@
             async flushSelected() {
                 if (this.$store.getters.getAccount == '') { return }
                 if (this.SelectedOffers.length < 1) { return }
+
+                const offersTrimmed = this.SelectedOffers.slice(0, 50)
                 const tx = {
                     TransactionType: 'NFTokenCancelOffer',
                     Account: this.$store.getters.getAccount,
-                    NFTokenOffers: this.SelectedOffers
+                    NFTokenOffers: offersTrimmed
                 }
                 console.log('tx', tx)
                 const count = this.SelectedOffers.length * import.meta.env.VITE_APP_XAPP_RESERVE
@@ -404,11 +406,12 @@
                 const openOffers = this.TokenOffers.reduce((a, b) => a.concat(b.index), [])
                 //console.log('openOffers', openOffers)
                 if (openOffers.length < 1) { return }
+                const offersTrimmed = openOffers.slice(0, 50)
 
                 const tx = {
                     TransactionType: 'NFTokenCancelOffer',
                     Account: this.$store.getters.getAccount,
-                    NFTokenOffers: openOffers
+                    NFTokenOffers: offersTrimmed
                 }
                 // console.log('tx', tx)
                 const count = openOffers.length * import.meta.env.VITE_APP_XAPP_RESERVE
