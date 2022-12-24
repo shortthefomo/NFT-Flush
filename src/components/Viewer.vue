@@ -7,7 +7,7 @@
             <source :src="account_nfts[selected]['data']['video']"
                 :type="'video/' + account_nfts[selected]['data']['video_extension']">
         </video> -->
-        <video class="w-100" autoplay :loop="loop" :muted="muted" :poster="account_nfts[selected]['data']['image']">
+        <video class="w-100" :autoplay="autoplay" :loop="loop" :muted="muted" :poster="account_nfts[selected]['data']['image']">
             <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4#t=9"
                 type="video/mp4">
         </video>
@@ -30,7 +30,8 @@ export default {
             video: null,
             audio: null,
             muted: false,
-            loop: false
+            loop: false,
+            autoplay: false
         }
     },
     async mounted() {
