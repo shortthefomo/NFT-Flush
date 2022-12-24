@@ -104,7 +104,8 @@ export default {
 
 <style scoped>
     .media-image {
-        height: 100%;
+        height: 100% !important; 
+        width: 100% !important;
         position: absolute;
         background-position: center; background-repeat: no-repeat; background-size: cover;
     }
