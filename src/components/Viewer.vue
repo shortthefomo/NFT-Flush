@@ -1,10 +1,12 @@
 <template>
     <div class="p-5 mb-4 bg-light rounded-3">
         <div class="container-fluid py-5">
-            <div v-if="three != null"><p>3D</p></div>
-            <div v-if="image != null"><p>show image</p></div>
-            <div v-if="video != null"><p>show video</p></div>
-            <div v-if="audio != null"><p>listen audio</p></div>
+            <div class="media">
+                <img v-if="'image' in account_nfts[selected]['data']" :src="account_nfts[selected]['data']['image']" />
+                <video v-else-if="'video' in account_nfts[selected]['data']">
+                    <source :src="account_nfts[selected]['data']['video']" :type="'video/' + account_nfts[selected]['data']['video_extension']">
+                </video>
+            </div>
         </div>
     </div>
 </template>
@@ -18,6 +20,7 @@
         props: ['client', 'Sdk', 'nodetype'],
         data() {
             return {
+                selected: 0,
                 account_nfts: [],
                 three: null,
                 image: null,
@@ -81,6 +84,7 @@
                     if (result != '') {
                         this.account_nfts[index]['data']['video'] = result
                         console.log('video', result)
+                        this.account_nfts[index]['data']['video_extension'] = this.getExtensionURL()
                     }
                 }
 
@@ -91,6 +95,9 @@
                         console.log('audio', result)
                     }
                 }
+            },
+            getExtensionURL(url) {
+                return url.split(/[#?]/)[0].split('.').pop().trim();
             }
         }
     }
