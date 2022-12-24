@@ -1,11 +1,15 @@
 <template>
     <div v-if="account_nfts.length > 0" class="media-canvas">
-        <div v-if="'image' in account_nfts[selected]['data']" class="media-image" 
+        <!-- <div v-if="'image' in account_nfts[selected]['data']" class="media-image" 
             :style="'background-image: url(' + account_nfts[selected]['data']['image'] + ');'">
         </div>
-        <video v-else-if="'video' in account_nfts[selected]['data']" class="img-fluid">
+        <video v-else-if="'video' in account_nfts[selected]['data']" class="w-100" autoplay loop muted>
             <source :src="account_nfts[selected]['data']['video']"
                 :type="'video/' + account_nfts[selected]['data']['video_extension']">
+        </video> -->
+        <video v-if="'video' in account_nfts[selected]['data']" class="w-100" autoplay loop muted>
+            <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4#t=9"
+                type="video/mp4">
         </video>
     </div>
 </template>
@@ -106,6 +110,7 @@ export default {
     .media-image {
         height: 100% !important; 
         width: 100% !important;
+        
         position: absolute;
         background-position: center; background-repeat: no-repeat; background-size: cover;
     }
