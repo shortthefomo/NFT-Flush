@@ -46,6 +46,43 @@
                     this.account_nfts.concat(res.account_nfts)
                 }
                 console.log('account_nfts', this.account_nfts)
+                for (let index = 0; index < this.account_nfts.length; index++) {
+                    const element = this.account_nfts[index]
+                    this.getImageURL(element, index)
+                }
+            },
+            async getImageURL(NFT,index) {
+                try {
+                    const URI = Buffer.from(NFT.URI, 'hex').toString('utf8')
+                    await this.convertURI(URI, index)
+                    return true
+                } catch (e) {
+                    console.log('error', e)
+                }
+                console.log('NOT FOUND!!!')
+                return false
+            },
+            async convertURI(URI, index) {
+                const convertedURI = URI.replace('ipfs://', 'https://ipfs.io/ipfs/')
+                const {data} = await this.axios.get(convertedURI, { timeout: 1000 })
+                this.account_nfts[index]['data'] = {}
+                if ('image' in data) {
+                    console.log('image', data.image.replace('ipfs://', 'https://ipfs.io/ipfs/'))
+                    this.account_nfts[index]['data']['image'] = data.image.replace('ipfs://', 'https://ipfs.io/ipfs/')
+                    console.log('image', this.account_nfts[index]['data']['image'])
+                }
+
+                if ('video' in data) {
+                    console.log('video', data.video.replace('ipfs://', 'https://ipfs.io/ipfs/'))
+                    this.account_nfts[index]['data']['video'] = data.video.replace('ipfs://', 'https://ipfs.io/ipfs/')
+                    console.log('video', this.account_nfts[index]['data']['video'])
+                }
+
+                if ('audio' in data) {
+                    console.log('audio', data.audio.replace('ipfs://', 'https://ipfs.io/ipfs/'))
+                    this.account_nfts[index]['data']['audio'] = data.audio.replace('ipfs://', 'https://ipfs.io/ipfs/')
+                    console.log('audio', this.account_nfts[index]['data']['audio'])
+                }
             }
         }
     }
