@@ -56,6 +56,7 @@ export default {
     async mounted() {
         console.log('viewer mounted...')
         await this.fetchNFTs()
+        this.start()
     },
     methods: {
         start() {
