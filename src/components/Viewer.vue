@@ -29,7 +29,7 @@ export default {
             image: null,
             video: null,
             audio: null,
-            muted: true
+            muted: false
         }
     },
     async mounted() {
