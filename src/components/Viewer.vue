@@ -27,23 +27,25 @@
             console.log('viewer mounted...')
             await this.fetchNFTs()
         },
-        async fetchNFTs() {
-            const payload = {
-                'id': 9,
-                'command': 'account_nfts',
-                'account': this.$store.getters.getAccount,
-                'ledger_index': 'validated'
-            }
+        methods: {
+            async fetchNFTs() {
+                const payload = {
+                    'id': 9,
+                    'command': 'account_nfts',
+                    'account': this.$store.getters.getAccount,
+                    'ledger_index': 'validated'
+                }
 
-            let res = await this.client.send(payload)
-            let account_nfts = res.account_nfts           
-            while (res['marker'] !== undefined) {
-                console.log('marker', res['marker'])
-                payload.marker = res['marker']
-                const res = await this.client.send(payload)
-                this.account_nfts.concat(res.account_nfts)
+                let res = await this.client.send(payload)
+                let account_nfts = res.account_nfts           
+                while (res['marker'] !== undefined) {
+                    console.log('marker', res['marker'])
+                    payload.marker = res['marker']
+                    const res = await this.client.send(payload)
+                    this.account_nfts.concat(res.account_nfts)
+                }
+                console.log('account_nfts', account_nfts)
             }
-            console.log('account_nfts', account_nfts)
         }
     }
 </script>
