@@ -111,9 +111,9 @@ export default {
 
 <style scoped>
     video[poster] {
-        height: 100% !important;
+        /* height: 100% !important; */
         object-fit: cover;
-        position: absolute;
+        /* position: absolute; */
     }
     .media-image {
         height: 100% !important; 
