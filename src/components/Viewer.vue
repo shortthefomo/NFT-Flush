@@ -105,6 +105,7 @@ export default {
 <style scoped>
     .media-canvas {
         height: 100%;
+        width: 100%;
     }
     .media-image {
         height: 100%;
