@@ -1,5 +1,5 @@
 <template>
-    <AudioPlayer v-if="account_nfts.length > 0"
+    <AudioPlayer
         :option="{
             src: 'http://hcmaslov.d-real.sci-nnov.ru/public/mp3/Deftones/Deftones%20\'7%20Words\'.Mp3',
             title: 'your-audio-title',
