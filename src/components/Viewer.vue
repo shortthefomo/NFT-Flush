@@ -110,8 +110,11 @@ export default {
 </script>
 
 <style scoped>
-    video[poster] {
+    .media-canvas {
         height: 100% !important;
+    }
+
+    video[poster] {        
         object-fit: cover;
     }
     .media-image {
