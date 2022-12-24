@@ -11,7 +11,8 @@
 
 <script>
     const xapp = window.xAppSdk
-
+    import { Buffer } from 'buffer'
+    
     export default {
         name: 'Viewer',
         props: ['client', 'Sdk', 'nodetype'],
