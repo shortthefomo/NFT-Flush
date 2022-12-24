@@ -1,17 +1,22 @@
 <template>
     <div v-if="account_nfts.length > 0" class="media-canvas">
-        <div v-if="'image' in account_nfts[selected]['data']" class="media-image" 
+        <!-- <div v-if="'image' in account_nfts[selected]['data']" class="media-image" 
             :style="'background-image: url(' + account_nfts[selected]['data']['image'] + ');'">
 
             <audio :controls="audio.controls" :autoplay="audio.autoplay" :muted="audio.muted">
                 <source src="http://hcmaslov.d-real.sci-nnov.ru/public/mp3/Deftones/Deftones%20'7%20Words'.Mp3"
                 type="audio/mpeg">
             </audio>
-        </div>
-        <video v-else class="w-100" :controls="video.controls" :autoplay="video.autoplay" :loop="video.loop" :muted="video.muted">
+        </div> -->
+
+        <audio :controls="audio.controls" :autoplay="audio.autoplay" :muted="audio.muted">
+            <source src="http://hcmaslov.d-real.sci-nnov.ru/public/mp3/Deftones/Deftones%20'7%20Words'.Mp3"
+            type="audio/mpeg">
+        </audio>
+        <!-- <video v-else class="w-100" :controls="video.controls" :autoplay="video.autoplay" :loop="video.loop" :muted="video.muted">
             <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4#t=9"
                 type="video/mp4">
-        </video>
+        </video> -->
     </div>
 </template>
 
