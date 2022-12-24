@@ -69,7 +69,6 @@
                 this.account_nfts[index]['data'] = {}
                 console.log('data', data)
                 if ('image' in data) {
-                    console.log('image', data.image.replace('ipfs://', 'https://ipfs.io/ipfs/'))
                     const result = data.image.replace('ipfs://', 'https://ipfs.io/ipfs/')
                     if (result != '') {
                         this.account_nfts[index]['data']['image'] = result
@@ -78,7 +77,6 @@
                 }
 
                 if ('video' in data) {
-                    console.log('video', data.video.replace('ipfs://', 'https://ipfs.io/ipfs/'))
                     const result = data.video.replace('ipfs://', 'https://ipfs.io/ipfs/')
                     if (result != '') {
                         this.account_nfts[index]['data']['video'] = result
@@ -87,7 +85,6 @@
                 }
 
                 if ('audio' in data) {
-                    console.log('audio', data.audio.replace('ipfs://', 'https://ipfs.io/ipfs/'))
                     const result = data.audio.replace('ipfs://', 'https://ipfs.io/ipfs/')
                     if (result != '') {
                         this.account_nfts[index]['data']['audio'] = result
