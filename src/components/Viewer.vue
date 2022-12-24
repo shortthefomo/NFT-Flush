@@ -12,7 +12,7 @@
 <script>
     const xapp = window.xAppSdk
     import { Buffer } from 'buffer'
-    
+
     export default {
         name: 'Viewer',
         props: ['client', 'Sdk', 'nodetype'],
@@ -67,6 +67,7 @@
                 const convertedURI = URI.replace('ipfs://', 'https://ipfs.io/ipfs/')
                 const {data} = await this.axios.get(convertedURI, { timeout: 1000 })
                 this.account_nfts[index]['data'] = {}
+                console.log('data', data)
                 if ('image' in data) {
                     console.log('image', data.image.replace('ipfs://', 'https://ipfs.io/ipfs/'))
                     this.account_nfts[index]['data']['image'] = data.image.replace('ipfs://', 'https://ipfs.io/ipfs/')
