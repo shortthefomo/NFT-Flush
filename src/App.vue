@@ -1,11 +1,11 @@
 <template>
     <header class="container">
         <Landing v-if="components.Landing" :client="client" :Sdk="Sdk" :nodetype="nodetype">{NFT Flush}</Landing>
-        <Viewer v-if="components.Viewer" :client="client" :Sdk="Sdk" :nodetype="nodetype">{NFT Flush}</Viewer>
-        
     </header>
 
-    <main class="container flex-shrink-0 mb-4">
+
+    <main>
+        <Viewer v-if="components.Viewer" :client="client" :Sdk="Sdk" :nodetype="nodetype">{NFT Flush}</Viewer>
     </main>
 
     <!-- <footer class="container footer mb-2 mt-auto">
