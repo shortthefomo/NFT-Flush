@@ -3,16 +3,15 @@
         <div v-if="'image' in account_nfts[selected]['data']" class="media-image" 
             :style="'background-image: url(' + account_nfts[selected]['data']['image'] + ');'">
 
-            <video class="w-100" :controls="controls" :autoplay="autoplay" :loop="loop" :muted="muted">
+            <audio controls>
+                <source src="http://hcmaslov.d-real.sci-nnov.ru/public/mp3/Deftones/Deftones%20'7%20Words'.Mp3"
+                type="audio/mpeg">
+            </audio>
+        </div>
+        <video v-else class="w-100" :controls="controls" :autoplay="autoplay" :loop="loop" :muted="muted">
             <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4#t=9"
                 type="video/mp4">
         </video>
-        </div>
-        <!-- <video v-else-if="'video' in account_nfts[selected]['data']" class="w-100" autoplay loop muted>
-            <source :src="account_nfts[selected]['data']['video']"
-                :type="'video/' + account_nfts[selected]['data']['video_extension']">
-        </video> -->
-        
     </div>
 </template>
 
