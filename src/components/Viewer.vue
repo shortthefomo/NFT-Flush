@@ -1,16 +1,18 @@
 <template>
     <div v-if="account_nfts.length > 0" class="media-canvas">
-        <!-- <div v-if="'image' in account_nfts[selected]['data']" class="media-image" 
+        <div v-if="'image' in account_nfts[selected]['data']" class="media-image" 
             :style="'background-image: url(' + account_nfts[selected]['data']['image'] + ');'">
-        </div>
-        <video v-else-if="'video' in account_nfts[selected]['data']" class="w-100" autoplay loop muted>
-            <source :src="account_nfts[selected]['data']['video']"
-                :type="'video/' + account_nfts[selected]['data']['video_extension']">
-        </video> -->
-        <video class="w-100" :autoplay="autoplay" :loop="loop" :muted="muted" :poster="account_nfts[selected]['data']['image']">
+
+            <video class="w-100" :autoplay="autoplay" :loop="loop" :muted="muted">
             <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4#t=9"
                 type="video/mp4">
         </video>
+        </div>
+        <!-- <video v-else-if="'video' in account_nfts[selected]['data']" class="w-100" autoplay loop muted>
+            <source :src="account_nfts[selected]['data']['video']"
+                :type="'video/' + account_nfts[selected]['data']['video_extension']">
+        </video> -->
+        
     </div>
 </template>
 
@@ -112,7 +114,7 @@ export default {
 <style scoped>
     video[poster] {
         /* height: 100% !important; */
-        object-fit: cover;
+        /* object-fit: cover; */
         /* position: absolute; */
     }
     .media-image {
