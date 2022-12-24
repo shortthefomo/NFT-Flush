@@ -22,7 +22,7 @@
                 <source src="#">
             </audio>
             <div id="audioplayer">
-                <i id="pButton" class="fas fa-play"></i>
+                <i id="pButton" class="bi bi-play-fill"></i>
                 <div id="timeline">
                 <div id="playhead"></div>
                 </div>
