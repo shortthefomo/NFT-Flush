@@ -124,8 +124,8 @@ export default {
             if (document.querySelector('#simp')) {
                 this.ap_simp = document.querySelector('#simp')
                 this.simp_playlist = this.ap_simp.querySelector('.simp-playlist')
-                this.simp_source = simp_playlist.querySelectorAll('li')
-                this.simp_a_url = simp_playlist.querySelectorAll('[data-src]')
+                this.simp_source = this.simp_playlist.querySelectorAll('li')
+                this.simp_a_url = this.simp_playlist.querySelectorAll('[data-src]')
                 this.simp_a_index = 0
                 this.simp_isPlaying = false
                 this.simp_isNext = false //auto play
