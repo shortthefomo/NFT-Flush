@@ -1,23 +1,39 @@
 <template>
-    <div v-if="account_nfts.length > 0" class="media-canvas">
-        <!-- <div v-if="'image' in account_nfts[selected]['data']" class="media-image" 
-            :style="'background-image: url(' + account_nfts[selected]['data']['image'] + ');'">
+    <!-- Content -->
+    <div class="container d-flex justify-content-center my-4 mb-5">
 
-            <audio :controls="audio.controls" :autoplay="audio.autoplay" :muted="audio.muted">
-                <source src="http://hcmaslov.d-real.sci-nnov.ru/public/mp3/Deftones/Deftones%20'7%20Words'.Mp3"
-                type="audio/mpeg">
+        <div id="mobile-box">
+
+        <!-- Card -->
+        <div class="card">
+            <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+            <img class="card-img-top" src="https://mdbootstrap.com/wp-content/uploads/2019/02/flam.jpg"
+                alt="Card image cap">
+            <a href="#!">
+                <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+            </a>
+            </div>
+            <div class="card-body text-center">
+
+            <h5 class="h5 font-weight-bold"><a href="#" target="_blank">Dj Flam</a></h5>
+            <p class="mb-0">Urban Bachata remix</p>
+
+            <audio id="music" preload="true">
+                <source src="#">
             </audio>
-        </div> -->
+            <div id="audioplayer">
+                <i id="pButton" class="fas fa-play"></i>
+                <div id="timeline">
+                <div id="playhead"></div>
+                </div>
+            </div>
 
-        <audio :controls="audio.controls" :autoplay="audio.autoplay" :muted="audio.muted">
-            <source src="http://hcmaslov.d-real.sci-nnov.ru/public/mp3/Deftones/Deftones%20'7%20Words'.Mp3"
-            type="audio/mpeg">
-        </audio>
-        <!-- <video v-else class="w-100" :controls="video.controls" :autoplay="video.autoplay" :loop="video.loop" :muted="video.muted">
-            <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4#t=9"
-                type="video/mp4">
-        </video> -->
+            </div>
+        </div>
+        <!-- Card -->
+        </div>
     </div>
+    <!-- Content -->
 </template>
 
 <script>
