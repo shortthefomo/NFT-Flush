@@ -8,8 +8,8 @@
                 :type="'video/' + account_nfts[selected]['data']['video_extension']">
         </video> -->
         <video class="w-100" :autoplay="autoplay" :loop="loop" :muted="muted" :poster="account_nfts[selected]['data']['image']">
-            <!-- <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4#t=9"
-                type="video/mp4"> -->
+            <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4#t=9"
+                type="video/mp4">
         </video>
     </div>
 </template>
@@ -110,10 +110,6 @@ export default {
 </script>
 
 <style scoped>
-    .media-canvas {
-        height: 100% !important;
-    }
-
     video[poster] {
         height: 100% !important;
         object-fit: cover;
