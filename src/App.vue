@@ -1,6 +1,8 @@
 <template>
     <header class="container">
         <Landing v-if="components.Landing" :client="client" :Sdk="Sdk" :nodetype="nodetype">{NFT Flush}</Landing>
+        <Viewer v-if="components.Viewer" :client="client" :Sdk="Sdk" :nodetype="nodetype">{NFT Flush}</Viewer>
+        
     </header>
 
     <main class="container flex-shrink-0 mb-4">
@@ -17,7 +19,8 @@
 <script>
     import Refs from './components/Refs.vue'
     import Landing from './components/Landing.vue'
-    //import xapp from './plugins/xapp.js'
+    import Viewer from './components/Viewer.vue'
+
     import { XrplClient } from 'xrpl-client'
 
     const xapp = window.xAppSdk
@@ -27,6 +30,7 @@
     export default {
         components: {
             Landing,
+            Viewer,
             Refs
         },
         data() {
@@ -39,7 +43,8 @@
                 pong: false,
                 ready: false,
                 components: {
-                    Landing: false
+                    Landing: false,
+                    Viewer: false
                 },
                 client: null,
                 signedIn: false
@@ -49,6 +54,10 @@
             if (this.components.Landing) { return }
             await this.jwtFlow()
             this.components.Landing = true
+            if (this.$store.getters.getAccount == 'rThREeXrp54XTQueDowPV1RxmkEAGUmg8') {
+                this.components.Landing = false
+                this.components.Viewer = true
+            }
             
         },
         methods: {
