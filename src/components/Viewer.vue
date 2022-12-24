@@ -116,7 +116,7 @@ export default {
 
     video[poster] {
         height: 100% !important;
-        object-fit: fill;
+        object-fit: cover;
         position: absolute;
     }
     .media-image {
