@@ -25,7 +25,7 @@
         },
         async mounted() {
             console.log('viewer mounted...')
-            await fetchNFTs()
+            await this.fetchNFTs()
         },
         async fetchNFTs() {
             const payload = {
