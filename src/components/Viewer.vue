@@ -17,6 +17,7 @@
         props: ['client', 'Sdk', 'nodetype'],
         data() {
             return {
+                account_nfts: [],
                 three: null,
                 image: null,
                 video: null,
@@ -37,14 +38,14 @@
                 }
 
                 let res = await this.client.send(payload)
-                let account_nfts = res.account_nfts           
+                this.account_nfts = res.account_nfts           
                 while (res['marker'] !== undefined) {
                     console.log('marker', res['marker'])
                     payload.marker = res['marker']
                     const res = await this.client.send(payload)
                     this.account_nfts.concat(res.account_nfts)
                 }
-                console.log('account_nfts', account_nfts)
+                console.log('account_nfts', this.account_nfts)
             }
         }
     }
