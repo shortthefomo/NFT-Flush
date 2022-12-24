@@ -7,7 +7,7 @@
             <source :src="account_nfts[selected]['data']['video']"
                 :type="'video/' + account_nfts[selected]['data']['video_extension']">
         </video> -->
-        <video v-if="'video' in account_nfts[selected]['data']" class="w-100" autoplay loop muted>
+        <video class="w-100" autoplay loop muted>
             <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4#t=9"
                 type="video/mp4">
         </video>
