@@ -88,30 +88,30 @@ export default {
             },
 
 
-            simp_auto_load = null,
-            simp_audio = null, 
-            simp_album = null, 
-            simp_cover = null, 
-            simp_title = null, 
-            simp_artist = null, 
-            simp_controls = null, 
-            simp_progress = null, 
-            simp_volume = null, 
-            simp_v_slider= null , 
-            simp_v_num = null, 
-            simp_others = null,
-            ap_simp = null,
-            simp_playlist = null,
-            simp_source = null,
-            simp_a_url = null,
-            simp_a_index = 0,
-            simp_isPlaying = false,
-            simp_isNext = false, //auto play
-            simp_isRandom = false, //play random
-            simp_isRanext = false, //check if before random starts, simp_isNext value is true
-            simp_isStream = false, //radio streaming
-            simp_isLoaded = false, //audio file has loaded
-            simp_config = null
+            simp_auto_load: null,
+            simp_audio: null, 
+            simp_album: null, 
+            simp_cover: null, 
+            simp_title: null, 
+            simp_artist: null, 
+            simp_controls: null, 
+            simp_progress: null, 
+            simp_volume: null, 
+            simp_v_slider: null, 
+            simp_v_num: null, 
+            simp_others: null, 
+            ap_simp: null, 
+            simp_playlist: null, 
+            simp_source: null, 
+            simp_a_url: null, 
+            simp_a_index: 0, 
+            simp_isPlaying: false, 
+            simp_isNext: false,  //auto play
+            simp_isRandom: false,  //play random
+            simp_isRanext: false,  //check if before random starts, simp_isNext value is true
+            simp_isStrea: false,  //radio streaming
+            simp_isLoaded: false,  //audio file has loaded
+            simp_config: null
         }
     },
     async mounted() {
@@ -133,7 +133,7 @@ export default {
                 this.simp_isRanext = false //check if before random starts, simp_isNext value is true
                 this.simp_isStream = false //radio streaming
                 this.simp_isLoaded = false //audio file has loaded
-                this.simp_config = ap_simp.dataset.config ? JSON.parse(ap_simp.dataset.config) : {
+                this.simp_config = this.ap_simp.dataset.config ? JSON.parse(this.ap_simp.dataset.config) : {
                     shide_top: false, //show/hide album
                     shide_btm: false, //show/hide playlist
                     auto_load: false //auto load audio file
