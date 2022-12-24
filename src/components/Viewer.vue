@@ -176,7 +176,6 @@ export default {
 }
 
 #pButton {
-  margin-top: 12px;
   cursor: pointer;
 }
 
