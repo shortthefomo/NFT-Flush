@@ -1,6 +1,6 @@
 <template>
     <div v-if="account_nfts.length > 0" class="media">
-        <div v-if="'image' in account_nfts[selected]['data']" :style="'background-position: center; background-repeat: no-repeat; background-size: cover;background-image: url(' + account_nfts[selected]['data']['image'] + ');'
+        <div v-if="'image' in account_nfts[selected]['data']" class="media-image" :style="'background-image: url(' + account_nfts[selected]['data']['image'] + ');'
         ">{{ account_nfts[selected]['data']['image'] }}</div>
         <video v-else-if="'video' in account_nfts[selected]['data']" class="img-fluid">
             <source :src="account_nfts[selected]['data']['video']"
@@ -102,5 +102,11 @@ export default {
 </script>
 
 <style scoped>
+    .media {
+        height: 100%;
+    }
+    .media-image {
+        background-position: center; background-repeat: no-repeat; background-size: cover;
+    }
 
 </style>
