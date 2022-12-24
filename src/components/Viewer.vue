@@ -3,7 +3,7 @@
         <div v-if="'image' in account_nfts[selected]['data']" class="media-image" 
             :style="'background-image: url(' + account_nfts[selected]['data']['image'] + ');'">
 
-            <video class="w-100" :autoplay="autoplay" :loop="loop" :muted="muted">
+            <video class="w-100" :controls="controls" :autoplay="autoplay" :loop="loop" :muted="muted">
             <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4#t=9"
                 type="video/mp4">
         </video>
@@ -33,7 +33,8 @@ export default {
             audio: null,
             muted: false,
             loop: false,
-            autoplay: false
+            autoplay: false,
+            controls: true
         }
     },
     async mounted() {
