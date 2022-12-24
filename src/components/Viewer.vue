@@ -1,12 +1,10 @@
 <template>
-    <div class="p-5 mb-4 bg-light rounded-3">
-        <div class="container-fluid py-5">
-            <div class="media">
-                <img v-if="'image' in account_nfts[selected]['data']" :src="account_nfts[selected]['data']['image']" />
-                <video v-else-if="'video' in account_nfts[selected]['data']">
-                    <source :src="account_nfts[selected]['data']['video']" :type="'video/' + account_nfts[selected]['data']['video_extension']">
-                </video>
-            </div>
+    <div class="container-fluid py-5">
+        <div class="media">
+            <img v-if="'image' in account_nfts[selected]['data']" :src="account_nfts[selected]['data']['image']" class="img-fluid"/>
+            <video v-else-if="'video' in account_nfts[selected]['data']" class="img-fluid">
+                <source :src="account_nfts[selected]['data']['video']" :type="'video/' + account_nfts[selected]['data']['video_extension']">
+            </video>
         </div>
     </div>
 </template>
