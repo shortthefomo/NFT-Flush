@@ -73,8 +73,8 @@
                     const result = data.image.replace('ipfs://', 'https://ipfs.io/ipfs/')
                     if (result != '') {
                         this.account_nfts[index]['data']['image'] = result
+                        console.log('image', result)
                     }
-                    console.log('image', result)
                 }
 
                 if ('video' in data) {
@@ -82,8 +82,8 @@
                     const result = data.video.replace('ipfs://', 'https://ipfs.io/ipfs/')
                     if (result != '') {
                         this.account_nfts[index]['data']['video'] = result
+                        console.log('video', result)
                     }
-                    console.log('video', result)
                 }
 
                 if ('audio' in data) {
@@ -91,8 +91,8 @@
                     const result = data.audio.replace('ipfs://', 'https://ipfs.io/ipfs/')
                     if (result != '') {
                         this.account_nfts[index]['data']['audio'] = result
+                        console.log('audio', result)
                     }
-                    console.log('audio', result)
                 }
             }
         }
