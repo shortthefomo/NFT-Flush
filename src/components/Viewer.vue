@@ -103,12 +103,9 @@ export default {
 </script>
 
 <style scoped>
-    .media-canvas {
-        height: 100%;
-        width: 100%;
-    }
     .media-image {
         height: 100%;
+        position: absolute;
         background-position: center; background-repeat: no-repeat; background-size: cover;
     }
 
