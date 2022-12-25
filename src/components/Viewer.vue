@@ -169,6 +169,7 @@ export default {
         }
     },
     created() {
+        console.log('created')
         let vm = this;
         this.currentTrack = this.tracks[0];
         this.audio = new Audio();
@@ -184,6 +185,7 @@ export default {
             this.isTimerPlaying = true;
         };
 
+        console.log('audio', this.audio)
         // this is optional (for preload covers)
         for (let index = 0; index < this.tracks.length; index++) {
             const element = this.tracks[index];
