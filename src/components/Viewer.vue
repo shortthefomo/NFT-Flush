@@ -1,12 +1,13 @@
 <template>
-    <Aplayer autoplay
+    <p>test players</p>
+    <!-- <Aplayer autoplay
         :music="{
             title: 'Words',
             artist: 'Deftones',
             src: 'https://download.samplelib.com/mp3/sample-3s.mp3',
             pic: 'https://cdn-p.smehost.net/sites/7f9737f2506941499994d771a29ad47a/wp-content/uploads/2020/08/deftones-2020.jpg'
         }"
-    />
+    /> -->
 </template>
 
 <script>
