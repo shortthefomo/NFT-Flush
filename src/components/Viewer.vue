@@ -1,5 +1,5 @@
 <template>
-    <aplayer autoplay
+    <Aplayer autoplay
         :music="{
             title: 'Words',
             artist: 'Deftones',
