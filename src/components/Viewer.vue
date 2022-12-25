@@ -1,26 +1,26 @@
 <template>
     <p>test players</p>
-    <!-- <Aplayer autoplay
+    <aplayer autoplay
         :music="{
             title: 'Words',
             artist: 'Deftones',
             src: 'https://download.samplelib.com/mp3/sample-3s.mp3',
             pic: 'https://cdn-p.smehost.net/sites/7f9737f2506941499994d771a29ad47a/wp-content/uploads/2020/08/deftones-2020.jpg'
         }"
-    /> -->
+    />
 </template>
 
 <script>
 const xapp = window.xAppSdk
 import { Buffer } from 'buffer'
-// import Aplayer from 'vue-aplayer'
+import Aplayer from 'vue-aplayer'
 
 export default {
     name: 'Viewer',
     props: ['client', 'Sdk', 'nodetype'],
-    // components: {
-    //     Aplayer
-    // },
+    components: {
+        Aplayer
+    },
     data() {
         return {
             selected: 0,
