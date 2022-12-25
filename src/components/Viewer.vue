@@ -1,9 +1,9 @@
 <template>
     <aplayer autoplay
         :music="{
-            title: 'http://hcmaslov.d-real.sci-nnov.ru/public/mp3/Deftones/Deftones%20\'7%20Words\'.Mp3',
-            artist: '20Words',
-            src: 'http://hcmaslov.d-real.sci-nnov.ru/public/mp3/Deftones/Deftones%20\'7%20Words\'.Mp3',
+            title: 'Words',
+            artist: 'Deftones',
+            src: 'https://download.samplelib.com/mp3/sample-3s.mp3',
             pic: 'https://cdn-p.smehost.net/sites/7f9737f2506941499994d771a29ad47a/wp-content/uploads/2020/08/deftones-2020.jpg'
         }"
     />
