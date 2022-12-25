@@ -11,24 +11,16 @@
             <div class="player-controls">
                 <div class="player-controls__item -favorite" :class="{ active: currentTrack.favorited }"
                     @click="favorite">
-                    <svg class="icon">
-                        <use xlink:href="#icon-heart-o"></use>
-                    </svg>
+                    heart
                 </div>
                 <a :href="currentTrack.url" target="_blank" class="player-controls__item">
-                    <svg class="icon">
-                        <use xlink:href="#icon-link"></use>
-                    </svg>
+                    link
                 </a>
                 <div class="player-controls__item" @click="prevTrack">
-                    <svg class="icon">
-                        <use xlink:href="#icon-prev"></use>
-                    </svg>
+                    prev
                 </div>
                 <div class="player-controls__item" @click="nextTrack">
-                    <svg class="icon">
-                        <use xlink:href="#icon-next"></use>
-                    </svg>
+                    next
                 </div>
                 <div class="player-controls__item -xl js-play" @click="play">
                     <svg class="icon">
