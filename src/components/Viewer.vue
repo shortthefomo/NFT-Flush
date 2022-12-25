@@ -1,9 +1,10 @@
 <template>
-    <AudioPlayer
-        :option="{
+    <aplayer autoplay
+        :music="{
+            title: 'http://hcmaslov.d-real.sci-nnov.ru/public/mp3/Deftones/Deftones%20\'7%20Words\'.Mp3',
+            artist: '20Words',
             src: 'http://hcmaslov.d-real.sci-nnov.ru/public/mp3/Deftones/Deftones%20\'7%20Words\'.Mp3',
-            title: 'your-audio-title',
-            coverImage: 'https://cdn-p.smehost.net/sites/7f9737f2506941499994d771a29ad47a/wp-content/uploads/2020/08/deftones-2020.jpg',
+            pic: 'https://cdn-p.smehost.net/sites/7f9737f2506941499994d771a29ad47a/wp-content/uploads/2020/08/deftones-2020.jpg'
         }"
     />
 </template>
@@ -11,12 +12,14 @@
 <script>
 const xapp = window.xAppSdk
 import { Buffer } from 'buffer'
-import AudioPlayer from 'vue3-audio-player'
-import 'vue3-audio-player/dist/style.css'
+import Aplayer from 'vue-aplayer'
 
 export default {
     name: 'Viewer',
     props: ['client', 'Sdk', 'nodetype'],
+    components: {
+        Aplayer
+    },
     data() {
         return {
             selected: 0,
