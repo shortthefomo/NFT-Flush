@@ -64,22 +64,22 @@ export default {
     props: ['client', 'Sdk', 'nodetype'],
     data() {
         return {
-            selected: 0,
-            account_nfts: [],
-            three: null,
-            image: null,
-            video: {
-                muted: true,
-                loop: false,
-                autoplay: true,
-                controls: true
-            },
-            audio: {
-                muted: false,
-                loop: false,
-                autoplay: true,
-                controls: true
-            },
+            // selected: 0,
+            // account_nfts: [],
+            // three: null,
+            // image: null,
+            // video: {
+            //     muted: true,
+            //     loop: false,
+            //     autoplay: true,
+            //     controls: true
+            // },
+            // audio: {
+            //     muted: false,
+            //     loop: false,
+            //     autoplay: true,
+            //     controls: true
+            // },
 
 
 
@@ -197,7 +197,7 @@ export default {
 
     async mounted() {
         console.log('viewer mounted...')
-        await this.fetchNFTs()
+        //await this.fetchNFTs()
     },
     methods: {
         play() {
