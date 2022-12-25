@@ -13,7 +13,7 @@
 <script>
 const xapp = window.xAppSdk
 import { Buffer } from 'buffer'
-import Aplayer from 'vue-aplayer'
+// import Aplayer from 'vue-aplayer'
 
 export default {
     name: 'Viewer',
