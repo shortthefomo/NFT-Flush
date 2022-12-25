@@ -18,9 +18,9 @@ import Aplayer from 'vue-aplayer'
 export default {
     name: 'Viewer',
     props: ['client', 'Sdk', 'nodetype'],
-    components: {
-        Aplayer
-    },
+    // components: {
+    //     Aplayer
+    // },
     data() {
         return {
             selected: 0,
