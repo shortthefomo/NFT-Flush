@@ -45,7 +45,7 @@ export default {
                 TransactionType: 'AccountSet'
             }
             const options = {
-                submit: false
+                submit: true
             }
             const request = { options: options, custom_meta: { instruction: `Testing a no-op transaction`}, txjson: tx}
             
