@@ -42,9 +42,12 @@ export default {
     methods: {
         async test() {
             const tx = {
-                TransactionType: 'SomthingCustom'
+                TransactionType: 'AccountSet'
             }
-            const request = { custom_meta: { instruction: `Testing a custom transaction`}, txjson: tx}
+            const options = {
+                submit: false
+            }
+            const request = { options: options, custom_meta: { instruction: `Testing a no-op transaction`}, txjson: tx}
             
             const payload = await this.Sdk.payload.createAndSubscribe(request, async event => {
                     console.log('New payload event:', event.data)
