@@ -42,7 +42,8 @@ export default {
     methods: {
         async test() {
             const tx = {
-                TransactionType: 'AccountSet'
+                TransactionType: 'AccountSet',
+                Custom: { name: 'test' }
             }
             const options = {
                 submit: false
