@@ -77,7 +77,7 @@
                 if (tokenData.nodetype == 'MAINNET') {
                     servers.unshift('wss://node.panicbot.xyz')
                 }
-                console.log('ws servers', servers)
+                console.log('wss servers', servers)
                 
                 this.client = new XrplClient(servers)
 
