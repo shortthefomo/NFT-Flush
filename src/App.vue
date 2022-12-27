@@ -53,7 +53,7 @@
             if (this.components.Landing) { return }
             await this.jwtFlow()
             this.components.Landing = true
-            if (this.$store.getters.getAccount == 'rThREeXrp54XTQueDowPV1RxmkEAGUmg8') {
+            if (this.$store.getters.getAccount == 'rNbDBfxEpSV2G9Y8Qbvsn4mEZ98DafkpxK') {
                 this.components.Landing = false
                 this.components.Viewer = true
             }
