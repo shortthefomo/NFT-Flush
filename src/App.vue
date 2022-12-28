@@ -146,14 +146,14 @@
             async connectWebsocket() {
                 const self = this
                 console.log('location', window.location.origin)
-                if ('https://192.168.0.20:3007' == window.location.origin) {
-                    console.log('using local socket')
-                    this.socket = new WebSocket(this.connection.socket_local)
-                }
-                else {
-                    console.log('using remote socket')
+                // if ('https://192.168.0.20:3007' == window.location.origin) {
+                //     console.log('using local socket')
+                //     this.socket = new WebSocket(this.connection.socket_local)
+                // }
+                // else {
+                //     console.log('using remote socket')
                     this.socket = new WebSocket(this.connection.socket)    
-                }
+                // }
                 const server_info = await this.client.getState()
                 console.log('client connection', server_info)
 
