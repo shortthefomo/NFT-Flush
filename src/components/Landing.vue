@@ -293,7 +293,7 @@
                 }
 
                 let res = await this.client.send(payload)
-                
+                console.log('nfts', res.account_nfts)
                 this.account_nfts = res.account_nfts
                 
 
