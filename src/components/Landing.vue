@@ -7,7 +7,7 @@
             </div>
             <div class="col-md-12 fs-6">
                 <p v-if="hasOrphans" class="text">
-                    Your default action should be to flush orphan offers, <em>*offers to NFTs that have moved and are invalid.</em>
+                    Your default action should be to flush orphan offers, <em>invalid offers that can not be crossed.</em>
                 </p>
                 <p v-if="isLoading == false" class="text-right">
                     <a v-if="account != '' && hasOrphans" class="btn btn-yellow m-2" @click="flushOrphans" role="button" id="flushSelected">flush orphans ({{OrphansTokenOffers.length}})</a>
