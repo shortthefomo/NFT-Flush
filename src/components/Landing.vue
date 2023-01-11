@@ -165,7 +165,7 @@
                 for (let index = 0; index < account_objects.length; index++) {
                     const element = account_objects[index]
                     if (element.LedgerEntryType === 'NFTokenOffer') {
-                        // console.log('NFTokenOffer', element)
+                        console.log('NFTokenOffer', element)
                         element.OfferID = element.index
                         this.TokenOffers.push(element)
                     }
@@ -293,7 +293,6 @@
                 }
 
                 let res = await this.client.send(payload)
-                console.log('nfts', res.account_nfts)
                 this.account_nfts = res.account_nfts
                 
 
