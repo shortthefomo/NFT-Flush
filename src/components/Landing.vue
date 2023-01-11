@@ -135,6 +135,10 @@
                 }
                 console.log('Selected items', this.SelectedOffers)
             },
+            ledgerEpoch() {
+                const unix_time = Date.now() 
+                return Math.floor((unix_time) / 1000) - 946684800
+            },
             async fetchNFTs() {
                 this.isLoading = true
                 if (this.$store.getters.getAccount == '') { return }
@@ -166,8 +170,12 @@
                     const element = account_objects[index]
                     if (element.LedgerEntryType === 'NFTokenOffer') {
                         console.log('NFTokenOffer', element)
+                        
                         element.OfferID = element.index
                         this.TokenOffers.push(element)
+                        if ('Expiration' in element && this.ledgerEpoch() > element.Expiration) {
+                            this.OrphansTokenOffers.push(element.OfferID)
+                        }
                     }
                 }
 
