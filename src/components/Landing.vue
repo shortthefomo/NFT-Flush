@@ -190,7 +190,7 @@
                 for (let index = 0; index < this.TokenOffers.length; index++) {
                     // const element = this.TokenOffers[index]
                     console.log('fetching image', this.TokenOffers[index].OfferID)
-                    await this.offerImageNFT(index)
+                    await this.offerImageNFT(this.TokenOffers[index].OfferID)
                     // this.fetchOwnerNFTs(element.NFTokenID, index)              
                 }
                 // here we now need to update the storage..
