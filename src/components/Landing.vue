@@ -186,7 +186,7 @@
                 
             },
             async fetchStorage() {
-                const {data} = await this.axios.get(`${this.connection.url}/api/v1/apps/app-storage?account=${this.$store.getters.getAccount}&appkey=${import.meta.env.VITE_APP_NFT_KEY}`, { timeout: 1000 })
+                const {data} = await this.axios.get(`${this.connection.url}/api/v1/apps/app-storage?account=${this.$store.getters.getAccount}&appkey=${import.meta.env.VITE_APP_NFT_KEY}`, { timeout: 4000 })
 			    console.log('getStorage',  Buffer.from(data.store, 'hex').toString('utf8'))
             },
             async fetchImages() {
