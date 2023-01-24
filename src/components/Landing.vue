@@ -73,6 +73,7 @@
         },
         async mounted() {
             console.log('landing mounted...')
+            await this.fetchStorage()
             if (this.$store.getters.getAccount != '') {
                 console.log('landing fetchNFTs...')
                 await this.fetchNFTs()
@@ -183,6 +184,10 @@
                 this.isLoading = false
                 await this.fetchImages()
                 
+            },
+            async fetchStorage() {
+                const {data} = await this.axios.get(`${this.connection.url}/api/v1/apps/app-storage?account=${this.$store.getters.getAccount}&appkey=${import.meta.env.VITE_APP_NFT_KEY}`, { timeout: 1000 })
+			    console.log('getStorage',  Buffer.from(data.store, 'hex').toString('utf8'))
             },
             async fetchImages() {
                 if (this.TokenOffers.length < 1) { return }
