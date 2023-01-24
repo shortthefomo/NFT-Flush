@@ -188,58 +188,13 @@
                 if (this.TokenOffers.length < 1) { return }
 
                 for (let index = 0; index < this.TokenOffers.length; index++) {
-                    const element = this.TokenOffers[index]
+                    // const element = this.TokenOffers[index]
                     console.log('fetching image', this.TokenOffers[index].OfferID)
-                    this.offerImageNFT(index, element.NFTokenID)
+                    await this.offerImageNFT(index)
                     // this.fetchOwnerNFTs(element.NFTokenID, index)              
                 }
             },
-            async fetchOwnerNFTs(NFTokenID, item) {
-                let account = null
-                
-                const payload_sell_offers = {
-                    'id': 1,
-                    'command': 'nft_sell_offers',
-                    'nft_id': NFTokenID,
-                    'ledger_index': 'validated'
-                }
-                let nft_offers = await this.client.send(payload_sell_offers)
-                console.log('nft_offers', nft_offers)
-
-                // if (!('offers' in nft_offers)) { 
-                //     console.log('offers not in ', nft_offers)
-                //     // console.log('nft_offers', nft_offers)
-                //     // await this.fallbackXRPLServices(NFTokenID, item)
-                //     return }
-                if (nft_offers.offers.length == 0) { 
-                    console.log('no offers')
-                    return }
-
-                account = nft_offers.offers[0].owner
-                // console.log('owner FOUND', account)
-
-                const payload = {
-                    'id': 8,
-                    'command': 'account_nfts',
-                    'account': account,
-                    'ledger_index': 'validated',
-                    'limit': 400
-                }
-
-                let res = await this.client.send(payload)                
-
-                await this.offerImageNFT(item)
-                if (this.hasImage(item)) { return }
-                while (res['marker'] !== undefined) {
-                    console.log('marker', res['marker'])
-                    payload.marker = res['marker']
-                    res = await this.client.send(payload)
-                    this.account_nfts.concat(res)
-                    await this.offerImageNFT(item)
-                    if (this.hasImage(item)) { return }
-                }
-            },
-            async offerImageNFT(item, NFTokenID) {
+            async offerImageNFT(item) {
                 if (this.nodetype != 'MAINNET') { return }
                 try {
                     const {data} = await axios.get(`https://bithomp.com/api/v2/nft-offer/${this.TokenOffers[item].OfferID}`, { 
@@ -247,7 +202,7 @@
                         timeout: 3000 
                     })
                     console.log('image URL', data.nftoken.metadata.image)
-                    this.convertURI(await this.convertURI(data.nftoken.metadata.image, item), item)
+                    await this.convertURI(data.nftoken.metadata.image, item)
                 } catch (e) {
                     // do nothing
                 }
