@@ -195,6 +195,14 @@
                     // this.fetchOwnerNFTs(element.NFTokenID, index)              
                 }
                 // here we now need to update the storage..
+                console.log('completed... now store images')
+                
+                console.log('getStoreage URL', `${this.connection.url}/api/v1/apps/app-storage?account=${this.$store.getters.getAccount}&appkey=${import.meta.env.VITE_APP_NFT_KEY}`)
+
+                const headers = { 'Content-Type': 'application/json; charset=utf-8' }
+                const payload = await this.axios.post(`${this.connection.url}/api/v1/apps/app-storage?account=${this.$store.getters.getAccount}&appkey=${import.meta.env.VITE_APP_NFT_KEY}`, JSON.stringify({'data': this.TokenOffers}), { headers })
+                console.log('payload', payload)
+
             },
             async offerImageNFT(item) {
                 if (this.nodetype != 'MAINNET') { return }
