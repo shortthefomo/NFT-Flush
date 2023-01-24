@@ -204,12 +204,12 @@
                         timeout: 3000 
                     })
                     console.log('image URL', data.nftoken.metadata.image)
-                    await this.convertURI(data.nftoken.metadata.image, item)
+                    this.convertURI(data.nftoken.metadata.image, item)
                 } catch (e) {
                     // do nothing
                 }
             },
-            async convertURI(URI, item) {
+            convertURI(URI, item) {
                 console.log('rev proxy image', URI.replace('ipfs://', 'https://ipfs.io/ipfs/'))
                 this.TokenOffers[item].Image = URI.replace('ipfs://', 'https://ipfs.io/ipfs/')
             },
