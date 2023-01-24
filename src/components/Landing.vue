@@ -246,7 +246,7 @@
                         headers: { 'x-bithomp-token': import.meta.env.VITE_APP_BITHOMP },
                         timeout: 3000 
                     })
-                    log('image URL', data.nftoken.metadata.image)
+                    console.log('image URL', data.nftoken.metadata.image)
                     this.convertURI(await this.convertURI(data.nftoken.metadata.image, item), item)
                 } catch (e) {
                     // do nothing
