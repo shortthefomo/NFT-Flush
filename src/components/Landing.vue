@@ -64,6 +64,7 @@
                 isLoading: true,
                 hasOrphans: false,
                 TokenOffers:[],
+                CacheData: [],
                 OrphansTokenOffers:[],
                 SelectedOffers: [],
                 ascending: false,
@@ -186,10 +187,15 @@
                 
             },
             async fetchStorage() {
-                const {data} = await this.axios.get(`${this.connection.url}/api/v1/apps/app-storage?account=${this.$store.getters.getAccount}&appkey=${import.meta.env.VITE_APP_NFT_KEY}`, { timeout: 4000 })
-                const tokenData = Buffer.from(data.store, 'hex').toString('utf8')
-                const json = JSON.parse(tokenData)
-			    console.log('getStorage',  json)
+                try {
+                    const {data} = await this.axios.get(`${this.connection.url}/api/v1/apps/app-storage?account=${this.$store.getters.getAccount}&appkey=${import.meta.env.VITE_APP_NFT_KEY}`, { timeout: 4000 })
+                    const tokenData = Buffer.from(data.store, 'hex').toString('utf8')
+                    const json = JSON.parse(tokenData)
+                    console.log('getStorage',  json)
+                    this.CacheData = json.data
+                } catch (e) {
+                    // do nothing
+                }
             },
             async fetchImages() {
                 if (this.TokenOffers.length < 1) { return }
@@ -198,7 +204,13 @@
                     // const element = this.TokenOffers[index]
                     console.log('fetching image', this.TokenOffers[index].OfferID)
                     console.log('at index', index)
-                    await this.offerImageNFT(index)
+                    const cache = this.checkImageCache(this.TokenOffers[index].OfferID)
+                    if (!cache)  {
+                        await this.offerImageNFT(index)    
+                    }
+                    else {
+                        this.TokenOffers[index].Image = cache
+                    }
                     // this.fetchOwnerNFTs(element.NFTokenID, index)              
                 }
                 // here we now need to update the storage..
@@ -218,6 +230,15 @@
                 // const payload = await this.axios.post(`${this.connection.url}/api/v1/apps/app-storage?account=${this.$store.getters.getAccount}&appkey=${import.meta.env.VITE_APP_NFT_KEY}`, JSON.stringify({'data': this.TokenOffers}), { headers })
                 // console.log('payload', payload)
 
+            },
+            checkImageCache(OfferID) {
+                for (let index = 0; index < this.CacheData.length; index++) {
+                    const element = this.CacheData[index]
+                    if (OfferID == element.OfferID) {
+                        return element.Image
+                    }
+                }
+                return false
             },
             async offerImageNFT(item) {
                 if (this.nodetype != 'MAINNET') { return }
