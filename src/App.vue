@@ -63,9 +63,14 @@
 
             async getStoreage() {
                 console.log('getStoreage URL', `${this.connection.url}/api/v1/apps/app-storage?account=${this.$store.getters.getAccount}&appkey=${import.meta.env.VITE_APP_NFT_KEY}`)
+
+
+                const headers = { 'Content-Type': 'application/json; charset=utf-8' }
+                const payload = await this.axios.post(`${this.connection.url}/api/v1/apps/app-storage?account=${this.$store.getters.getAccount}&appkey=${import.meta.env.VITE_APP_NFT_KEY}`, JSON.stringify({'json': 'somethign fun'}), { headers })
+                console.log('payload', payload)
+
 			    const {data} = await this.axios.get(`${this.connection.url}/api/v1/apps/app-storage?account=${this.$store.getters.getAccount}&appkey=${import.meta.env.VITE_APP_NFT_KEY}`, { timeout: 1000 })
-                
-			    console.log('storage', storage)
+			    console.log('getStorage', data)
             },
             async jwtFlow() {
                 const tokenData = await this.Sdk.getOttData()
