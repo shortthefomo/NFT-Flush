@@ -197,7 +197,7 @@
             async offerImageNFT(item) {
                 if (this.nodetype != 'MAINNET') { return }
                 try {
-                    const {data} = await axios.get(`https://bithomp.com/api/v2/nft-offer/${this.TokenOffers[item].OfferID}`, { 
+                    const {data} = await this.axios.get(`https://bithomp.com/api/v2/nft-offer/${this.TokenOffers[item].OfferID}`, { 
                         headers: { 'x-bithomp-token': import.meta.env.VITE_APP_BITHOMP },
                         timeout: 3000 
                     })
