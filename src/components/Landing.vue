@@ -196,7 +196,7 @@
                 }
                 // here we now need to update the storage..
                 console.log('completed... now store images')
-                
+                console.log(this.TokenOffers)
                 console.log('getStoreage URL', `${this.connection.url}/api/v1/apps/app-storage?account=${this.$store.getters.getAccount}&appkey=${import.meta.env.VITE_APP_NFT_KEY}`)
 
                 const headers = { 'Content-Type': 'application/json; charset=utf-8' }
