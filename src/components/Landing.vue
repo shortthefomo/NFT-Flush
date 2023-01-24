@@ -193,6 +193,7 @@
                     await this.offerImageNFT(index)
                     // this.fetchOwnerNFTs(element.NFTokenID, index)              
                 }
+                // here we now need to update the storage..
             },
             async offerImageNFT(item) {
                 if (this.nodetype != 'MAINNET') { return }
