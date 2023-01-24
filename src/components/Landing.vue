@@ -204,11 +204,11 @@
                 let nft_offers = await this.client.send(payload_sell_offers)
                 console.log('nft_offers', nft_offers)
 
-                if (!('offers' in nft_offers)) { 
-                    console.log('offers not in ', nft_offers)
-                    // console.log('nft_offers', nft_offers)
-                    // await this.fallbackXRPLServices(NFTokenID, item)
-                    return }
+                // if (!('offers' in nft_offers)) { 
+                //     console.log('offers not in ', nft_offers)
+                //     // console.log('nft_offers', nft_offers)
+                //     // await this.fallbackXRPLServices(NFTokenID, item)
+                //     return }
                 if (nft_offers.offers.length == 0) { 
                     console.log('no offers')
                     return }
