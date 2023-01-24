@@ -323,7 +323,7 @@
             async flushOrphans() {
                 if (this.$store.getters.getAccount == '') { return }
                 if (this.OrphansTokenOffers.length < 1) { return }
-                document.getElementById('flushAudio').onplay()
+                document.getElementById('flushAudio').play()
 
                 const tx = {
                     TransactionType: 'NFTokenCancelOffer',
@@ -358,7 +358,7 @@
                 if (this.$store.getters.getAccount == '') { return }
                 if (this.SelectedOffers.length < 1) { return }
 
-                document.getElementById('flushAudio').onplay()
+                document.getElementById('flushAudio').play()
                 const offersTrimmed = (this.SelectedOffers.length > 50) ? this.SelectedOffers.slice(0, 50) : this.SelectedOffers
                 const tx = {
                     TransactionType: 'NFTokenCancelOffer',
@@ -393,7 +393,7 @@
             async flushAll() {
                 if (this.$store.getters.getAccount == '') { return }
                 
-                document.getElementById('flushAudio').onplay()
+                document.getElementById('flushAudio').play()
 
                 const openOffers = this.TokenOffers.reduce((a, b) => a.concat(b.index), [])
                 //console.log('openOffers', openOffers)
