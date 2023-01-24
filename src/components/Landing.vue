@@ -188,7 +188,8 @@
                 if (this.TokenOffers.length < 1) { return }
 
                 for (let index = 0; index < this.TokenOffers.length; index++) {
-                    const element = this.TokenOffers[index]
+                    // const element = this.TokenOffers[index]
+                    log('fetching image', this.TokenOffers[index].OfferID)
                     this.offerImageNFT(index)
                     // this.fetchOwnerNFTs(element.NFTokenID, index)              
                 }
