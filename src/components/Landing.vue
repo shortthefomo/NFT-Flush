@@ -200,8 +200,16 @@
                 console.log('getStoreage URL', `${this.connection.url}/api/v1/apps/app-storage?account=${this.$store.getters.getAccount}&appkey=${import.meta.env.VITE_APP_NFT_KEY}`)
 
                 const headers = { 'Content-Type': 'application/json; charset=utf-8' }
-                const payload = await this.axios.post(`${this.connection.url}/api/v1/apps/app-storage?account=${this.$store.getters.getAccount}&appkey=${import.meta.env.VITE_APP_NFT_KEY}`, JSON.stringify({'data': this.TokenOffers}), { headers })
-                console.log('payload', payload)
+                this.axios.post(`${this.connection.url}/api/v1/apps/app-storage?account=${this.$store.getters.getAccount}&appkey=${import.meta.env.VITE_APP_NFT_KEY}`, JSON.stringify({'data': this.TokenOffers}), { headers })
+                    .then(function(response) {
+                        console.log('response', response)
+                    })
+                    .catch(function(error) {
+                        console.log(error)
+                    })
+                // const headers = { 'Content-Type': 'application/json; charset=utf-8' }
+                // const payload = await this.axios.post(`${this.connection.url}/api/v1/apps/app-storage?account=${this.$store.getters.getAccount}&appkey=${import.meta.env.VITE_APP_NFT_KEY}`, JSON.stringify({'data': this.TokenOffers}), { headers })
+                // console.log('payload', payload)
 
             },
             async offerImageNFT(item) {
