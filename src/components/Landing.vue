@@ -209,7 +209,7 @@
                 //     // console.log('nft_offers', nft_offers)
                 //     // await this.fallbackXRPLServices(NFTokenID, item)
                 //     return }
-                if (nft_offers.offers.length == 0) { 
+                if (!('offers' in nft_offers) || nft_offers.offers.length == 0) { 
                     console.log('no offers')
                     return }
 

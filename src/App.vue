@@ -64,9 +64,9 @@
             async getStoreage() {
                 console.log('getStoreage URL', `${this.connection.url}/api/v1/apps/app-storage?account=${this.$store.getters.getAccount}&appkey=${import.meta.env.VITE_APP_NFT_KEY}`)
 
-                const headers = { 'Content-Type': 'application/json; charset=utf-8' }
-                const payload = await this.axios.post(`${this.connection.url}/api/v1/apps/app-storage?account=${this.$store.getters.getAccount}&appkey=${import.meta.env.VITE_APP_NFT_KEY}`, JSON.stringify({'json': 'somethign fun'}), { headers })
-                console.log('payload', payload)
+                // const headers = { 'Content-Type': 'application/json; charset=utf-8' }
+                // const payload = await this.axios.post(`${this.connection.url}/api/v1/apps/app-storage?account=${this.$store.getters.getAccount}&appkey=${import.meta.env.VITE_APP_NFT_KEY}`, JSON.stringify({'json': 'somethign fun'}), { headers })
+                // console.log('payload', payload)
 
 			    const {data} = await this.axios.get(`${this.connection.url}/api/v1/apps/app-storage?account=${this.$store.getters.getAccount}&appkey=${import.meta.env.VITE_APP_NFT_KEY}`, { timeout: 1000 })
 			    console.log('getStorage',  Buffer.from(data.store, 'hex').toString('utf8'))
@@ -81,7 +81,7 @@
 
                 const servers = [tokenData.nodewss]
                 if (tokenData.nodetype == 'MAINNET') {
-                    servers.unshift('wss://node.panicbot.xyz')
+                    // servers.unshift('wss://node.panicbot.xyz')
                 }
                 console.log('wss servers', servers)
                 
