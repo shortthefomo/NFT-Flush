@@ -210,7 +210,7 @@
                 }
             },
             async convertURI(URI, item) {
-                console.log('image', data.image.replace('ipfs://', 'https://ipfs.io/ipfs/'))
+                console.log('rev proxy image', URI.replace('ipfs://', 'https://ipfs.io/ipfs/'))
                 this.TokenOffers[item].Image = URI.replace('ipfs://', 'https://ipfs.io/ipfs/')
             },
             findNFT(NFTokenID) {
