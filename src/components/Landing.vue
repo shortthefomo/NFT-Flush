@@ -210,12 +210,8 @@
                 }
             },
             async convertURI(URI, item) {
-                const convertedURI = URI.replace('ipfs://', 'https://ipfs.io/ipfs/')
-                const {data} = await this.axios.get(convertedURI, { timeout: 1000 })
-                if ('image' in data) {
-                    console.log('image', data.image.replace('ipfs://', 'https://ipfs.io/ipfs/'))
-                    this.TokenOffers[item].Image = data.image.replace('ipfs://', 'https://ipfs.io/ipfs/')
-                }
+                console.log('image', data.image.replace('ipfs://', 'https://ipfs.io/ipfs/'))
+                this.TokenOffers[item].Image = URI.replace('ipfs://', 'https://ipfs.io/ipfs/')
             },
             findNFT(NFTokenID) {
                 for (let index = 0; index < this.TokenOffers.length; index++) {
