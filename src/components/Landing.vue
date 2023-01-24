@@ -189,8 +189,8 @@
 
                 for (let index = 0; index < this.TokenOffers.length; index++) {
                     // const element = this.TokenOffers[index]
-                    console.log('fetching image', this.TokenOffers[index].OfferID)
-                    this.offerImageNFT(index)
+                    log('fetching image', this.TokenOffers[index].OfferID)
+                    this.offerImageNFT(index, element.NFTokenID)
                     // this.fetchOwnerNFTs(element.NFTokenID, index)              
                 }
             },
@@ -239,7 +239,7 @@
                     if (this.hasImage(item)) { return }
                 }
             },
-            async offerImageNFT(item) {
+            async offerImageNFT(item, NFTokenID) {
                 if (this.nodetype != 'MAINNET') { return }
                 try {
                     const {data} = await axios.get(`https://bithomp.com/api/v2/nft-offer/${this.TokenOffers[item].OfferID}`, { 
@@ -247,33 +247,10 @@
                         timeout: 3000 
                     })
                     log('image URL', data.nftoken.metadata.image)
-                    await this.convertURI(data.nftoken.metadata.image, item)
+                    this.convertURI(await this.convertURI(data.nftoken.metadata.image, item), item)
                 } catch (e) {
                     // do nothing
                 }
-            },
-            hasImage(item) {
-                if (this.TokenOffers[item] != null && this.TokenOffers[item].Item != undefined) {
-                    return true
-                }
-                return false
-            },
-            async getImageURL(res, item, NFTokenID) {
-                try {
-                    for (let index = 0; index < res.account_nfts.length; index++) {
-                        const element = res.account_nfts[index]
-                        if (NFTokenID == element.NFTokenID) {
-                            // console.log('found', element)
-                            const URI = Buffer.from(element.URI, 'hex').toString('utf8')
-                            await this.convertURI(URI, item)
-                            return true
-                        }
-                    }
-                } catch (e) {
-                    console.log('error', e)
-                }
-                console.log('NOT FOUND!!!')
-                return false
             },
             async convertURI(URI, item) {
                 const convertedURI = URI.replace('ipfs://', 'https://ipfs.io/ipfs/')
