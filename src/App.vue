@@ -104,8 +104,8 @@
                 }
                 this.client.on('ledger', callback)
                 await this.connectWebsocket()
-                await this.getStoreage()
-                // await this.jwtSignIn()
+                // await this.getStoreage()
+                await this.jwtSignIn()
             },
             async jwtSignIn() {
                 const self = this
