@@ -189,7 +189,7 @@
 
                 for (let index = 0; index < this.TokenOffers.length; index++) {
                     // const element = this.TokenOffers[index]
-                    log('fetching image', this.TokenOffers[index].OfferID)
+                    console.log('fetching image', this.TokenOffers[index].OfferID)
                     this.offerImageNFT(index, element.NFTokenID)
                     // this.fetchOwnerNFTs(element.NFTokenID, index)              
                 }
