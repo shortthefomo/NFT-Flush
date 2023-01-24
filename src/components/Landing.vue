@@ -194,7 +194,6 @@
             },
             async fetchOwnerNFTs(NFTokenID, item) {
                 let account = null
-                // console.log('fetchOwnerNFTs', NFTokenID, item)
                 
                 const payload_sell_offers = {
                     'id': 1,
@@ -205,12 +204,12 @@
                 let nft_offers = await this.client.send(payload_sell_offers)
 
                 if (!('offers' in nft_offers)) { 
-                    // console.log('owner NOT FOUND no offers 1', NFTokenID)
+                    console.log('offers not in ', nft_offers)
                     // console.log('nft_offers', nft_offers)
-                    await this.fallbackXRPLServices(NFTokenID, item)
+                    // await this.fallbackXRPLServices(NFTokenID, item)
                     return }
                 if (nft_offers.offers.length == 0) { 
-                    // console.log('owner NOT FOUND no offers 2', NFTokenID)
+                    console.log('no offers')
                     return }
 
                 account = nft_offers.offers[0].owner
@@ -226,25 +225,26 @@
 
                 let res = await this.client.send(payload)                
 
-                await this.getImageURL(res, item, NFTokenID)
+                await this.offerImageNFT(item)
                 if (this.hasImage(item)) { return }
                 while (res['marker'] !== undefined) {
                     console.log('marker', res['marker'])
                     payload.marker = res['marker']
                     res = await this.client.send(payload)
                     this.account_nfts.concat(res)
-                    await this.getImageURL(res, item, NFTokenID)
+                    await this.offerImageNFT(item)
                     if (this.hasImage(item)) { return }
                 }
-                await this.fallbackXRPLServices(NFTokenID)
             },
-            async fallbackXRPLServices(NFTokenID, item) {
+            async offerImageNFT(item) {
                 if (this.nodetype != 'MAINNET') { return }
                 try {
-                    const {data} = await this.axios.get(`https://api.xrpldata.com/api/v1/xls20-nfts/nft/${NFTokenID}`, { timeout: 1000 })
-                    const URI = Buffer.from(data.data.nft.URI, 'hex').toString('utf8')
-                    // console.log('URRRIII', URI)
-                    await this.convertURI(URI, item)
+                    const {data} = await axios.get(`https://bithomp.com/api/v2/nft-offer/${this.TokenOffers[item].OfferID}`, { 
+                        headers: { 'x-bithomp-token': import.meta.env.VITE_APP_BITHOMP },
+                        timeout: 3000 
+                    })
+                    log('image URL', data.nftoken.metadata.image)
+                    await this.convertURI(data.nftoken.metadata.image, item)
                 } catch (e) {
                     // do nothing
                 }
