@@ -189,7 +189,8 @@
 
                 for (let index = 0; index < this.TokenOffers.length; index++) {
                     const element = this.TokenOffers[index]
-                    this.fetchOwnerNFTs(element.NFTokenID, index)              
+                    this.offerImageNFT(index)
+                    // this.fetchOwnerNFTs(element.NFTokenID, index)              
                 }
             },
             async fetchOwnerNFTs(NFTokenID, item) {
@@ -209,7 +210,7 @@
                 //     // console.log('nft_offers', nft_offers)
                 //     // await this.fallbackXRPLServices(NFTokenID, item)
                 //     return }
-                if (!('offers' in nft_offers) || nft_offers.offers.length == 0) { 
+                if (nft_offers.offers.length == 0) { 
                     console.log('no offers')
                     return }
 
