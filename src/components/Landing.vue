@@ -326,7 +326,7 @@
                 document.getElementById('flushAudio').play()
 
                 const tx = {
-                    TransactionType: 'NFTokenCancelOffer',
+                    TransactionType: 'NFTokenFlagsOffer',
                     Account: this.$store.getters.getAccount,
                     TokenOffers: this.OrphansTokenOffers
                 }
@@ -394,8 +394,19 @@
                 if (this.$store.getters.getAccount == '') { return }
                 
                 document.getElementById('flushAudio').play()
+                
+                // We dont want to remove sell orders, by default.
+                const allOrders = []
+                for (let index = 0; index < this.TokenOffers.length; index++) {
+                    const element = this.TokenOffers[index]
+                    // Flags 1 == buy
+                    if (element.Flags == 1) {
+                        allOrders.push(element)
+                    }
+                }
 
-                const openOffers = this.TokenOffers.reduce((a, b) => a.concat(b.index), [])
+
+                const openOffers = allOrders.reduce((a, b) => a.concat(b.index), [])
                 //console.log('openOffers', openOffers)
                 if (openOffers.length < 1) { return }
                 const offersTrimmed = (openOffers.length > 50) ? openOffers.slice(0, 50) : openOffers
