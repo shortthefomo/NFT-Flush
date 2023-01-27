@@ -11,7 +11,7 @@
                 </p>
                 <p v-if="isLoading == false" class="text-right">
                     <a v-if="account != '' && hasOrphans" class="btn btn-yellow m-2" @click="flushOrphans" role="button" id="flushSelected">flush orphans ({{OrphansTokenOffers.length}})</a>
-                    <a v-if="account != '' && hasOffers" class="btn btn-purple m-2" @click="flushAll" role="button" id="flushAll">flush all</a>
+                    <a v-if="account != '' && hasOffers" class="btn btn-purple m-2" @click="flushAll" role="button" id="flushAll">flush all buy</a>
                     <a v-if="account != '' && hasSelected" class="btn btn-pink m-2" @click="flushSelected" role="button" id="flushSelected">flush selected ({{SelectedOffers.length}})</a>
                 </p>
             </div>
