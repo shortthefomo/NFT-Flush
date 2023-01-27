@@ -399,8 +399,8 @@
                 const allOrders = []
                 for (let index = 0; index < this.TokenOffers.length; index++) {
                     const element = this.TokenOffers[index]
-                    // Flags 1 == buy
-                    if (element.Flags == 1) {
+                    // Flags 0 == buy
+                    if (element.Flags == 0) {
                         allOrders.push(element)
                     }
                 }
