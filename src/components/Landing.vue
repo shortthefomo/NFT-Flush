@@ -160,14 +160,14 @@
                 
                 if ('error' in res) { return }
                 if (!('account_objects' in res)) { return }
-                const account_objects = res.account_objects
+                let account_objects = res.account_objects
 
                 while (res['marker'] !== undefined) {
                     payload.marker = res['marker']
                     res = await this.client.send(payload)
                     if ('error' in res) { return }
                     if (!('account_objects' in res)) { return }
-                    account_objects.concat(res.account_objects)
+                    account_objects = account_objects.concat(res.account_objects)
                 }
 
 
