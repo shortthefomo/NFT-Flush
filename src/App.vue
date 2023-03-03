@@ -50,6 +50,9 @@
             }
         },
         async mounted() {
+            const x = new XrplClient()
+
+            console.log('hi...')
             if (this.components.Landing) { return }
             await this.jwtFlow()
             this.components.Landing = true

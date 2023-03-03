@@ -50,9 +50,9 @@
         <p class="h1 text-center">{{ledger}}</p>
         <p class="p-3 mb-2 bg-dark text-white">{{account}}</p>
     </footer>
-    <audio id="flushAudio">
+    <!-- <audio id="flushAudio">
         <source src="/toilet-flush-quite-aggressive.mp3" type="audio/mpeg">
-    </audio>
+    </audio> -->
 </template>
 
 <script>
