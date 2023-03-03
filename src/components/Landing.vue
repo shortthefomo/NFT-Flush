@@ -323,7 +323,7 @@
             async flushOrphans() {
                 if (this.$store.getters.getAccount == '') { return }
                 if (this.OrphansTokenOffers.length < 1) { return }
-                document.getElementById('flushAudio').play()
+                // document.getElementById('flushAudio').play()
 
                 const tx = {
                     TransactionType: 'NFTokenFlagsOffer',
@@ -358,7 +358,7 @@
                 if (this.$store.getters.getAccount == '') { return }
                 if (this.SelectedOffers.length < 1) { return }
 
-                document.getElementById('flushAudio').play()
+                // document.getElementById('flushAudio').play()
                 const offersTrimmed = (this.SelectedOffers.length > 50) ? this.SelectedOffers.slice(0, 50) : this.SelectedOffers
                 const tx = {
                     TransactionType: 'NFTokenCancelOffer',
@@ -393,7 +393,7 @@
             async flushAll() {
                 if (this.$store.getters.getAccount == '') { return }
                 
-                document.getElementById('flushAudio').play()
+                // document.getElementById('flushAudio').play()
                 
                 // We dont want to remove sell orders, by default.
                 const allOrders = []
