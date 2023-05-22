@@ -36,9 +36,6 @@
             return {
                 Sdk: new XummSdkJwt(import.meta.env.VITE_APP_NFT_KEY),
                 nodetype: 'TESTNET',
-                socket: null,
-                timeout_socket: null,
-                reconnect_socket: 0,
                 pong: false,
                 ready: false,
                 components: {
@@ -63,17 +60,6 @@
             
         },
         methods: {
-
-            async getStoreage() {
-                console.log('getStoreage URL', `${this.connection.url}/api/v1/apps/app-storage?account=${this.$store.getters.getAccount}&appkey=${import.meta.env.VITE_APP_NFT_KEY}`)
-
-                // const headers = { 'Content-Type': 'application/json; charset=utf-8' }
-                // const payload = await this.axios.post(`${this.connection.url}/api/v1/apps/app-storage?account=${this.$store.getters.getAccount}&appkey=${import.meta.env.VITE_APP_NFT_KEY}`, JSON.stringify({'json': 'somethign fun'}), { headers })
-                // console.log('payload', payload)
-
-			    const {data} = await this.axios.get(`${this.connection.url}/api/v1/apps/app-storage?account=${this.$store.getters.getAccount}&appkey=${import.meta.env.VITE_APP_NFT_KEY}`, { timeout: 1000 })
-			    console.log('getStorage',  Buffer.from(data.store, 'hex').toString('utf8'))
-            },
             async jwtFlow() {
                 const tokenData = await this.Sdk.getOttData()
                 console.log('tokenData', tokenData)
@@ -112,9 +98,6 @@
                     }
                 }
                 this.client.on('ledger', callback)
-                await this.connectWebsocket()
-                // await this.getStoreage()
-                // await this.jwtSignIn()
             },
             async jwtSignIn() {
                 const self = this
@@ -128,8 +111,7 @@
                         console.log('Woohoo! The sign request was signed :)')
                         self.signedIn = true
                         self.$store.dispatch('setUserToken', event.data.payload_uuidv4)
-                        await self.connectWebsocket()
-                        await self.getStoreage()
+                        // await self.getStoreage()
                         return event.data
                     }
 
@@ -152,94 +134,7 @@
                         console.log('openSignRequest response:', d instanceof Error ? d.message : d)
                     })
                     .catch(e => console.log('Error:', e.message))
-            },
-            async connectWebsocket() {
-                const self = this
-                console.log('location', window.location.origin)
-                if ('https://192.168.0.20:3007' == window.location.origin) {
-                    console.log('using local socket')
-                    this.socket = new WebSocket(this.connection.socket_local)
-                }
-                else {
-                    console.log('using remote socket')
-                    this.socket = new WebSocket(this.connection.socket)    
-                }
-                const server_info = await this.client.getState()
-                console.log('client connection', server_info)
-
-                this.reconnect_socket++
-                this.socket.onopen = function (message) {
-                    const tokenData = self.$store.getters.getXummTokenData
-                    self.socket.send(JSON.stringify({
-                        request: 'SUBSCRIBE',
-                        message: {
-                            app: 'NFT-Flush',
-                            appkey: import.meta.env.VITE_APP_NFT_KEY,
-                            account: self.$store.getters.getAccount, 
-                            uuid: self.$store.getters.getUserToken, 
-                            version: tokenData.version,
-                            locale: tokenData.locale,
-                            currency: tokenData.currency,
-                            nodetype: tokenData.nodetype,
-                            nodewss: server_info.server.uri,
-                            user: tokenData.user
-                        },
-                        channel: self.$store.getters.getAccount
-                    }))
-                    self.ping()
-
-                    console.log('NFT Flush sockets connected! :)')
-                }
-                this.socket.onmessage = async function (message) {
-                    if (self.timeout_socket != null) {
-                        clearTimeout(self.timeout_socket)
-                        self.timeout_socket = null
-                    }
-                    let data = JSON.parse(message.data)
-                    const account = self.$store.getters.getAccount
-                    if (account in data) {
-                        if ('PONG' in data[account]) {
-                            self.pong = true
-                        }
-                        if ('SUBSCRIBED' in data[account]) {
-                            console.log('SUBSCRIBED!')
-                        }
-                    }
-                }
-                setInterval(() => {
-                    self.pong = false
-                    self.ping()
-                }, 10_000)
-
-                this.socket.onerror = function (message) {
-                    console.log('There was an error connection to three NFT Flush socket! :(')
-                    console.log(message)
-                    self.socket.close()
-                }
-
-                this.socket.onclose = function (message) {
-                    console.log('three socket NFT Flush disconnected!', message)
-                    if (self.timeout_socket == null && message.code != 1005) {
-                        self.timeout_socket = setTimeout(async () => {
-                            if (self.reconnect_socket < 30) {
-                                await self.connectWebsocket() 
-                            }
-                        }, 3000)
-                    }
-                }
-            },
-            ping() {
-                if (this.$store.getters.getAccount != '') {
-                    this.socket.send(JSON.stringify({
-                        request: 'PING',
-                        message: {account: this.$store.getters.getAccount},
-                        channel: this.$store.getters.getAccount
-                    }))
-                }
-                else {
-                    console.log('account is empty')
-                }
-            },
+            }
         }
     }
 </script>

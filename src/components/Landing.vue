@@ -77,7 +77,7 @@
         },
         async mounted() {
             console.log('landing mounted...')
-            await this.fetchStorage()
+            // await this.fetchStorage()
             if (this.$store.getters.getAccount != '') {
                 console.log('landing fetchNFTs...')
                 await this.fetchNFTs()
@@ -189,17 +189,17 @@
                 await this.fetchImages()
                 
             },
-            async fetchStorage() {
-                try {
-                    const {data} = await this.axios.get(`${this.connection.url}/api/v1/apps/app-storage?account=${this.$store.getters.getAccount}&appkey=${import.meta.env.VITE_APP_NFT_KEY}`, { timeout: 4000 })
-                    const tokenData = Buffer.from(data.store, 'hex').toString('utf8')
-                    const json = JSON.parse(tokenData)
-                    console.log('getStorage',  json)
-                    this.CacheData = json.data
-                } catch (e) {
-                    // do nothing
-                }
-            },
+            // async fetchStorage() {
+            //     try {
+            //         const {data} = await this.axios.get(`${this.connection.url}/api/v1/apps/app-storage?account=${this.$store.getters.getAccount}&appkey=${import.meta.env.VITE_APP_NFT_KEY}`, { timeout: 4000 })
+            //         const tokenData = Buffer.from(data.store, 'hex').toString('utf8')
+            //         const json = JSON.parse(tokenData)
+            //         console.log('getStorage',  json)
+            //         this.CacheData = json.data
+            //     } catch (e) {
+            //         // do nothing
+            //     }
+            // },
             async fetchImages() {
                 if (this.TokenOffers.length < 1) { return }
 
@@ -217,22 +217,18 @@
                     // this.fetchOwnerNFTs(element.NFTokenID, index)              
                 }
                 // here we now need to update the storage..
-                console.log('completed... now store images')
-                console.log(this.TokenOffers)
-                console.log('getStoreage URL', `${this.connection.url}/api/v1/apps/app-storage?account=${this.$store.getters.getAccount}&appkey=${import.meta.env.VITE_APP_NFT_KEY}`)
+                // console.log('completed... now store images')
+                // console.log(this.TokenOffers)
+                // console.log('getStoreage URL', `${this.connection.url}/api/v1/apps/app-storage?account=${this.$store.getters.getAccount}&appkey=${import.meta.env.VITE_APP_NFT_KEY}`)
 
-                const headers = { 'Content-Type': 'application/json; charset=utf-8' }
-                this.axios.post(`${this.connection.url}/api/v1/apps/app-storage?account=${this.$store.getters.getAccount}&appkey=${import.meta.env.VITE_APP_NFT_KEY}`, JSON.stringify({'data': this.TokenOffers}), { headers })
-                    .then(function(response) {
-                        console.log('response', response)
-                    })
-                    .catch(function(error) {
-                        console.error(error)
-                    })
                 // const headers = { 'Content-Type': 'application/json; charset=utf-8' }
-                // const payload = await this.axios.post(`${this.connection.url}/api/v1/apps/app-storage?account=${this.$store.getters.getAccount}&appkey=${import.meta.env.VITE_APP_NFT_KEY}`, JSON.stringify({'data': this.TokenOffers}), { headers })
-                // console.log('payload', payload)
-
+                // this.axios.post(`${this.connection.url}/api/v1/apps/app-storage?account=${this.$store.getters.getAccount}&appkey=${import.meta.env.VITE_APP_NFT_KEY}`, JSON.stringify({'data': this.TokenOffers}), { headers })
+                //     .then(function(response) {
+                //         console.log('response', response)
+                //     })
+                //     .catch(function(error) {
+                //         console.error(error)
+                //     })
             },
             checkImageCache(OfferID) {
                 for (let index = 0; index < this.CacheData.length; index++) {
